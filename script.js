@@ -967,15 +967,14 @@ function initThemeSystem() {
     const themeToggle = document.getElementById('themeToggle');
     const html = document.documentElement;
     
-    // Obtener tema guardado o usar preferencia del sistema
+    // Obtener tema guardado o usar tema claro por defecto
     const savedTheme = localStorage.getItem('theme');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     
-    // Aplicar tema inicial
+    // Aplicar tema inicial - siempre claro por defecto
     if (savedTheme) {
         html.setAttribute('data-theme', savedTheme);
-    } else if (prefersDark) {
-        html.setAttribute('data-theme', 'dark');
+    } else {
+        html.setAttribute('data-theme', 'light');
     }
     
     // Función para cambiar tema
@@ -998,12 +997,7 @@ function initThemeSystem() {
         themeToggle.addEventListener('click', toggleTheme);
     }
     
-    // Escuchar cambios en la preferencia del sistema
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-        if (!localStorage.getItem('theme')) {
-            html.setAttribute('data-theme', e.matches ? 'dark' : 'light');
-        }
-    });
+    // No escuchar cambios en la preferencia del sistema - siempre usar tema claro por defecto
 }
 
 // Inicializar sistema de tema cuando el DOM esté listo
