@@ -2913,6 +2913,7 @@ p {
     .cover-subtitle {
         font-size: 1.3rem;
         margin-bottom: 1rem;
+        text-align: center;
     }
     
     .cover-description {
@@ -2920,6 +2921,7 @@ p {
         line-height: 1.6;
         margin-bottom: 1.5rem;
         max-width: 400px;
+        text-align: center;
         margin-left: auto;
         margin-right: auto;
     }
