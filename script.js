@@ -287,6 +287,32 @@ function showLightbox(imageSrc, imageAlt, caption, currentIndex = 0) {
                 ">
                 <p style="margin-top: 1rem; font-size: 1.1rem; color: #333;">${caption}</p>
                 <p style="margin-top: 0.5rem; font-size: 0.9rem; color: #666;">${currentIndex + 1} / ${totalSlides}</p>
+                
+                <!-- Botón Ver en Grande -->
+                <button class="view-full-btn" onclick="window.open('${imageSrc}', '_blank')" title="Abrir imagen en nueva pestaña (Enter)" style="
+                    margin-top: 1rem;
+                    background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
+                    border: none;
+                    border-radius: 25px;
+                    padding: 0.75rem 1.5rem;
+                    color: white;
+                    font-family: 'Space Grotesk', sans-serif;
+                    font-size: 0.9rem;
+                    font-weight: 600;
+                    text-transform: uppercase;
+                    letter-spacing: 0.5px;
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                    box-shadow: 0 4px 15px rgba(220, 38, 38, 0.3);
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                ">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink: 0;">
+                        <path d="M15,3L21,3V9M9,21L3,21L3,15M21,3L14,10M3,21L10,14"/>
+                    </svg>
+                    Ver en Grande
+                </button>
             </div>
             
             <button class="lightbox-nav next-btn" ${currentIndex === totalSlides - 1 ? 'disabled' : ''} style="
@@ -349,6 +375,12 @@ function showLightbox(imageSrc, imageAlt, caption, currentIndex = 0) {
                 caption.textContent = `Imagen ${index + 1} de ${totalSlides}`;
                 counter.textContent = `${index + 1} / ${totalSlides}`;
                 
+                // Actualizar el botón "Ver en Grande" con la nueva imagen
+                const viewFullBtn = modal.querySelector('.view-full-btn');
+                if (viewFullBtn) {
+                    viewFullBtn.onclick = () => window.open(img.src, '_blank');
+                }
+                
                 // Actualizar botones
                 prevBtn.disabled = index === 0;
                 nextBtn.disabled = index === totalSlides - 1;
@@ -397,6 +429,10 @@ function showLightbox(imageSrc, imageAlt, caption, currentIndex = 0) {
         } else if (e.key === 'ArrowRight' && currentIndex < totalSlides - 1) {
             currentIndex++;
             navigateToImage(currentIndex);
+        } else if (e.key === 'Enter' || e.key === ' ') {
+            // Abrir imagen en nueva pestaña con Enter o Espacio
+            e.preventDefault();
+            window.open(imageSrc, '_blank');
         }
     });
 }
