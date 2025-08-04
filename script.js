@@ -862,6 +862,12 @@ function initCarousel() {
 
     let currentSlide = 0;
     const totalSlides = slides.length;
+    
+    // Variables para swipe
+    let startX = 0;
+    let currentX = 0;
+    let isDragging = false;
+    let startTime = 0;
 
     console.log('Carrusel encontrado con', totalSlides, 'slides');
 
@@ -904,6 +910,74 @@ function initCarousel() {
             updateCarousel();
         }
     }
+    
+    // Función para manejar swipe
+    function handleSwipe() {
+        const diffX = currentX - startX;
+        const diffTime = Date.now() - startTime;
+        const velocity = Math.abs(diffX) / diffTime;
+        
+        // Determinar si es un swipe válido
+        const minSwipeDistance = 50;
+        const minSwipeVelocity = 0.3;
+        
+        if (Math.abs(diffX) > minSwipeDistance || velocity > minSwipeVelocity) {
+            if (diffX > 0 && currentSlide > 0) {
+                // Swipe derecha - ir a slide anterior
+                goToSlide(currentSlide - 1);
+            } else if (diffX < 0 && currentSlide < totalSlides - 1) {
+                // Swipe izquierda - ir a slide siguiente
+                goToSlide(currentSlide + 1);
+            }
+        }
+    }
+    
+    // Event listeners para touch/swipe
+    function handleTouchStart(e) {
+        startX = e.touches ? e.touches[0].clientX : e.clientX;
+        startTime = Date.now();
+        isDragging = true;
+        track.style.transition = 'none';
+    }
+    
+    function handleTouchMove(e) {
+        if (!isDragging) return;
+        
+        e.preventDefault();
+        currentX = e.touches ? e.touches[0].clientX : e.clientX;
+        const diffX = currentX - startX;
+        const slideWidth = 100;
+        const currentTranslate = -currentSlide * slideWidth;
+        const newTranslate = currentTranslate + (diffX / window.innerWidth) * 100;
+        
+        // Limitar el movimiento
+        const maxTranslate = 0;
+        const minTranslate = -(totalSlides - 1) * slideWidth;
+        const limitedTranslate = Math.max(minTranslate, Math.min(maxTranslate, newTranslate));
+        
+        track.style.transform = `translateX(${limitedTranslate}%)`;
+    }
+    
+    function handleTouchEnd(e) {
+        if (!isDragging) return;
+        
+        isDragging = false;
+        track.style.transition = 'transform 0.3s ease';
+        handleSwipe();
+    }
+    
+    // Agregar event listeners para touch
+    if (track) {
+        track.addEventListener('touchstart', handleTouchStart, { passive: false });
+        track.addEventListener('touchmove', handleTouchMove, { passive: false });
+        track.addEventListener('touchend', handleTouchEnd, { passive: false });
+        
+        // También agregar para mouse (para testing en desktop)
+        track.addEventListener('mousedown', handleTouchStart);
+        track.addEventListener('mousemove', handleTouchMove);
+        track.addEventListener('mouseup', handleTouchEnd);
+        track.addEventListener('mouseleave', handleTouchEnd);
+    }
 
     // Event listeners para botones
     if (prevBtn) {
@@ -932,16 +1006,19 @@ function initCarousel() {
     slides.forEach((slide, index) => {
         const img = slide.querySelector('.carousel-photo');
         if (img) {
-            img.addEventListener('click', () => {
-                console.log('Click en imagen', index);
-                showLightbox(img.src, img.alt, `Imagen ${index + 1} de ${totalSlides}`, index);
+            img.addEventListener('click', (e) => {
+                // Solo abrir lightbox si no hubo swipe
+                if (!isDragging) {
+                    console.log('Click en imagen', index);
+                    showLightbox(img.src, img.alt, `Imagen ${index + 1} de ${totalSlides}`, index);
+                }
             });
         }
     });
 
     // Inicializar carrusel
     updateCarousel();
-    console.log('Carrusel inicializado correctamente');
+    console.log('Carrusel inicializado correctamente con funcionalidad swipe');
 }
 
 // Inicializar carrusel cuando el DOM esté listo
