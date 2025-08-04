@@ -791,7 +791,7 @@ p {
     width: 100%;
     max-width: 1400px;
     margin: 0 auto;
-    padding: 2rem;
+    padding: 3rem 2rem 2rem 2rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -815,7 +815,8 @@ p {
     position: relative;
     justify-content: center;
     min-height: 60vh;
-    padding-top: 2rem;
+    padding-top: 4rem;
+    margin-top: 2rem;
 }
 
 /* Título Principal Rediseñado */
@@ -2802,7 +2803,7 @@ p {
     }
     
     .cover-content {
-        padding: 1rem;
+        padding: 2rem 1rem 1rem 1rem;
         flex-direction: column;
         gap: 2rem;
     }
@@ -2817,7 +2818,8 @@ p {
         order: 2;
         padding: 0 1rem;
         gap: 2rem;
-        padding-top: 1rem;
+        padding-top: 2rem;
+        margin-top: 1rem;
     }
     
     .cover-right {
