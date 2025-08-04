@@ -5,14 +5,31 @@ document.addEventListener('DOMContentLoaded', function() {
     const navMenu = document.getElementById('navMenu');
     
     if (navToggle && navMenu) {
-        navToggle.addEventListener('click', function() {
+        navToggle.addEventListener('click', function(e) {
+            e.stopPropagation();
             navMenu.classList.toggle('active');
             navToggle.classList.toggle('active');
         });
         
-        // Cerrar menú al hacer clic fuera
-        document.addEventListener('click', function(e) {
-            if (!navToggle.contains(e.target) && !navMenu.contains(e.target)) {
+        // Cerrar menú al hacer clic en el overlay
+        navMenu.addEventListener('click', function(e) {
+            if (e.target === navMenu) {
+                navMenu.classList.remove('active');
+                navToggle.classList.remove('active');
+            }
+        });
+        
+        // Cerrar menú con Escape
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && navMenu.classList.contains('active')) {
+                navMenu.classList.remove('active');
+                navToggle.classList.remove('active');
+            }
+        });
+        
+        // Cerrar menú con el botón X
+        navMenu.addEventListener('click', function(e) {
+            if (e.target === navMenu || e.target.closest('.nav-menu::after')) {
                 navMenu.classList.remove('active');
                 navToggle.classList.remove('active');
             }
