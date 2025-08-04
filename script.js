@@ -1,40 +1,29 @@
 // ===== NAVEGACIÓN =====
 document.addEventListener('DOMContentLoaded', function() {
-    // Navegación móvil
-    const navToggle = document.getElementById('navToggle');
-    const navMenu = document.getElementById('navMenu');
+    // Bottom Navigation (Móvil)
+    const bottomNavItems = document.querySelectorAll('.bottom-nav-item');
     
-    if (navToggle && navMenu) {
-        navToggle.addEventListener('click', function(e) {
-            e.stopPropagation();
-            navMenu.classList.toggle('active');
-            navToggle.classList.toggle('active');
-        });
-        
-        // Cerrar menú al hacer clic en el overlay
-        navMenu.addEventListener('click', function(e) {
-            if (e.target === navMenu) {
-                navMenu.classList.remove('active');
-                navToggle.classList.remove('active');
+    bottomNavItems.forEach(item => {
+        item.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            const targetSection = document.querySelector(targetId);
+            
+            if (targetSection) {
+                const navHeight = document.querySelector('.nav-magazine').offsetHeight;
+                const targetPosition = targetSection.offsetTop - navHeight;
+                
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+                
+                // Actualizar estado activo
+                bottomNavItems.forEach(navItem => navItem.classList.remove('active'));
+                this.classList.add('active');
             }
         });
-        
-        // Cerrar menú con Escape
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && navMenu.classList.contains('active')) {
-                navMenu.classList.remove('active');
-                navToggle.classList.remove('active');
-            }
-        });
-        
-        // Cerrar menú con el botón X
-        navMenu.addEventListener('click', function(e) {
-            if (e.target === navMenu || e.target.closest('.nav-menu::after')) {
-                navMenu.classList.remove('active');
-                navToggle.classList.remove('active');
-            }
-        });
-    }
+    });
     
     // Navegación suave
     const navLinks = document.querySelectorAll('.nav-link');
@@ -78,6 +67,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (navLinksArray[index]) {
                     navLinksArray[index].classList.add('active');
                 }
+                
+                // Actualizar bottom navigation
+                const sectionId = section.id;
+                bottomNavItems.forEach(item => {
+                    item.classList.remove('active');
+                    if (item.getAttribute('href') === `#${sectionId}`) {
+                        item.classList.add('active');
+                    }
+                });
             }
         });
     }

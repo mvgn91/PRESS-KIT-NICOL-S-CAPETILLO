@@ -583,24 +583,13 @@ p {
 
 /* Menú móvil */
 @media (max-width: 768px) {
+    /* Ocultar menú desktop y botón hamburguesa en móvil */
     .nav-menu {
-        position: fixed;
-        top: 0;
-        right: -280px;
-        width: 280px;
-        height: 100vh;
-        background: var(--bg-primary);
-        backdrop-filter: blur(10px);
-        flex-direction: column;
-        justify-content: flex-start;
-        align-items: stretch;
-        gap: 0;
-        z-index: 1000;
-        transition: right 0.3s ease;
-        padding: 1rem 0;
-        overflow-y: auto;
-        box-shadow: -5px 0 20px rgba(0, 0, 0, 0.1);
-        border-left: 1px solid var(--border-color);
+        display: none;
+    }
+    
+    .nav-toggle {
+        display: none;
     }
     
     .nav-menu.active {
@@ -4757,5 +4746,68 @@ html[data-theme="dark"] .contact-section {
     .back-to-top svg {
         width: 16px;
         height: 16px;
+    }
+}
+
+/* ===== BOTTOM NAVIGATION BAR ===== */
+@media (max-width: 768px) {
+    .bottom-nav {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: var(--bg-primary);
+        backdrop-filter: blur(20px);
+        border-top: 1px solid var(--border-color);
+        z-index: 1000;
+        padding: 0.5rem 0;
+        box-shadow: 0 -2px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    .bottom-nav-container {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        max-width: 100%;
+        padding: 0 1rem;
+    }
+    
+    .bottom-nav-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0.5rem;
+        text-decoration: none;
+        color: var(--text-secondary);
+        transition: all 0.2s ease;
+        border-radius: 8px;
+        min-width: 60px;
+    }
+    
+    .bottom-nav-item.active {
+        color: var(--accent-red);
+        background: var(--bg-secondary);
+    }
+    
+    .bottom-nav-item:hover {
+        color: var(--accent-red);
+        transform: translateY(-2px);
+    }
+    
+    .bottom-nav-icon {
+        font-size: 1.2rem;
+        margin-bottom: 0.25rem;
+    }
+    
+    .bottom-nav-label {
+        font-size: 0.7rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    
+    /* Ajustar contenido para bottom nav */
+    body {
+        padding-bottom: 80px;
     }
 }
