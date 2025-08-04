@@ -811,7 +811,7 @@ p {
 .cover-left {
     display: flex;
     flex-direction: column;
-    gap: 2.5rem;
+    gap: 1.5rem;
     position: relative;
     justify-content: center;
     min-height: 60vh;
@@ -824,7 +824,7 @@ p {
     font-family: 'Playfair Display', serif;
     font-weight: 900;
     line-height: 0.9;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
     position: relative;
     text-align: left;
 }
@@ -866,7 +866,7 @@ p {
     font-size: clamp(1.2rem, 2.5vw, 1.8rem);
     font-weight: 500;
     color: var(--text-secondary);
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
     position: relative;
     animation: fadeInUp 1s ease-out 0.9s both;
 }
@@ -885,7 +885,7 @@ p {
 /* Descripción Rediseñada */
 .cover-description {
     max-width: 500px;
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
     animation: fadeInUp 1s ease-out 1.2s both;
 }
 
@@ -912,8 +912,9 @@ p {
 /* Acciones Mejoradas */
 .cover-actions {
     display: flex;
-    gap: 1.5rem;
+    gap: 1rem;
     animation: fadeInUp 1s ease-out 1.5s both;
+    margin-top: 0.5rem;
 }
 
 .btn-primary, .btn-secondary {
@@ -923,7 +924,7 @@ p {
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 1px;
-    border-radius: 50px;
+    border-radius: 8px;
     text-decoration: none;
     transition: all 0.3s ease;
     position: relative;
@@ -2817,7 +2818,7 @@ p {
     .cover-left {
         order: 2;
         padding: 0 1rem;
-        gap: 2rem;
+        gap: 1.5rem;
         padding-top: 2rem;
         margin-top: 1rem;
     }
@@ -2859,13 +2860,13 @@ p {
     
     .cover-subtitle {
         font-size: 1.3rem;
-        margin-bottom: 1.5rem;
+        margin-bottom: 1rem;
     }
     
     .cover-description {
         font-size: 1rem;
         line-height: 1.6;
-        margin-bottom: 2rem;
+        margin-bottom: 1.5rem;
         max-width: 400px;
         margin-left: auto;
         margin-right: auto;
@@ -2886,7 +2887,7 @@ p {
         max-width: 280px;
         padding: 1rem 2rem;
         font-size: 1.1rem;
-        border-radius: 50px;
+        border-radius: 8px;
         min-height: 48px;
     }
     
