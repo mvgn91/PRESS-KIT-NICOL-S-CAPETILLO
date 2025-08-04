@@ -1047,7 +1047,7 @@ function initThemeSystem() {
     // Obtener tema guardado o usar tema claro por defecto
     const savedTheme = localStorage.getItem('theme');
     
-    // Aplicar tema inicial - siempre claro por defecto
+    // Aplicar tema inicial
     if (savedTheme) {
         html.setAttribute('data-theme', savedTheme);
     } else {
@@ -1059,6 +1059,8 @@ function initThemeSystem() {
         const currentTheme = html.getAttribute('data-theme');
         const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
         
+        console.log('Cambiando tema de', currentTheme, 'a', newTheme);
+        
         html.setAttribute('data-theme', newTheme);
         localStorage.setItem('theme', newTheme);
         
@@ -1067,14 +1069,21 @@ function initThemeSystem() {
         setTimeout(() => {
             document.body.style.transition = '';
         }, 300);
+        
+        // Forzar repaint para asegurar que los cambios se apliquen
+        document.body.offsetHeight;
     }
     
     // Event listener para el botón
     if (themeToggle) {
         themeToggle.addEventListener('click', toggleTheme);
+        console.log('Event listener agregado al botón de tema');
+    } else {
+        console.error('No se encontró el botón de tema');
     }
     
-    // No escuchar cambios en la preferencia del sistema - siempre usar tema claro por defecto
+    // Verificar estado inicial
+    console.log('Tema inicial:', html.getAttribute('data-theme'));
 }
 
 // Inicializar sistema de tema cuando el DOM esté listo
@@ -1096,4 +1105,27 @@ document.addEventListener('DOMContentLoaded', function() {
             adjustGalleryContainers();
         }, 100);
     });
+}); 
+
+// Función de depuración para verificar el tema
+function debugTheme() {
+    const html = document.documentElement;
+    const currentTheme = html.getAttribute('data-theme');
+    const savedTheme = localStorage.getItem('theme');
+    
+    console.log('=== DEBUG TEMA OSCURO ===');
+    console.log('Tema actual en HTML:', currentTheme);
+    console.log('Tema guardado en localStorage:', savedTheme);
+    console.log('Atributo data-theme presente:', html.hasAttribute('data-theme'));
+    console.log('Clases CSS aplicadas:', html.className);
+    console.log('Estilos computados del body:', window.getComputedStyle(document.body).backgroundColor);
+    console.log('========================');
+}
+
+// Agregar función de depuración al objeto window para acceso desde consola
+window.debugTheme = debugTheme;
+
+// Ejecutar depuración al cargar
+document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(debugTheme, 1000); // Ejecutar después de 1 segundo para asegurar que todo esté cargado
 }); 

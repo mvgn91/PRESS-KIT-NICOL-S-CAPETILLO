@@ -68,7 +68,9 @@ p {
     --overlay-bg: rgba(0, 0, 0, 0.9);
 }
 
-/* Tema Oscuro */
+/* ===== TEMA OSCURO COMPLETO ===== */
+
+/* Tema Oscuro - Variables */
 [data-theme="dark"] {
     --bg-primary: #0f0f0f;
     --bg-secondary: #1a1a1a;
@@ -81,6 +83,399 @@ p {
     --nav-bg: rgba(15, 15, 15, 0.95);
     --card-bg: rgba(26, 26, 26, 0.95);
     --overlay-bg: rgba(0, 0, 0, 0.95);
+}
+
+/* Tema Oscuro - Elementos Base */
+[data-theme="dark"] body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .magazine-section {
+    background-color: var(--bg-primary);
+}
+
+[data-theme="dark"] .section-container {
+    background-color: var(--bg-primary);
+}
+
+/* Tema Oscuro - Navegación */
+[data-theme="dark"] .nav-magazine {
+    background: var(--nav-bg);
+    border-bottom-color: var(--border-color);
+}
+
+[data-theme="dark"] .nav-menu {
+    background: var(--nav-bg);
+    border-top-color: var(--border-color);
+}
+
+[data-theme="dark"] .nav-link {
+    color: var(--text-primary);
+    border-bottom-color: var(--border-color);
+}
+
+[data-theme="dark"] .nav-toggle {
+    background: var(--bg-secondary);
+    border-color: var(--border-color);
+}
+
+[data-theme="dark"] .nav-toggle span {
+    background: var(--text-primary);
+}
+
+[data-theme="dark"] .theme-toggle {
+    background: var(--bg-secondary);
+    border-color: var(--border-color);
+}
+
+/* Tema Oscuro - Portada */
+[data-theme="dark"] .magazine-cover {
+    background-color: var(--bg-primary);
+}
+
+[data-theme="dark"] .cover-background {
+    background: var(--bg-secondary);
+}
+
+[data-theme="dark"] .cover-overlay {
+    background: rgba(15, 15, 15, 0.8);
+}
+
+[data-theme="dark"] .cover-title {
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .cover-subtitle {
+    color: var(--text-secondary);
+}
+
+[data-theme="dark"] .cover-description {
+    color: var(--text-secondary);
+}
+
+/* Tema Oscuro - Secciones */
+[data-theme="dark"] .section-title {
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .section-number {
+    color: var(--accent-red);
+}
+
+/* Tema Oscuro - Biografía */
+[data-theme="dark"] .bio-hero-content {
+    background-color: var(--bg-primary);
+}
+
+[data-theme="dark"] .bio-hero-name {
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .bio-hero-subtitle {
+    color: var(--text-secondary);
+}
+
+[data-theme="dark"] .bio-hero-text {
+    color: var(--text-secondary);
+}
+
+[data-theme="dark"] .bio-detail-item {
+    background: var(--bg-secondary);
+    border-color: var(--border-color);
+}
+
+[data-theme="dark"] .detail-content h4 {
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .detail-content p {
+    color: var(--text-secondary);
+}
+
+[data-theme="dark"] .stat-card {
+    background: var(--bg-secondary);
+    border-color: var(--border-color);
+}
+
+[data-theme="dark"] .stat-card .stat-label {
+    color: var(--text-secondary);
+}
+
+[data-theme="dark"] .timeline-item {
+    background: var(--bg-secondary);
+    border-color: var(--border-color);
+}
+
+[data-theme="dark"] .timeline-content h4 {
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .timeline-content p {
+    color: var(--text-secondary);
+}
+
+/* Tema Oscuro - Filmografía */
+[data-theme="dark"] .film-item {
+    background: var(--bg-secondary);
+    border-color: var(--border-color);
+}
+
+[data-theme="dark"] .film-info {
+    background: var(--bg-secondary);
+}
+
+[data-theme="dark"] .film-title {
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .film-role {
+    color: var(--text-secondary);
+}
+
+[data-theme="dark"] .film-year {
+    color: var(--text-secondary);
+}
+
+[data-theme="dark"] .film-platform {
+    color: var(--text-secondary);
+}
+
+[data-theme="dark"] .film-episodes {
+    color: var(--text-secondary);
+}
+
+[data-theme="dark"] .film-description {
+    color: var(--text-secondary);
+}
+
+[data-theme="dark"] .film-image-placeholder {
+    background: var(--bg-secondary);
+    border-color: var(--border-color);
+}
+
+[data-theme="dark"] .placeholder-text {
+    color: var(--text-secondary);
+}
+
+[data-theme="dark"] .placeholder-subtitle {
+    color: var(--text-muted);
+}
+
+/* Tema Oscuro - Demo Reel */
+[data-theme="dark"] .video-placeholder {
+    background: var(--bg-secondary);
+    border-color: var(--border-color);
+}
+
+[data-theme="dark"] .video-title {
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .video-description {
+    color: var(--text-secondary);
+}
+
+[data-theme="dark"] .video-item h4 {
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .video-item p {
+    color: var(--text-secondary);
+}
+
+/* Tema Oscuro - Galería */
+[data-theme="dark"] .carousel-container {
+    background: var(--bg-secondary);
+    border-color: var(--border-color);
+}
+
+[data-theme="dark"] .carousel-counter {
+    color: var(--text-secondary);
+}
+
+[data-theme="dark"] .dot {
+    background: var(--border-color);
+}
+
+[data-theme="dark"] .dot:hover {
+    background: var(--accent-red-light);
+}
+
+[data-theme="dark"] .dot.active {
+    background: var(--accent-red);
+}
+
+/* Tema Oscuro - Descargables */
+[data-theme="dark"] .download-item {
+    background: var(--bg-secondary);
+    border-color: var(--border-color);
+}
+
+[data-theme="dark"] .download-item h3 {
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .download-item p {
+    color: var(--text-secondary);
+}
+
+[data-theme="dark"] .download-icon {
+    background: var(--accent-gradient);
+    color: white;
+}
+
+/* Tema Oscuro - Prensa */
+[data-theme="dark"] .quote-item {
+    background: var(--bg-secondary);
+    border-color: var(--border-color);
+}
+
+[data-theme="dark"] .quote-item blockquote {
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .quote-item cite {
+    color: var(--text-secondary);
+}
+
+[data-theme="dark"] .award-item {
+    background: var(--bg-secondary);
+    border-color: var(--border-color);
+}
+
+[data-theme="dark"] .award-title {
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .award-event {
+    color: var(--text-secondary);
+}
+
+[data-theme="dark"] .award-project {
+    color: var(--text-secondary);
+}
+
+/* Tema Oscuro - Contacto */
+[data-theme="dark"] .contact-item {
+    background: var(--bg-secondary);
+    border-color: var(--border-color);
+}
+
+[data-theme="dark"] .contact-item h3 {
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .contact-info p {
+    color: var(--text-secondary);
+}
+
+[data-theme="dark"] .contact-info a {
+    color: var(--accent-red);
+}
+
+[data-theme="dark"] .contact-info a:hover {
+    color: var(--accent-red-dark);
+    background: rgba(220, 38, 38, 0.1);
+}
+
+[data-theme="dark"] .social-link {
+    background: var(--bg-secondary);
+    border-color: var(--border-color);
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .social-link:hover {
+    background: var(--accent-red);
+    color: white;
+}
+
+/* Tema Oscuro - Footer */
+[data-theme="dark"] .magazine-footer {
+    background: var(--bg-secondary);
+    border-top-color: var(--border-color);
+}
+
+[data-theme="dark"] .footer-content p {
+    color: var(--text-secondary);
+}
+
+[data-theme="dark"] .mvgn-link {
+    color: var(--accent-red);
+}
+
+[data-theme="dark"] .mvgn-link:hover {
+    color: var(--accent-red-dark);
+}
+
+/* Tema Oscuro - Botones */
+[data-theme="dark"] .btn-primary {
+    background: var(--accent-red);
+    color: white;
+    border-color: var(--accent-red);
+}
+
+[data-theme="dark"] .btn-primary:hover {
+    background: var(--accent-red-dark);
+    border-color: var(--accent-red-dark);
+}
+
+[data-theme="dark"] .btn-secondary {
+    background: transparent;
+    color: var(--text-primary);
+    border-color: var(--border-color);
+}
+
+[data-theme="dark"] .btn-secondary:hover {
+    background: var(--bg-secondary);
+    border-color: var(--accent-red);
+}
+
+[data-theme="dark"] .download-btn {
+    background: var(--accent-red);
+    color: white;
+    border-color: var(--accent-red);
+}
+
+[data-theme="dark"] .download-btn:hover {
+    background: var(--accent-red-dark);
+    border-color: var(--accent-red-dark);
+}
+
+/* Tema Oscuro - Enlaces */
+[data-theme="dark"] .film-link {
+    background: var(--bg-secondary);
+    border-color: var(--border-color);
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .film-link:hover {
+    background: var(--accent-red);
+    color: white;
+}
+
+/* Tema Oscuro - Overlays y Efectos */
+[data-theme="dark"] .bio-hero-overlay {
+    background: rgba(15, 15, 15, 0.3);
+}
+
+[data-theme="dark"] .film-overlay {
+    background: rgba(15, 15, 15, 0.7);
+}
+
+[data-theme="dark"] .parallax-overlay {
+    background: rgba(15, 15, 15, 0.9);
+}
+
+/* Tema Oscuro - Sombras */
+[data-theme="dark"] .magazine-section::before,
+[data-theme="dark"] .magazine-section::after {
+    background: var(--shadow-color);
+}
+
+/* Tema Oscuro - Transiciones */
+[data-theme="dark"] * {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
 /* ===== PARALLAX BASE ===== */
@@ -3249,4 +3644,256 @@ p {
             transform: translateY(0);
         }
     }
+}
+
+/* Tema Oscuro - Elementos Específicos Adicionales */
+[data-theme="dark"] .magazine-cover {
+    background: var(--bg-primary);
+}
+
+[data-theme="dark"] .cover-content {
+    background: var(--bg-primary);
+}
+
+[data-theme="dark"] .cover-left {
+    background: var(--bg-primary);
+}
+
+[data-theme="dark"] .cover-right {
+    background: var(--bg-primary);
+}
+
+[data-theme="dark"] .cover-meta {
+    background: var(--bg-primary);
+}
+
+[data-theme="dark"] .issue-number {
+    color: var(--accent-red);
+}
+
+[data-theme="dark"] .date {
+    color: var(--text-secondary);
+}
+
+[data-theme="dark"] .bio-section {
+    background: var(--bg-primary);
+}
+
+[data-theme="dark"] .bio-hero {
+    background: var(--bg-primary);
+}
+
+[data-theme="dark"] .bio-details {
+    background: var(--bg-primary);
+}
+
+[data-theme="dark"] .bio-stats {
+    background: var(--bg-primary);
+}
+
+[data-theme="dark"] .bio-timeline {
+    background: var(--bg-primary);
+}
+
+[data-theme="dark"] .timeline-title {
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .filmography-section {
+    background: var(--bg-primary);
+}
+
+[data-theme="dark"] .filmography-grid {
+    background: var(--bg-primary);
+}
+
+[data-theme="dark"] .demo-section {
+    background: var(--bg-primary);
+}
+
+[data-theme="dark"] .demo-grid {
+    background: var(--bg-primary);
+}
+
+[data-theme="dark"] .demo-main {
+    background: var(--bg-primary);
+}
+
+[data-theme="dark"] .demo-sidebar {
+    background: var(--bg-primary);
+}
+
+[data-theme="dark"] .gallery-section {
+    background: var(--bg-primary);
+}
+
+[data-theme="dark"] .gallery-carousel {
+    background: var(--bg-primary);
+}
+
+[data-theme="dark"] .downloads-section {
+    background: var(--bg-primary);
+}
+
+[data-theme="dark"] .downloads-grid {
+    background: var(--bg-primary);
+}
+
+[data-theme="dark"] .press-section {
+    background: var(--bg-primary);
+}
+
+[data-theme="dark"] .press-layout {
+    background: var(--bg-primary);
+}
+
+[data-theme="dark"] .press-quotes {
+    background: var(--bg-primary);
+}
+
+[data-theme="dark"] .press-awards {
+    background: var(--bg-primary);
+}
+
+[data-theme="dark"] .contact-section {
+    background: var(--bg-primary);
+}
+
+[data-theme="dark"] .contact-grid {
+    background: var(--bg-primary);
+}
+
+/* Tema Oscuro - Elementos de Texto Específicos */
+[data-theme="dark"] h1,
+[data-theme="dark"] h2,
+[data-theme="dark"] h3,
+[data-theme="dark"] h4,
+[data-theme="dark"] h5,
+[data-theme="dark"] h6 {
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] p {
+    color: var(--text-secondary);
+}
+
+[data-theme="dark"] span {
+    color: inherit;
+}
+
+/* Tema Oscuro - Elementos de Formulario */
+[data-theme="dark"] input,
+[data-theme="dark"] textarea,
+[data-theme="dark"] select {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    border-color: var(--border-color);
+}
+
+/* Tema Oscuro - Elementos de Lista */
+[data-theme="dark"] ul,
+[data-theme="dark"] ol {
+    color: var(--text-secondary);
+}
+
+[data-theme="dark"] li {
+    color: var(--text-secondary);
+}
+
+/* Tema Oscuro - Elementos de Tabla */
+[data-theme="dark"] table {
+    background: var(--bg-secondary);
+    border-color: var(--border-color);
+}
+
+[data-theme="dark"] th,
+[data-theme="dark"] td {
+    color: var(--text-primary);
+    border-color: var(--border-color);
+}
+
+/* Tema Oscuro - Elementos de Código */
+[data-theme="dark"] code,
+[data-theme="dark"] pre {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    border-color: var(--border-color);
+}
+
+/* Tema Oscuro - Elementos de Cita */
+[data-theme="dark"] blockquote {
+    background: var(--bg-secondary);
+    border-left-color: var(--accent-red);
+    color: var(--text-primary);
+}
+
+/* Tema Oscuro - Elementos de Enlace Específicos */
+[data-theme="dark"] a:not(.btn-primary):not(.btn-secondary):not(.download-btn):not(.social-link) {
+    color: var(--accent-red);
+}
+
+[data-theme="dark"] a:not(.btn-primary):not(.btn-secondary):not(.download-btn):not(.social-link):hover {
+    color: var(--accent-red-dark);
+}
+
+/* Tema Oscuro - Elementos de Iconos */
+[data-theme="dark"] svg {
+    color: inherit;
+}
+
+[data-theme="dark"] .theme-icon {
+    color: var(--text-primary);
+}
+
+/* Tema Oscuro - Elementos de Scroll */
+[data-theme="dark"] ::-webkit-scrollbar {
+    background: var(--bg-secondary);
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-red);
+}
+
+/* Tema Oscuro - Elementos de Selección */
+[data-theme="dark"] ::selection {
+    background: var(--accent-red);
+    color: white;
+}
+
+[data-theme="dark"] ::-moz-selection {
+    background: var(--accent-red);
+    color: white;
+}
+
+/* Regla importante para asegurar que el tema oscuro se aplique correctamente */
+html[data-theme="dark"] {
+    color-scheme: dark;
+}
+
+html[data-theme="light"] {
+    color-scheme: light;
+}
+
+/* Asegurar que el tema se aplique inmediatamente */
+html[data-theme="dark"] * {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Forzar aplicación del tema oscuro en elementos críticos */
+html[data-theme="dark"] .magazine-section,
+html[data-theme="dark"] .section-container,
+html[data-theme="dark"] .magazine-cover,
+html[data-theme="dark"] .cover-content,
+html[data-theme="dark"] .bio-section,
+html[data-theme="dark"] .filmography-section,
+html[data-theme="dark"] .demo-section,
+html[data-theme="dark"] .gallery-section,
+html[data-theme="dark"] .downloads-section,
+html[data-theme="dark"] .press-section,
+html[data-theme="dark"] .contact-section {
+    background-color: var(--bg-primary) !important;
 }
