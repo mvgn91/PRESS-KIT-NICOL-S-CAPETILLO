@@ -23,7 +23,7 @@
             <div class="nav-logo">
                 <span class="logo-text">NC</span>
             </div>
-            <div class="nav-menu">
+            <div class="nav-menu" id="navMenu">
                 <a href="#portada" class="nav-link">Portada</a>
                 <a href="#biografia" class="nav-link">Biografía</a>
                 <a href="#filmografia" class="nav-link">Filmografía</a>
@@ -37,11 +37,11 @@
                 <i data-lucide="sun" class="theme-icon sun-icon"></i>
                 <i data-lucide="moon" class="theme-icon moon-icon"></i>
             </button>
-            <div class="nav-toggle">
+            <button class="nav-toggle" id="navToggle" aria-label="Abrir menú">
                 <span></span>
                 <span></span>
                 <span></span>
-            </div>
+            </button>
         </div>
     </nav>
 
@@ -593,6 +593,13 @@
             </div>
         </div>
     </footer>
+
+    <!-- Botón Volver Arriba -->
+    <button class="back-to-top" id="backToTop" aria-label="Volver arriba">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 4l8 8h-6v8h-4v-8H4l8-8z"/>
+        </svg>
+    </button>
 
     <!-- Custom JS -->
     <script src="script.js"></script>

@@ -2157,6 +2157,63 @@ p {
     box-shadow: 0 8px 25px rgba(220, 38, 38, 0.3);
 }
 
+/* ===== BOTÓN VOLVER ARRIBA ===== */
+.back-to-top {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 50px;
+    height: 50px;
+    background: var(--accent-gradient);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 20px rgba(220, 38, 38, 0.3);
+    transition: all 0.3s ease;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    z-index: 1000;
+}
+
+.back-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.back-to-top:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(220, 38, 38, 0.4);
+}
+
+.back-to-top:active {
+    transform: translateY(-1px);
+}
+
+.back-to-top svg {
+    width: 20px;
+    height: 20px;
+    transition: transform 0.3s ease;
+}
+
+.back-to-top:hover svg {
+    transform: translateY(-2px);
+}
+
+[data-theme="dark"] .back-to-top {
+    background: var(--accent-gradient);
+    box-shadow: 0 4px 20px rgba(220, 38, 38, 0.4);
+}
+
+[data-theme="dark"] .back-to-top:hover {
+    box-shadow: 0 8px 30px rgba(220, 38, 38, 0.5);
+}
+
 /* ===== FOOTER ===== */
 .magazine-footer {
     background: var(--text-primary);
@@ -4502,6 +4559,18 @@ html[data-theme="dark"] .contact-section {
         width: 14px;
         height: 14px;
     }
+    
+    .back-to-top {
+        bottom: 1.5rem;
+        right: 1.5rem;
+        width: 45px;
+        height: 45px;
+    }
+    
+    .back-to-top svg {
+        width: 18px;
+        height: 18px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -4514,5 +4583,17 @@ html[data-theme="dark"] .contact-section {
     .view-full-btn svg {
         width: 12px;
         height: 12px;
+    }
+    
+    .back-to-top {
+        bottom: 1rem;
+        right: 1rem;
+        width: 40px;
+        height: 40px;
+    }
+    
+    .back-to-top svg {
+        width: 16px;
+        height: 16px;
     }
 }

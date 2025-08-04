@@ -1,13 +1,21 @@
 // ===== NAVEGACIÓN =====
 document.addEventListener('DOMContentLoaded', function() {
     // Navegación móvil
-    const navToggle = document.querySelector('.nav-toggle');
-    const navMenu = document.querySelector('.nav-menu');
+    const navToggle = document.getElementById('navToggle');
+    const navMenu = document.getElementById('navMenu');
     
     if (navToggle && navMenu) {
         navToggle.addEventListener('click', function() {
             navMenu.classList.toggle('active');
             navToggle.classList.toggle('active');
+        });
+        
+        // Cerrar menú al hacer clic fuera
+        document.addEventListener('click', function(e) {
+            if (!navToggle.contains(e.target) && !navMenu.contains(e.target)) {
+                navMenu.classList.remove('active');
+                navToggle.classList.remove('active');
+            }
         });
     }
     
@@ -1165,3 +1173,39 @@ window.debugTheme = debugTheme;
 document.addEventListener('DOMContentLoaded', function() {
     setTimeout(debugTheme, 1000); // Ejecutar después de 1 segundo para asegurar que todo esté cargado
 }); 
+
+// ===== BOTÓN VOLVER ARRIBA =====
+function initBackToTop() {
+    const backToTopBtn = document.getElementById('backToTop');
+    
+    if (!backToTopBtn) return;
+    
+    // Mostrar/ocultar botón según el scroll
+    function toggleBackToTop() {
+        if (window.scrollY > 300) {
+            backToTopBtn.classList.add('visible');
+        } else {
+            backToTopBtn.classList.remove('visible');
+        }
+    }
+    
+    // Scroll suave al hacer clic
+    backToTopBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+    
+    // Event listener para scroll
+    window.addEventListener('scroll', toggleBackToTop);
+    
+    // Mostrar botón inicialmente si ya hay scroll
+    toggleBackToTop();
+}
+
+// Inicializar botón volver arriba
+document.addEventListener('DOMContentLoaded', function() {
+    initBackToTop();
+});
