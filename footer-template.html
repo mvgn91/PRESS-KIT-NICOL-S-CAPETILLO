@@ -1,0 +1,76 @@
+<!-- Footer Template - MVGN Labs -->
+<footer class="magazine-footer">
+    <div class="footer-container">
+        <div class="footer-content">
+            <p>&copy; 2024 [Nombre del Cliente]. Todos los derechos reservados.</p>
+            <p>[Descripción del proyecto]</p>
+            <div class="footer-credits">
+                <p><span class="powered-text">Powered by</span> <a href="https://mvgn-portfafolio.vercel.app/" target="_blank" class="mvgn-link">
+                    <svg class="mvgn-icon" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M7,2V13H10V22L17,10H13L17,2H7Z"/>
+                    </svg>
+                    MVGN Labs
+                </a> <span class="year-text">2025</span></p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- CSS Template para el footer -->
+<style>
+.footer-credits {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer-credits p {
+    font-size: 0.9rem;
+    color: #999;
+    margin-bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.powered-text {
+    color: #999;
+    font-weight: 400;
+}
+
+.year-text {
+    color: #999;
+    font-weight: 400;
+}
+
+.mvgn-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #ccc;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+}
+
+.mvgn-link:hover {
+    color: white;
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-1px);
+}
+
+.mvgn-icon {
+    color: var(--accent-red-light);
+    transition: all 0.3s ease;
+}
+
+.mvgn-link:hover .mvgn-icon {
+    color: var(--accent-red);
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 8px rgba(220, 38, 38, 0.6));
+}
+</style> 

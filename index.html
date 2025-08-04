@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Nicolás Capetillo | Actor</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navegación Minimalista -->
+    <nav class="nav-magazine">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span class="logo-text">NC</span>
+            </div>
+            <div class="nav-menu">
+                <a href="#portada" class="nav-link">Portada</a>
+                <a href="#biografia" class="nav-link">Biografía</a>
+                <a href="#filmografia" class="nav-link">Filmografía</a>
+                <a href="#demo-reel" class="nav-link">Demo Reel</a>
+                <a href="#galeria" class="nav-link">Galería</a>
+                <a href="#descargables" class="nav-link">Descargables</a>
+                <a href="#prensa" class="nav-link">Prensa</a>
+                <a href="#contacto" class="nav-link">Contacto</a>
+            </div>
+            <button class="theme-toggle" id="themeToggle" aria-label="Cambiar tema">
+                <i data-lucide="sun" class="theme-icon sun-icon"></i>
+                <i data-lucide="moon" class="theme-icon moon-icon"></i>
+            </button>
+            <div class="nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Portada de Revista -->
+    <section id="portada" class="magazine-cover">
+        <div class="cover-background">
+            <div class="cover-overlay"></div>
+        </div>
+
+        <div class="cover-content">
+            <div class="cover-grid">
+                <div class="cover-left">
+                    <div class="cover-meta">
+                        <span class="issue-number">ISSUE 01</span>
+                        <span class="date">2024</span>
+                    </div>
+                    <h1 class="cover-title">
+                        <span class="title-line">Nicolás</span>
+                        <span class="title-line">Capetillo</span>
+                    </h1>
+                    <p class="cover-subtitle">Actor de Cine, Teatro y Televisión</p>
+                    <div class="cover-description">
+                        <p>Una trayectoria versátil que abarca desde dramas intensos hasta comedias contemporáneas, destacando por su capacidad de transformación y profundidad interpretativa.</p>
+                    </div>
+                    <div class="cover-actions">
+                        <a href="#descargables" class="btn-primary">Descargar CV</a>
+                        <a href="#demo-reel" class="btn-secondary">Ver Demo Reel</a>
+                    </div>
+                </div>
+                <div class="cover-right">
+                    <div class="cover-image">
+                        <img src="assets/fotos/1.jpg" alt="Nicolás Capetillo - Foto Principal" class="cover-photo">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Biografía Editorial -->
+    <section id="biografia" class="magazine-section bio-section">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-number">01</span>
+                <h2 class="section-title">Biografía</h2>
+            </div>
+            
+            <div class="bio-hero">
+                <div class="bio-hero-image">
+                    <img src="assets/fotos/2.jpg" alt="Nicolás Capetillo - Retrato Profesional" class="bio-hero-photo">
+                    <div class="bio-hero-overlay"></div>
+                </div>
+                <div class="bio-hero-content">
+                    <h3 class="bio-hero-name">Nicolás Capetillo Potter</h3>
+                    <p class="bio-hero-subtitle">Actor Mexicano-Estadounidense</p>
+                    <p class="bio-hero-text">
+                        Nacido el 13 de enero de 1978 en Lexington, Kentucky, Nicolás ha desarrollado una carrera versátil 
+                        que abarca cine, teatro y televisión. Actualmente reside en Guadalajara, Jalisco, donde continúa 
+                        explorando nuevos desafíos actoral con su característico compromiso con la verdad escénica.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="bio-details">
+                <div class="bio-details-grid">
+                    <div class="bio-detail-item">
+                        <div class="detail-icon">
+                            <i data-lucide="graduation-cap"></i>
+                        </div>
+                        <div class="detail-content">
+                            <h4>Formación</h4>
+                            <p>Formación actoral especializada bajo la guía de una maestra experta en técnicas contemporáneas y clásicas</p>
+                        </div>
+                    </div>
+                    
+                    <div class="bio-detail-item">
+                        <div class="detail-icon">
+                            <i data-lucide="tv"></i>
+                        </div>
+                        <div class="detail-content">
+                            <h4>Televisión</h4>
+                            <p>"El Centauro del Norte" (Netflix, 2023) - Embajador Americano en el episodio 6</p>
+                        </div>
+                    </div>
+                    
+                    <div class="bio-detail-item">
+                        <div class="detail-icon">
+                            <i data-lucide="theater"></i>
+                        </div>
+                        <div class="detail-content">
+                            <h4>Teatro</h4>
+                            <p>Versatilidad demostrada en géneros que van desde el drama clásico hasta la comedia contemporánea</p>
+                        </div>
+                    </div>
+                    
+                    <div class="bio-detail-item">
+                        <div class="detail-icon">
+                            <i data-lucide="map-pin"></i>
+                        </div>
+                        <div class="detail-content">
+                            <h4>Ubicación</h4>
+                            <p>Reside en Guadalajara, Jalisco, continuando su desarrollo artístico en proyectos cinematográficos</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bio-stats">
+                <div class="bio-stats-container">
+                    <div class="stat-card">
+                        <span class="stat-number">46</span>
+                        <span class="stat-label">Años</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">1978</span>
+                        <span class="stat-label">Nacimiento</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">KY</span>
+                        <span class="stat-label">Origen</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">GDL</span>
+                        <span class="stat-label">Actual</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bio-timeline">
+                <h3 class="timeline-title">Trayectoria Artística</h3>
+                <div class="timeline-grid">
+                    <div class="timeline-item">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <h4>Formación Inicial</h4>
+                            <p>Nicolás Capetillo Potter nació el 13 de enero de 1978 en Lexington, Kentucky, donde desde temprana edad mostró un interés natural por las artes escénicas. Su formación actoral se desarrolló bajo la guía de una maestra especializada en técnicas de actuación contemporánea y clásica.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <h4>Debut Profesional</h4>
+                            <p>Su debut profesional llegó con [Primer Proyecto], donde interpretó [Personaje], papel que le valió reconocimiento crítico y estableció las bases de su estilo interpretativo.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <h4>Carrera en Teatro</h4>
+                            <p>En teatro, ha protagonizado obras como [Obra 1], [Obra 2] y [Obra 3], demostrando su versatilidad en géneros que van desde el drama clásico hasta la comedia contemporánea.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <h4>Éxito en Televisión</h4>
+                            <p>En televisión, ha participado en "El Centauro del Norte" (Netflix, 2023) interpretando al Embajador Americano en el episodio 6, un personaje memorable que ha conectado profundamente con la audiencia internacional.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <h4>Presente y Futuro</h4>
+                            <p>Actualmente, Nicolás reside en Guadalajara, Jalisco, donde continúa explorando nuevos desafíos actoral, combinando su pasión por el teatro con proyectos cinematográficos que buscan contar historias auténticas y conmovedoras.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filmografía Editorial -->
+    <section id="filmografia" class="magazine-section filmography-section">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-number">02</span>
+                <h2 class="section-title">Filmografía</h2>
+            </div>
+            
+            <div class="filmography-grid">
+                <div class="film-item">
+                    <a href="https://www.imdb.com/es-es/title/tt15657464/" target="_blank" class="film-link">
+                        <div class="film-image">
+                            <img src="assets/fotos/captura.jpg" alt="Nicolás Capetillo en El Centauro del Norte" class="film-photo">
+                            <div class="film-overlay">
+                                <span class="imdb-rating">⭐ 7.2/10 IMDb</span>
+                            </div>
+                        </div>
+                    </a>
+                    <div class="film-info">
+                        <h3 class="film-title">
+                            <a href="https://www.imdb.com/es-es/title/tt15657464/" target="_blank" class="film-link">El Centauro del Norte</a>
+                        </h3>
+                        <p class="film-role">Embajador Americano</p>
+                        <p class="film-year">2023</p>
+                        <p class="film-platform">Netflix</p>
+                        <p class="film-episodes">Episodio 6 • 44 min</p>
+                        <p class="film-description">Serie de drama histórico donde Nicolás interpreta al Embajador Americano en el episodio 6, un personaje clave en la narrativa de la Revolución Mexicana. Para unos, bandido; para otros, un mito.</p>
+                    </div>
+                </div>
+                
+                <div class="film-item">
+                    <div class="film-image-placeholder">
+                        <span class="placeholder-text">Próximo Proyecto</span>
+                    </div>
+                    <div class="film-info">
+                        <h3 class="film-title">Próximo Proyecto</h3>
+                        <p class="film-role">Personaje Principal</p>
+                        <p class="film-year">2025</p>
+                        <p class="film-platform">Por Confirmar</p>
+                        <p class="film-description">Nuevo proyecto cinematográfico donde Nicolás interpretará un personaje principal en una producción de alto perfil.</p>
+                    </div>
+                </div>
+                
+                <div class="film-item">
+                    <div class="film-image-placeholder">
+                        <span class="placeholder-text">Proyecto en Desarrollo</span>
+                    </div>
+                    <div class="film-info">
+                        <h3 class="film-title">Proyecto en Desarrollo</h3>
+                        <p class="film-role">Actor de Reparto</p>
+                        <p class="film-year">2025</p>
+                        <p class="film-platform">En Producción</p>
+                        <p class="film-description">Proyecto independiente donde Nicolás explorará nuevos territorios actoral en un papel desafiante.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo Reel Editorial -->
+    <section id="demo-reel" class="magazine-section demo-section">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-number">03</span>
+                <h2 class="section-title">Demo Reel y Clips</h2>
+            </div>
+            
+            <div class="demo-grid">
+                <div class="demo-main">
+                    <div class="video-placeholder main-video">
+                        <span class="placeholder-text">Demo Reel Principal</span>
+                        <span class="placeholder-subtitle">3:45 min</span>
+                        <div class="play-button">▶</div>
+                    </div>
+                    <h3 class="video-title">Demo Reel 2024</h3>
+                    <p class="video-description">Compilación de las mejores escenas de Nicolás Capetillo</p>
+                </div>
+                
+                <div class="demo-sidebar">
+                    <div class="video-item">
+                        <div class="video-placeholder small">
+                            <span class="placeholder-text">Escena Dramática</span>
+                            <span class="placeholder-subtitle">2:15 min</span>
+                        </div>
+                        <h4>El Último Suspiro - Escena Clave</h4>
+                        <p>Momentos más intensos de la película</p>
+                    </div>
+                    
+                    <div class="video-item">
+                        <div class="video-placeholder small">
+                            <span class="placeholder-text">Entrevista</span>
+                            <span class="placeholder-subtitle">8:30 min</span>
+                        </div>
+                        <h4>Entrevista con Nicolás Capetillo</h4>
+                        <p>Conversación sobre su proceso creativo</p>
+                    </div>
+                    
+                    <div class="video-item">
+                        <div class="video-placeholder small">
+                            <span class="placeholder-text">Behind the Scenes</span>
+                            <span class="placeholder-subtitle">5:20 min</span>
+                        </div>
+                        <h4>Detrás de Cámaras - Mujeres de Arena</h4>
+                        <p>Proceso de filmación y preparación</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Galería Editorial -->
+    <section id="galeria" class="magazine-section gallery-section">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-number">04</span>
+                <h2 class="section-title">Galería de Imágenes</h2>
+            </div>
+            
+            <div class="gallery-carousel">
+                <div class="carousel-container">
+                    <div class="carousel-track">
+                        <div class="carousel-slide">
+                            <img src="assets/fotos/3.jpg" alt="Nicolás Capetillo - Headshot Profesional" class="carousel-photo">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="assets/fotos/4.jpg" alt="Nicolás Capetillo - Retrato Artístico" class="carousel-photo">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="assets/fotos/5.jpg" alt="Nicolás Capetillo - Escena Dramática" class="carousel-photo">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="assets/fotos/6.jpg" alt="Nicolás Capetillo - Retrato Contemporáneo" class="carousel-photo">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="assets/fotos/7.jpg" alt="Nicolás Capetillo - Expresión Natural" class="carousel-photo">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="assets/fotos/8.jpg" alt="Nicolás Capetillo - Retrato Clásico" class="carousel-photo">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="assets/fotos/_P5A7048.jpg" alt="Nicolás Capetillo - Retrato Profesional" class="carousel-photo">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="assets/fotos/_P5A7051.jpg" alt="Nicolás Capetillo - Expresión Dramática" class="carousel-photo">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="assets/fotos/_P5A7061.jpg" alt="Nicolás Capetillo - Retrato Artístico" class="carousel-photo">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="assets/fotos/_P5A7068.jpg" alt="Nicolás Capetillo - Headshot Clásico" class="carousel-photo">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="carousel-controls">
+                    <button class="carousel-btn prev-btn" aria-label="Anterior">
+                        <i data-lucide="chevron-left"></i>
+                    </button>
+                    <div class="carousel-dots">
+                        <button class="dot active" data-slide="0" aria-label="Ir a imagen 1"></button>
+                        <button class="dot" data-slide="1" aria-label="Ir a imagen 2"></button>
+                        <button class="dot" data-slide="2" aria-label="Ir a imagen 3"></button>
+                        <button class="dot" data-slide="3" aria-label="Ir a imagen 4"></button>
+                        <button class="dot" data-slide="4" aria-label="Ir a imagen 5"></button>
+                        <button class="dot" data-slide="5" aria-label="Ir a imagen 6"></button>
+                        <button class="dot" data-slide="6" aria-label="Ir a imagen 7"></button>
+                        <button class="dot" data-slide="7" aria-label="Ir a imagen 8"></button>
+                        <button class="dot" data-slide="8" aria-label="Ir a imagen 9"></button>
+                        <button class="dot" data-slide="9" aria-label="Ir a imagen 10"></button>
+                    </div>
+                    <button class="carousel-btn next-btn" aria-label="Siguiente">
+                        <i data-lucide="chevron-right"></i>
+                    </button>
+                </div>
+                
+                <div class="carousel-counter">
+                    <span class="current-slide">1</span> / <span class="total-slides">10</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Descargables Editorial -->
+    <section id="descargables" class="magazine-section downloads-section">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-number">05</span>
+                <h2 class="section-title">Material Descargable</h2>
+            </div>
+            
+            <div class="downloads-grid">
+                <div class="download-item">
+                    <div class="download-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+                        </svg>
+                    </div>
+                    <h3>CV Actoral</h3>
+                    <p>Currículum vitae completo con toda la experiencia profesional</p>
+                    <a href="#" class="download-btn">Descargar PDF</a>
+                </div>
+                
+                <div class="download-item">
+                    <div class="download-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M9,7V12.07L12.71,8.36L16.5,12.15L19.79,8.86L18.38,7.45L16.5,9.33L12.71,5.54L9,9.25V7H9M3,3H21V5H3V3M3,7H7V9H3V7M3,11H7V13H3V11M3,15H7V17H3V15M3,19H21V21H3V19Z"/>
+                        </svg>
+                    </div>
+                    <h3>Ficha Técnica</h3>
+                    <p>Información técnica y medidas para casting</p>
+                    <a href="#" class="download-btn">Descargar PDF</a>
+                </div>
+                
+                <div class="download-item">
+                    <div class="download-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M20,8H4V6H20M20,18H4V12H20M22,4H2V20H22V4Z"/>
+                        </svg>
+                    </div>
+                    <h3>Press Release</h3>
+                    <p>Comunicado de prensa actualizado</p>
+                    <a href="#" class="download-btn">Descargar PDF</a>
+                </div>
+                
+                <div class="download-item">
+                    <div class="download-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M8.5,13.5L11,16.5L14.5,12L19,18H5M21,19V5C21,3.89 20.1,3 19,3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19Z"/>
+                        </svg>
+                    </div>
+                    <h3>Fotos en Alta Resolución</h3>
+                    <p>Pack completo de imágenes profesionales</p>
+                    <a href="#" class="download-btn">Descargar ZIP</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Prensa Editorial -->
+    <section id="prensa" class="magazine-section press-section">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-number">06</span>
+                <h2 class="section-title">Prensa y Reconocimientos</h2>
+            </div>
+            
+            <div class="press-layout">
+                <div class="press-quotes">
+                    <h3>Citas de Medios</h3>
+                    <div class="quote-item">
+                        <blockquote>
+                            "This series tells the incredible story of Pancho Villa in an amazing way. The show stays true to the actual history of Villa and of the Mexican Revolution."
+                        </blockquote>
+                        <cite>— IMDb User Review (10/10)</cite>
+                    </div>
+                    
+                    <div class="quote-item">
+                        <blockquote>
+                            "As a historical enthusiast, I loved the dramatizations of historical events and depictions of important political figures and participants of the revolution."
+                        </blockquote>
+                        <cite>— IMDb User Review (8/10)</cite>
+                    </div>
+                    
+                    <div class="quote-item">
+                        <blockquote>
+                            "Absolutely the best scenery. Filmed partly in my family's home town of San Antonio Matute, Ameca, Jalisco, México!"
+                        </blockquote>
+                        <cite>— IMDb User Review (10/10)</cite>
+                    </div>
+                </div>
+                
+                <div class="press-awards">
+                    <h3>Premios y Festivales</h3>
+                    <div class="awards-list">
+                        <div class="award-item">
+                            <div class="award-title">Mejor Actor</div>
+                            <div class="award-event">Festival de Cine de Guadalajara 2024</div>
+                            <div class="award-project">por "El Último Suspiro"</div>
+                        </div>
+                        
+                        <div class="award-item">
+                            <div class="award-title">Premio de la Crítica</div>
+                            <div class="award-event">Festival Internacional de Cine de Morelia 2022</div>
+                            <div class="award-project">por "Vientos del Norte"</div>
+                        </div>
+                        
+                        <div class="award-item">
+                            <div class="award-title">Nominación Mejor Actor</div>
+                            <div class="award-event">Premios Ariel 2023</div>
+                            <div class="award-project">por "La Casa del Silencio"</div>
+                        </div>
+                        
+                        <div class="award-item">
+                            <div class="award-title">Reconocimiento Especial</div>
+                            <div class="award-event">Festival de Cannes 2021</div>
+                            <div class="award-project">por "Sombras del Pasado"</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contacto Editorial -->
+    <section id="contacto" class="magazine-section contact-section">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-number">07</span>
+                <h2 class="section-title">Contacto</h2>
+            </div>
+            
+            <div class="contact-grid">
+                <div class="contact-item">
+                    <h3>Representación</h3>
+                    <div class="contact-info">
+                        <p><strong>Agencia:</strong> [Nombre de la Agencia]</p>
+                        <p><strong>Agente:</strong> [Nombre del Agente]</p>
+                        <p><strong>Email:</strong> <a href="mailto:agente@agencia.com">agente@agencia.com</a></p>
+                        <p><strong>Teléfono:</strong> +52 (55) XXXX-XXXX</p>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <h3>Prensa</h3>
+                    <div class="contact-info">
+                        <p><strong>Relaciones Públicas:</strong> [Nombre]</p>
+                        <p><strong>Email:</strong> <a href="mailto:prensa@nicolascapetillo.com">prensa@nicolascapetillo.com</a></p>
+                        <p><strong>Teléfono:</strong> +52 (55) XXXX-XXXX</p>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <h3>Redes Sociales</h3>
+                    <div class="social-links">
+                        <a href="#" class="social-link">Instagram</a>
+                        <a href="#" class="social-link">Twitter</a>
+                        <a href="#" class="social-link">LinkedIn</a>
+                        <a href="#" class="social-link">IMDb</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Editorial -->
+    <footer class="magazine-footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <p>&copy; 2024 Nicolás Capetillo. Todos los derechos reservados.</p>
+                <p>Press Kit diseñado para profesionales de la industria cinematográfica.</p>
+                <div class="footer-credits">
+                    <p><span class="powered-text">Powered by</span> <a href="https://mvgn-portfafolio.vercel.app/" target="_blank" class="mvgn-link">
+                        <svg class="mvgn-icon" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M7,2V13H10V22L17,10H13L17,2H7Z"/>
+                        </svg>
+                        MVGN Labs
+                    </a> <span class="year-text">2025</span></p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Custom JS -->
+    <script src="script.js"></script>
+    
+    <!-- Initialize Lucide Icons -->
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+    </script>
+</body>
+</html> 

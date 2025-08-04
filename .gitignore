@@ -1,0 +1,97 @@
+# Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Production builds
+dist/
+build/
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Logs
+logs
+*.log
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directory used by tools like istanbul
+coverage/
+
+# nyc test coverage
+.nyc_output
+
+# Dependency directories
+jspm_packages/
+
+# Optional npm cache directory
+.npm
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
+
+# dotenv environment variables file
+.env
+
+# Fotos no utilizadas en el proyecto
+# Mantener solo las fotos que están siendo usadas actualmente
+assets/fotos/_P5A7071.jpg
+assets/fotos/_P5A7079.jpg
+assets/fotos/_P5A7080.jpg
+assets/fotos/_P5A7081.jpg
+assets/fotos/_P5A7082.jpg
+assets/fotos/_P5A7085 (1).jpg
+assets/fotos/_P5A7085.jpg
+assets/fotos/_P5A7097.jpg
+assets/fotos/_P5A7103.jpg
+assets/fotos/_P5A7104.jpg
+assets/fotos/_P5A7105.jpg
+assets/fotos/_P5A7107.jpg
+assets/fotos/_P5A7111.jpg
+assets/fotos/_P5A7112.jpg
+assets/fotos/_P5A7121.jpg
+assets/fotos/_P5A7122.jpg
+assets/fotos/_P5A7131.jpg
+assets/fotos/_P5A7138.jpg
+assets/fotos/_P5A7145.jpg
+assets/fotos/_P5A7146.jpg
+assets/fotos/_P5A7147.jpg
+assets/fotos/_P5A7148.jpg
+assets/fotos/_P5A7152.jpg
+assets/fotos/captura.jpg
+assets/fotos/front.jpg
+
+# Mantener las fotos que SÍ están siendo usadas
+# 1.jpg, 2.jpg, 3.jpg, 4.jpg, 5.jpg, 6.jpg, 7.jpg, 8.jpg
+# _P5A7048.jpg, _P5A7051.jpg, _P5A7061.jpg, _P5A7068.jpg 
