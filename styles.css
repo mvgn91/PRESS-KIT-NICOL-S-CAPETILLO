@@ -4750,8 +4750,13 @@ html[data-theme="dark"] .contact-section {
 }
 
 /* ===== BOTTOM NAVIGATION BAR ===== */
+.bottom-nav {
+    display: none; /* Oculto por defecto en desktop */
+}
+
 @media (max-width: 768px) {
     .bottom-nav {
+        display: block; /* Solo visible en móvil */
         position: fixed;
         bottom: 0;
         left: 0;
@@ -4795,8 +4800,15 @@ html[data-theme="dark"] .contact-section {
     }
     
     .bottom-nav-icon {
-        font-size: 1.2rem;
         margin-bottom: 0.25rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .bottom-nav-icon i {
+        width: 1.2rem;
+        height: 1.2rem;
     }
     
     .bottom-nav-label {
