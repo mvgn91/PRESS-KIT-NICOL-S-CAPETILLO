@@ -2297,14 +2297,14 @@ p {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%);
+    background: #1a1a1a;
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 9999;
     opacity: 1;
     visibility: visible;
-    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .splash-screen.hidden {
@@ -2321,101 +2321,46 @@ p {
 
 .clapper-container {
     margin-bottom: 2rem;
-    animation: clapperFloat 2s ease-in-out infinite;
+    animation: clapperFloat 1.5s ease-in-out infinite;
 }
 
 .clapper-icon {
-    width: 120px;
-    height: 120px;
-    filter: drop-shadow(0 10px 30px rgba(220, 38, 38, 0.5));
-    animation: clapperAction 3s ease-in-out infinite;
+    width: 100px;
+    height: 100px;
+    filter: drop-shadow(0 5px 15px rgba(255, 255, 255, 0.2));
+    animation: clapperAction 2s ease-in-out infinite;
 }
 
 .splash-text h2 {
     font-family: 'Playfair Display', serif;
-    font-size: 2.5rem;
-    font-weight: 900;
+    font-size: 2rem;
+    font-weight: 700;
     margin-bottom: 0.5rem;
-    background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    animation: textGlow 2s ease-in-out infinite alternate;
+    color: #ffffff;
+    letter-spacing: 1px;
 }
 
 .splash-text p {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 1.2rem;
-    font-weight: 500;
-    color: #ccc;
-    letter-spacing: 2px;
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    color: #cccccc;
+    letter-spacing: 1px;
     text-transform: uppercase;
-    animation: textFade 2s ease-in-out infinite alternate;
 }
 
 .splash-particles {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 1;
-}
-
-.splash-particles::before,
-.splash-particles::after {
-    content: '';
-    position: absolute;
-    width: 4px;
-    height: 4px;
-    background: #dc2626;
-    border-radius: 50%;
-    animation: particleFloat 3s ease-in-out infinite;
-}
-
-.splash-particles::before {
-    top: 20%;
-    left: 20%;
-    animation-delay: 0s;
-}
-
-.splash-particles::after {
-    top: 80%;
-    right: 20%;
-    animation-delay: 1.5s;
+    display: none;
 }
 
 @keyframes clapperFloat {
     0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-10px); }
+    50% { transform: translateY(-5px); }
 }
 
 @keyframes clapperAction {
-    0%, 100% { transform: scale(1) rotate(0deg); }
-    25% { transform: scale(1.1) rotate(-2deg); }
-    75% { transform: scale(1.1) rotate(2deg); }
-}
-
-@keyframes textGlow {
-    0% { filter: drop-shadow(0 0 5px rgba(220, 38, 38, 0.3)); }
-    100% { filter: drop-shadow(0 0 20px rgba(220, 38, 38, 0.6)); }
-}
-
-@keyframes textFade {
-    0% { opacity: 0.7; }
-    100% { opacity: 1; }
-}
-
-@keyframes particleFloat {
-    0%, 100% { 
-        transform: translateY(0px) scale(1);
-        opacity: 0.3;
-    }
-    50% { 
-        transform: translateY(-20px) scale(1.5);
-        opacity: 1;
-    }
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
 }
 
 /* ===== ANIMACIONES DE SCROLL ===== */
