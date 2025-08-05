@@ -915,7 +915,7 @@ p {
 .cover-title {
     font-family: 'Playfair Display', serif;
     font-weight: 900;
-    line-height: 0.9;
+    line-height: 1.1;
     margin-bottom: 1.5rem;
     position: relative;
     text-align: left;
@@ -926,9 +926,10 @@ p {
     font-size: clamp(3.5rem, 8vw, 6rem);
     color: var(--text-primary);
     position: relative;
-    overflow: hidden;
+    overflow: visible;
     margin: 0;
     padding: 0;
+    line-height: 1.1;
 }
 
 .title-line:nth-child(1) {
@@ -3217,6 +3218,7 @@ p {
     
     .cover-title {
         font-size: clamp(1.8rem, 6vw, 2.2rem);
+        line-height: 1.2;
     }
     
     .btn-primary, .btn-secondary {
