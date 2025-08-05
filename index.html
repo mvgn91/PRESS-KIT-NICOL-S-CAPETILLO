@@ -31,6 +31,10 @@
                             <stop offset="0%" style="stop-color:#dc2626;stop-opacity:1" />
                             <stop offset="100%" style="stop-color:#ef4444;stop-opacity:1" />
                         </linearGradient>
+                        <linearGradient id="handleGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#1a1a1a;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#333333;stop-opacity:1" />
+                        </linearGradient>
                         <filter id="glow">
                             <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
                             <feMerge> 
@@ -40,24 +44,29 @@
                         </filter>
                     </defs>
                     
-                    <!-- Base de la claqueta -->
-                    <rect x="20" y="30" width="80" height="50" rx="4" fill="url(#splashGradient)" stroke="#fff" stroke-width="2" filter="url(#glow)"/>
+                    <!-- Mango principal -->
+                    <rect x="52" y="75" width="16" height="32" rx="3" fill="url(#handleGradient)" stroke="#fff" stroke-width="2" filter="url(#glow)"/>
                     
-                    <!-- Líneas de la claqueta -->
-                    <rect x="25" y="37" width="70" height="6" fill="#fff"/>
-                    <rect x="25" y="47" width="70" height="6" fill="#fff"/>
-                    <rect x="25" y="57" width="70" height="6" fill="#fff"/>
+                    <!-- Base superior de la claqueta -->
+                    <rect x="22" y="45" width="76" height="24" rx="3" fill="url(#splashGradient)" stroke="#fff" stroke-width="2" filter="url(#glow)"/>
                     
-                    <!-- Mango -->
-                    <rect x="45" y="80" width="30" height="12" rx="3" fill="url(#splashGradient)" stroke="#fff" stroke-width="2"/>
+                    <!-- Líneas de la claqueta (más realistas) -->
+                    <rect x="26" y="51" width="68" height="3" fill="#fff"/>
+                    <rect x="26" y="58" width="68" height="3" fill="#fff"/>
+                    <rect x="26" y="65" width="68" height="3" fill="#fff"/>
                     
-                    <!-- Detalles -->
-                    <circle cx="30" cy="40" r="3" fill="#fff"/>
-                    <circle cx="90" cy="40" r="3" fill="#fff"/>
-                    <circle cx="30" cy="50" r="3" fill="#fff"/>
-                    <circle cx="90" cy="50" r="3" fill="#fff"/>
-                    <circle cx="30" cy="60" r="3" fill="#fff"/>
-                    <circle cx="90" cy="60" r="3" fill="#fff"/>
+                    <!-- Detalles de los bordes -->
+                    <rect x="22" y="45" width="3" height="24" fill="#b91c1c"/>
+                    <rect x="95" y="45" width="3" height="24" fill="#b91c1c"/>
+                    
+                    <!-- Tornillos/remaches -->
+                    <circle cx="30" cy="52" r="2.5" fill="#fff"/>
+                    <circle cx="90" cy="52" r="2.5" fill="#fff"/>
+                    <circle cx="30" cy="59" r="2.5" fill="#fff"/>
+                    <circle cx="90" cy="59" r="2.5" fill="#fff"/>
+                    
+                    <!-- Detalle del mango -->
+                    <rect x="58" y="85" width="4" height="16" fill="#666"/>
                 </svg>
             </div>
             <div class="splash-text">
