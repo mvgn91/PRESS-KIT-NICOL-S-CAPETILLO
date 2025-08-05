@@ -943,7 +943,7 @@ p {
     font-family: 'Playfair Display', serif;
     font-weight: 900;
     line-height: 0.9;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
     position: relative;
     text-align: left;
 }
@@ -2411,6 +2411,8 @@ p {
     filter: drop-shadow(0 0 8px rgba(220, 38, 38, 0.6));
 }
 
+
+
 /* ===== RESPONSIVE ===== */
 
 /* Tablet Landscape */
@@ -2441,6 +2443,8 @@ p {
         gap: 1.5rem;
     }
     
+
+    
     .demo-grid {
         grid-template-columns: 1fr;
         gap: 2rem;
@@ -2468,6 +2472,8 @@ p {
         grid-template-columns: repeat(2, 1fr);
         gap: 1.5rem;
     }
+    
+
 }
 
 /* Tablet Portrait */
@@ -4207,6 +4213,8 @@ p {
 [data-theme="dark"] .contact-grid {
     background: var(--bg-primary);
 }
+
+
 
 /* Tema Oscuro - Elementos de Texto Específicos */
 [data-theme="dark"] h1,
