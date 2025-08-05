@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <defs>
+    <linearGradient id="clapperGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#000000;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#333333;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Base de la claqueta -->
+  <rect x="4" y="8" width="24" height="16" rx="2" fill="url(#clapperGradient)" stroke="#000" stroke-width="1"/>
+  
+  <!-- Líneas de la claqueta -->
+  <rect x="6" y="10" width="20" height="2" fill="#fff"/>
+  <rect x="6" y="14" width="20" height="2" fill="#fff"/>
+  <rect x="6" y="18" width="20" height="2" fill="#fff"/>
+  
+  <!-- Mango -->
+  <rect x="12" y="24" width="8" height="4" rx="1" fill="url(#clapperGradient)" stroke="#000" stroke-width="1"/>
+  
+  <!-- Detalles -->
+  <circle cx="8" cy="11" r="1" fill="#fff"/>
+  <circle cx="24" cy="11" r="1" fill="#fff"/>
+  <circle cx="8" cy="15" r="1" fill="#fff"/>
+  <circle cx="24" cy="15" r="1" fill="#fff"/>
+  <circle cx="8" cy="19" r="1" fill="#fff"/>
+  <circle cx="24" cy="19" r="1" fill="#fff"/>
+</svg> 

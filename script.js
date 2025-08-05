@@ -1,3 +1,20 @@
+// ===== SPLASH SCREEN =====
+function initSplashScreen() {
+    const splashScreen = document.getElementById('splashScreen');
+    
+    if (splashScreen) {
+        // Ocultar splash screen después de 3.5 segundos
+        setTimeout(() => {
+            splashScreen.classList.add('hidden');
+            
+            // Remover completamente después de la animación
+            setTimeout(() => {
+                splashScreen.style.display = 'none';
+            }, 800);
+        }, 3500);
+    }
+}
+
 // ===== NAVEGACIÓN =====
 document.addEventListener('DOMContentLoaded', function() {
     // Bottom Navigation (Móvil)
@@ -94,6 +111,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     window.addEventListener('scroll', updateNavStyle);
+    
+    // Inicializar splash screen
+    initSplashScreen();
     });
     
     // ===== ANIMACIONES AL HACER SCROLL =====
@@ -112,7 +132,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
 // Observar elementos para animación
 document.addEventListener('DOMContentLoaded', function() {
-    const animateElements = document.querySelectorAll('.film-item, .download-item, .gallery-item, .timeline-item, .quote-item, .award-item');
+    const animateElements = document.querySelectorAll('.scroll-animate, .scroll-animate-left, .scroll-animate-right, .scroll-animate-scale, .film-item, .download-item, .gallery-item, .timeline-item, .quote-item, .award-item, .bio-detail-item, .stat-card, .contact-item, .social-link');
     
     animateElements.forEach(el => {
         observer.observe(el);
