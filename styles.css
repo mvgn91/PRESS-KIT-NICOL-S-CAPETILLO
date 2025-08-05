@@ -2325,9 +2325,9 @@ p {
 }
 
 .clapper-icon {
-    width: 100px;
-    height: 100px;
-    filter: drop-shadow(0 5px 15px rgba(255, 255, 255, 0.2));
+    width: 120px;
+    height: 120px;
+    filter: drop-shadow(0 5px 15px rgba(255, 255, 255, 0.3));
     animation: clapperAction 2s ease-in-out infinite;
 }
 
