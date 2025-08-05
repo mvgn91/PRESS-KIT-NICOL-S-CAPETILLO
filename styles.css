@@ -1420,6 +1420,18 @@ p {
     margin: 0;
 }
 
+.formation-link {
+    color: var(--accent-red);
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.formation-link:hover {
+    color: var(--accent-red-dark);
+    text-decoration: underline;
+}
+
 .bio-stats {
     margin: 4rem 0;
 }
