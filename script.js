@@ -396,7 +396,7 @@ function showLightbox(imageSrc, imageAlt, caption, currentIndex = 0) {
                 lightboxImage.src = img.src;
                 lightboxImage.alt = img.alt;
                 caption.textContent = `Imagen ${index + 1} de ${totalSlides}`;
-                counter.textContent = `${index + 1} / ${totalSlides}`;
+                                counter.textContent = `${index + 1} / ${totalSlides}`;
                 
                 // Actualizar el botón "Ver en Grande" con la nueva imagen
                 const viewFullBtn = modal.querySelector('.view-full-btn');
