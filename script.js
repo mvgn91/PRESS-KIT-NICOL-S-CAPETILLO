@@ -3,15 +3,15 @@ function initSplashScreen() {
     const splashScreen = document.getElementById('splashScreen');
     
     if (splashScreen) {
-        // Ocultar splash screen después de 1.5 segundos
+        // Ocultar splash screen después de 4 segundos (para permitir que se complete la transición de color)
         setTimeout(() => {
-            splashScreen.classList.add('hidden');
+            splashScreen.classList.add('fade-out');
             
             // Remover completamente después de la animación
             setTimeout(() => {
                 splashScreen.style.display = 'none';
-            }, 600);
-        }, 1500);
+            }, 1000);
+        }, 4000);
     }
 }
 

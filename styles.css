@@ -1727,6 +1727,37 @@ p {
     gap: 1.5rem;
 }
 
+/* Estilos para demo centrado */
+.demo-content-centered {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.demo-content-centered .main-video {
+    width: 100%;
+    height: 450px;
+}
+
+.video-info-centered {
+    text-align: center;
+}
+
+.video-info-centered .video-title {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+}
+
+.video-info-centered .video-description {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    max-width: 600px;
+}
+
 .video-placeholder {
     position: relative;
     background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
@@ -3739,6 +3770,40 @@ p {
     }
 } 
 
+/* Demo Reel Responsivo */
+@media (max-width: 768px) {
+    .demo-content-centered {
+        gap: 1.5rem;
+        padding: 0 1rem;
+    }
+    
+    .demo-content-centered .main-video {
+        height: 250px;
+    }
+    
+    .video-info-centered .video-title {
+        font-size: 1.5rem;
+    }
+    
+    .video-info-centered .video-description {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .demo-content-centered .main-video {
+        height: 200px;
+    }
+    
+    .video-info-centered .video-title {
+        font-size: 1.3rem;
+    }
+    
+    .video-info-centered .video-description {
+        font-size: 0.9rem;
+    }
+}
+
 /* Elementos Interactivos Móviles Optimizados */
 @media (max-width: 768px) {
     /* Navegación Móvil Mejorada */
@@ -4097,12 +4162,12 @@ p {
         transform: translateZ(0);
     }
     
-    /* Optimizar carga de imágenes */
+    /* Optimizar carga de imágenes - estos atributos van en HTML, no CSS */
     .carousel-photo,
     .cover-photo,
     .bio-hero-photo {
-        loading: lazy;
-        decoding: async;
+        width: 100%;
+        height: auto;
     }
 }
 
@@ -4976,5 +5041,194 @@ html[data-theme="dark"] .contact-section {
     /* Ajustar contenido para bottom nav */
     body {
         padding-bottom: 80px;
+    }
+}
+
+/* ===== SPLASH SCREEN ===== */
+.splash-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    opacity: 1;
+    visibility: visible;
+    transition: all 1s ease-in-out;
+    overflow: hidden;
+}
+
+.splash-screen.fade-out {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.splash-content {
+    text-align: center;
+    color: white;
+    z-index: 2;
+    position: relative;
+    animation: fadeInUp 1s ease-out;
+}
+
+.clapper-container {
+    margin-bottom: 2rem;
+    animation: clapperFloat 2s ease-in-out infinite alternate;
+}
+
+.clapper-icon {
+    width: 120px;
+    height: 120px;
+    filter: drop-shadow(0 10px 25px rgba(0, 0, 0, 0.3));
+    animation: colorTransition 3s ease-in-out forwards 1.5s;
+}
+
+.splash-text h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: white;
+    animation: textFadeIn 1s ease-out 0.5s both;
+}
+
+.splash-text p {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.8);
+    animation: textFadeIn 1s ease-out 0.8s both;
+}
+
+/* Partículas animadas de fondo */
+.splash-particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(2px 2px at 20px 30px, rgba(255, 255, 255, 0.2), transparent),
+        radial-gradient(2px 2px at 40px 70px, rgba(255, 255, 255, 0.1), transparent),
+        radial-gradient(1px 1px at 90px 40px, rgba(255, 255, 255, 0.2), transparent),
+        radial-gradient(1px 1px at 130px 80px, rgba(255, 255, 255, 0.1), transparent),
+        radial-gradient(2px 2px at 160px 30px, rgba(255, 255, 255, 0.2), transparent);
+    background-repeat: repeat;
+    background-size: 200px 100px;
+    animation: sparkle 10s linear infinite;
+}
+
+/* Efecto de difuminado dinámico para transición de color */
+.splash-screen::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, 
+        rgba(220, 38, 38, 0) 0%, 
+        rgba(239, 68, 68, 0.1) 30%, 
+        rgba(185, 28, 28, 0.2) 70%, 
+        rgba(220, 38, 38, 0.3) 100%);
+    opacity: 0;
+    animation: colorOverlay 3s ease-in-out forwards 2s;
+    z-index: 1;
+}
+
+/* Animaciones */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes clapperFloat {
+    from {
+        transform: translateY(0px) rotate(0deg);
+    }
+    to {
+        transform: translateY(-10px) rotate(2deg);
+    }
+}
+
+@keyframes textFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes sparkle {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-200px);
+    }
+}
+
+@keyframes colorTransition {
+    0% {
+        filter: drop-shadow(0 10px 25px rgba(0, 0, 0, 0.3));
+    }
+    50% {
+        filter: drop-shadow(0 10px 25px rgba(220, 38, 38, 0.3)) hue-rotate(0deg);
+    }
+    100% {
+        filter: drop-shadow(0 10px 25px rgba(220, 38, 38, 0.6)) hue-rotate(10deg);
+    }
+}
+
+@keyframes colorOverlay {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+/* Responsive para splash screen */
+@media (max-width: 768px) {
+    .clapper-icon {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .splash-text h2 {
+        font-size: 2rem;
+    }
+    
+    .splash-text p {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .clapper-icon {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .splash-text h2 {
+        font-size: 1.8rem;
+    }
+    
+    .splash-text p {
+        font-size: 0.9rem;
     }
 }
