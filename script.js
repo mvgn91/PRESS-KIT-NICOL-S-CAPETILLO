@@ -3,7 +3,7 @@ function initSplashScreen() {
     const splashScreen = document.getElementById('splashScreen');
     
     if (splashScreen) {
-        // Ocultar splash screen después de 4 segundos (para permitir que se complete la transición de color)
+        // Ocultar splash screen después de 2.5 segundos (tiempo optimizado)
         setTimeout(() => {
             splashScreen.classList.add('fade-out');
             
@@ -11,7 +11,7 @@ function initSplashScreen() {
             setTimeout(() => {
                 splashScreen.style.display = 'none';
             }, 1000);
-        }, 4000);
+        }, 2500);
     }
 }
 
@@ -148,6 +148,41 @@ document.addEventListener('DOMContentLoaded', function() {
     downloadButtons.forEach(button => {
         button.addEventListener('click', function(e) {
             const href = this.getAttribute('href');
+            const buttonId = this.getAttribute('id');
+            
+            // Manejo especial para el botón de fotos
+            if (buttonId === 'photosDownload') {
+                e.preventDefault();
+                
+                // Agregar efecto visual de descarga
+                const originalText = this.textContent;
+                this.textContent = 'Descargando...';
+                this.style.opacity = '0.7';
+                this.style.pointerEvents = 'none';
+                
+                // Mostrar notificación
+                showNotification('Iniciando descarga...', 'success');
+                
+                // Crear enlace temporal para descarga directa
+                const downloadUrl = href + '&download=1';
+                const tempLink = document.createElement('a');
+                tempLink.href = downloadUrl;
+                tempLink.download = 'Nicolas_Capetillo_Fotos_Alta_Resolucion.zip';
+                tempLink.style.display = 'none';
+                document.body.appendChild(tempLink);
+                tempLink.click();
+                document.body.removeChild(tempLink);
+                
+                // Restaurar el botón después de 3 segundos
+                setTimeout(() => {
+                    this.textContent = originalText;
+                    this.style.opacity = '1';
+                    this.style.pointerEvents = 'auto';
+                    showNotification('Descarga completada', 'success');
+                }, 3000);
+                
+                return false;
+            }
             
             // Si el botón tiene un href válido (no #), proceder con la descarga
             if (href && href !== '#') {
@@ -238,62 +273,145 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // ===== UTILIDADES =====
 
-// Sistema de notificaciones
+// Sistema de notificaciones estilizado
 function showNotification(message, type = 'info') {
     // Crear elemento de notificación
-        const notification = document.createElement('div');
+    const notification = document.createElement('div');
     notification.className = `notification notification-${type}`;
+    
+    // Determinar iconos y colores según el tipo
+    const icons = {
+        success: '✓',
+        error: '✕',
+        warning: '⚠',
+        info: 'ℹ'
+    };
+    
+    const colors = {
+        success: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+        error: 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)',
+        warning: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)',
+        info: 'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)'
+    };
+    
     notification.innerHTML = `
         <div class="notification-content">
+            <div class="notification-icon">${icons[type] || icons.info}</div>
             <span class="notification-message">${message}</span>
             <button class="notification-close">&times;</button>
         </div>
     `;
     
-    // Agregar estilos
-        notification.style.cssText = `
-            position: fixed;
-        top: 20px;
-            right: 20px;
-        background: ${type === 'success' ? '#4CAF50' : type === 'error' ? '#f44336' : '#2196F3'};
-            color: white;
+    // Agregar estilos coherentes con el portafolio
+    notification.style.cssText = `
+        position: fixed;
+        top: 100px;
+        right: 20px;
+        background: ${colors[type] || colors.info};
+        color: white;
         padding: 1rem 1.5rem;
-        border-radius: 8px;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-            z-index: 10000;
-            transform: translateX(100%);
-            transition: transform 0.3s ease;
-        max-width: 300px;
-        `;
-        
-    // Agregar al DOM
-        document.body.appendChild(notification);
-        
-        // Animar entrada
-        setTimeout(() => {
-            notification.style.transform = 'translateX(0)';
-        }, 100);
-        
-    // Cerrar notificación
+        border-radius: 12px;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        z-index: 10000;
+        transform: translateX(100%);
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        max-width: 350px;
+        font-family: 'Space Grotesk', sans-serif;
+        font-weight: 500;
+        opacity: 0;
+    `;
+    
+    // Estilos para el contenido
+    const content = notification.querySelector('.notification-content');
+    content.style.cssText = `
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    `;
+    
+    // Estilos para el icono
+    const icon = notification.querySelector('.notification-icon');
+    icon.style.cssText = `
+        width: 24px;
+        height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+        font-size: 14px;
+        font-weight: bold;
+        flex-shrink: 0;
+    `;
+    
+    // Estilos para el mensaje
+    const messageEl = notification.querySelector('.notification-message');
+    messageEl.style.cssText = `
+        flex: 1;
+        font-size: 0.9rem;
+        line-height: 1.4;
+    `;
+    
+    // Estilos para el botón de cerrar
     const closeBtn = notification.querySelector('.notification-close');
-    closeBtn.addEventListener('click', () => {
-        notification.style.transform = 'translateX(100%)';
-        setTimeout(() => {
-            document.body.removeChild(notification);
-        }, 300);
+    closeBtn.style.cssText = `
+        background: none;
+        border: none;
+        color: white;
+        font-size: 18px;
+        cursor: pointer;
+        padding: 4px;
+        border-radius: 4px;
+        transition: all 0.2s ease;
+        opacity: 0.7;
+        flex-shrink: 0;
+    `;
+    
+    // Agregar al DOM
+    document.body.appendChild(notification);
+    
+    // Animar entrada
+    setTimeout(() => {
+        notification.style.transform = 'translateX(0)';
+        notification.style.opacity = '1';
+    }, 100);
+    
+    // Hover del botón cerrar
+    closeBtn.addEventListener('mouseenter', () => {
+        closeBtn.style.opacity = '1';
+        closeBtn.style.background = 'rgba(255, 255, 255, 0.1)';
     });
     
-    // Auto-cerrar después de 5 segundos
+    closeBtn.addEventListener('mouseleave', () => {
+        closeBtn.style.opacity = '0.7';
+        closeBtn.style.background = 'none';
+    });
+    
+    // Cerrar notificación
+    closeBtn.addEventListener('click', () => {
+        notification.style.transform = 'translateX(100%)';
+        notification.style.opacity = '0';
+        setTimeout(() => {
+            if (document.body.contains(notification)) {
+                document.body.removeChild(notification);
+            }
+        }, 400);
+    });
+    
+    // Auto-cerrar después de 4 segundos
     setTimeout(() => {
         if (document.body.contains(notification)) {
             notification.style.transform = 'translateX(100%)';
+            notification.style.opacity = '0';
             setTimeout(() => {
                 if (document.body.contains(notification)) {
-                document.body.removeChild(notification);
+                    document.body.removeChild(notification);
                 }
-            }, 300);
+            }, 400);
         }
-    }, 5000);
+    }, 4000);
 }
 
 // Modal de lightbox con navegación
