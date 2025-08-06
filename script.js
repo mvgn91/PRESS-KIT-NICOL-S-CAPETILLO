@@ -141,21 +141,51 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // ===== FUNCIONALIDADES INTERACTIVAS =====
     
-// Simulación de descargas
+// ===== BOTONES DE DESCARGA =====
 document.addEventListener('DOMContentLoaded', function() {
     const downloadButtons = document.querySelectorAll('.download-btn');
     
     downloadButtons.forEach(button => {
         button.addEventListener('click', function(e) {
-            e.preventDefault();
+            const href = this.getAttribute('href');
             
-            // Mostrar notificación
-            showNotification('Descarga iniciada...', 'success');
-            
-            // Simular descarga
-            setTimeout(() => {
-                showNotification('Descarga completada', 'success');
-            }, 2000);
+            // Si el botón tiene un href válido (no #), proceder con la descarga
+            if (href && href !== '#') {
+                // Agregar efecto visual de descarga
+                const originalText = this.textContent;
+                this.textContent = 'Descargando...';
+                this.style.opacity = '0.7';
+                this.style.pointerEvents = 'none';
+                
+                // Mostrar notificación
+                showNotification('Iniciando descarga...', 'success');
+                
+                // Restaurar el botón después de 3 segundos
+                setTimeout(() => {
+                    this.textContent = originalText;
+                    this.style.opacity = '1';
+                    this.style.pointerEvents = 'auto';
+                    showNotification('Descarga en progreso', 'info');
+                }, 3000);
+                
+                // Permitir que la descarga continúe normalmente
+                return true;
+            } else {
+                // Prevenir la acción si no hay enlace válido
+                e.preventDefault();
+                
+                // Mostrar mensaje temporal
+                const originalText = this.textContent;
+                this.textContent = 'Próximamente disponible';
+                this.style.opacity = '0.7';
+                
+                showNotification('Archivo no disponible aún', 'warning');
+                
+                setTimeout(() => {
+                    this.textContent = originalText;
+                    this.style.opacity = '1';
+                }, 2000);
+            }
         });
     });
 });
