@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ficha Técnica - Nicolás Capetillo</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    
+    <style>
+        :root {
+            --accent-red: #dc2626;
+            --accent-red-light: #ef4444;
+            --accent-red-dark: #b91c1c;
+            --accent-gradient: linear-gradient(135deg, #dc2626 0%, #ef4444 50%, #b91c1c 100%);
+            --accent-gradient-hover: linear-gradient(135deg, #b91c1c 0%, #dc2626 50%, #ef4444 100%);
+            
+            /* Tema Claro */
+            --bg-primary: #ffffff;
+            --bg-secondary: #fafafa;
+            --bg-tertiary: #f8f9fa;
+            --text-primary: #1a1a1a;
+            --text-secondary: #4a5568;
+            --text-muted: #666;
+            --border-color: rgba(0, 0, 0, 0.1);
+            --shadow-color: rgba(0, 0, 0, 0.1);
+            --nav-bg: rgba(255, 255, 255, 0.95);
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --overlay-bg: rgba(0, 0, 0, 0.9);
+            
+            /* Transiciones suaves para cambio de tema */
+            --transition-smooth: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-fast: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* ===== TEMA OSCURO COMPLETO ===== */
+        
+        /* Tema Oscuro - Variables */
+        [data-theme="dark"] {
+            --bg-primary: #0f0f0f;
+            --bg-secondary: #1a1a1a;
+            --bg-tertiary: #2a2a2a;
+            --text-primary: #ffffff;
+            --text-secondary: #e2e8f0;
+            --text-muted: #a0aec0;
+            --border-color: rgba(255, 255, 255, 0.1);
+            --shadow-color: rgba(0, 0, 0, 0.3);
+            --nav-bg: rgba(15, 15, 15, 0.95);
+            --card-bg: rgba(26, 26, 26, 0.95);
+            --overlay-bg: rgba(0, 0, 0, 0.95);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            transition: var(--transition-smooth);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: var(--accent-red);
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .ficha-content {
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+        }
+
+        .photo-section {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .photo-container {
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            margin: 0 auto 1.5rem;
+            max-width: 500px;
+            position: relative;
+        }
+
+        .actor-photo {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+            display: block;
+        }
+
+        .photo-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+            padding: 1.5rem;
+            color: white;
+            text-align: center;
+        }
+
+        .photo-caption {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        .photo-subtitle {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.9;
+            text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .info-sections {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .info-section {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 16px var(--shadow-color);
+            border: 1px solid var(--border-color);
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .section-title i {
+            color: var(--accent-red);
+            background: rgba(220, 38, 38, 0.1);
+            padding: 0.5rem;
+            border-radius: 8px;
+        }
+
+        .info-grid {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 0.75rem;
+            background: var(--bg-secondary);
+            border-radius: 6px;
+            border-left: 3px solid var(--accent-red);
+        }
+
+        .info-label {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 0.85rem;
+            min-width: 120px;
+        }
+
+        .info-value {
+            font-weight: 500;
+            color: var(--text-primary);
+            text-align: right;
+            flex: 1;
+        }
+
+        .special-skill {
+            flex-direction: row;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .skill-icon {
+            font-size: 1.3rem;
+            min-width: 35px;
+            text-align: center;
+            background: rgba(220, 38, 38, 0.1);
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .special-skill .info-value {
+            text-align: left;
+            flex: 1;
+            font-size: 0.95rem;
+        }
+
+        .timeline {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .timeline-item {
+            display: grid;
+            grid-template-columns: 100px 1fr;
+            gap: 1.5rem;
+            padding: 1.25rem;
+            background: var(--bg-secondary);
+            border-radius: 8px;
+            border-left: 3px solid var(--accent-red);
+        }
+
+        .timeline-year {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--accent-red);
+            text-align: center;
+            padding: 0.5rem;
+            background: rgba(220, 38, 38, 0.1);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .timeline-content h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-content p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        .experience-grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .experience-item {
+            padding: 1.5rem;
+            background: var(--bg-secondary);
+            border-radius: 8px;
+            border-left: 3px solid var(--accent-red);
+        }
+
+        .experience-item h4 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--accent-red);
+            margin-bottom: 0.75rem;
+        }
+
+        .experience-item p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .contact-card {
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .contact-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--accent-gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .contact-header h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .contact-name {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--accent-red);
+            margin: 0;
+        }
+
+        .contact-details {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .contact-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem;
+            background: var(--bg-primary);
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+        }
+
+        .contact-label {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 0.85rem;
+            min-width: 80px;
+        }
+
+        .contact-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--accent-red);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .contact-link:hover {
+            color: var(--accent-red-dark);
+        }
+
+        /* ===== BOTÓN DE TEMA ===== */
+        .theme-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            position: fixed;
+            bottom: 2rem;
+            left: 2rem;
+            overflow: hidden;
+            background: var(--card-bg);
+            border: 2px solid var(--border-color);
+            box-shadow: 0 2px 10px var(--shadow-color);
+            z-index: 1000;
+        }
+
+        .theme-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px var(--shadow-color);
+            background: var(--bg-tertiary);
+        }
+
+        .theme-toggle:active {
+            transform: translateY(0);
+        }
+
+        .theme-icon {
+            width: 24px;
+            height: 24px;
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+            position: absolute;
+        }
+
+        .sun-icon {
+            opacity: 1;
+            transform: rotate(0deg);
+        }
+
+        .moon-icon {
+            opacity: 0;
+            transform: rotate(-90deg);
+        }
+
+        /* Tema oscuro activo */
+        [data-theme="dark"] .sun-icon {
+            opacity: 0;
+            transform: rotate(90deg);
+        }
+
+        [data-theme="dark"] .moon-icon {
+            opacity: 1;
+            transform: rotate(0deg);
+        }
+
+        [data-theme="dark"] .theme-toggle {
+            background: var(--bg-secondary);
+            border-color: var(--border-color);
+        }
+
+        .back-btn {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--accent-gradient);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            cursor: pointer;
+            box-shadow: 0 4px 16px rgba(220, 38, 38, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(220, 38, 38, 0.4);
+            color: white;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .header h1 {
+                font-size: 2.5rem;
+            }
+
+            .ficha-content {
+                gap: 2rem;
+            }
+
+            .photo-container {
+                max-width: 100%;
+            }
+
+            .info-sections {
+                gap: 1.5rem;
+            }
+
+            .info-item {
+                flex-direction: column;
+                gap: 0.5rem;
+                align-items: flex-start;
+            }
+
+            .theme-toggle {
+                width: 44px;
+                height: 44px;
+                bottom: 1rem;
+                left: 1rem;
+            }
+
+            .back-btn {
+                width: 50px;
+                height: 50px;
+                bottom: 1rem;
+                right: 1rem;
+            }
+
+            .info-label {
+                min-width: auto;
+            }
+
+            .info-value {
+                text-align: left;
+            }
+
+            .special-skill {
+                flex-direction: row;
+                align-items: center;
+            }
+
+            .timeline-item {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .timeline-year {
+                justify-self: center;
+                max-width: 100px;
+            }
+
+            .contact-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .contact-item {
+                flex-direction: column;
+                gap: 0.5rem;
+                align-items: flex-start;
+            }
+        }
+
+        @media print {
+            .back-btn {
+                display: none;
+            }
+            
+            body {
+                background: white;
+            }
+            
+            .container {
+                max-width: none;
+                padding: 1rem;
+            }
+            
+            .info-section {
+                box-shadow: none;
+                border: 1px solid #ccc;
+                page-break-inside: avoid;
+                margin-bottom: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Ficha Técnica</h1>
+            <p>Actor Profesional</p>
+        </div>
+
+        <div class="ficha-content">
+            <!-- Foto Principal -->
+            <div class="photo-section">
+                <div class="photo-container">
+                    <img src="assets/fotos/newfront.jpg" alt="Nicolás Capetillo - Foto Principal" class="actor-photo">
+                </div>
+            </div>
+
+            <!-- Información Técnica -->
+            <div class="info-sections">
+                <!-- Datos Personales -->
+                <div class="info-section">
+                    <h3 class="section-title">
+                        <i data-lucide="user"></i>
+                        Datos Personales
+                    </h3>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <span class="info-label">Nombre completo:</span>
+                            <span class="info-value">Nicolás Capetillo Potter</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Nombre artístico:</span>
+                            <span class="info-value">Nicolás Capetillo</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Fecha de nacimiento:</span>
+                            <span class="info-value">13 de enero de 1978</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Edad:</span>
+                            <span class="info-value">46 años</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Nacionalidad:</span>
+                            <span class="info-value">Estadounidense / Mexicano</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Características Físicas -->
+                <div class="info-section">
+                    <h3 class="section-title">
+                        <i data-lucide="ruler"></i>
+                        Características Físicas
+                    </h3>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <span class="info-label">Estatura:</span>
+                            <span class="info-value">1.78 m</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Peso:</span>
+                            <span class="info-value">80 kg</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Color de cabello:</span>
+                            <span class="info-value">Oscuro</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Color de ojos:</span>
+                            <span class="info-value">Azules</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Complexión:</span>
+                            <span class="info-value">Delgada</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Distintivos:</span>
+                            <span class="info-value">Ninguno relevante</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Idiomas -->
+                <div class="info-section">
+                    <h3 class="section-title">
+                        <i data-lucide="globe"></i>
+                        Idiomas
+                    </h3>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <span class="info-label">Español:</span>
+                            <span class="info-value">Nativo</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Inglés:</span>
+                            <span class="info-value">Nativo</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Habilidades Especiales -->
+                <div class="info-section">
+                    <h3 class="section-title">
+                        <i data-lucide="star"></i>
+                        Habilidades y Talentos Especiales
+                    </h3>
+                    <div class="info-grid">
+                        <div class="info-item special-skill">
+                            <span class="skill-icon">🎵</span>
+                            <span class="info-value">Canto</span>
+                        </div>
+                        <div class="info-item special-skill">
+                            <span class="skill-icon">🥾</span>
+                            <span class="info-value">Hiking (práctica frecuente)</span>
+                        </div>
+                        <div class="info-item special-skill">
+                            <span class="skill-icon">🦅</span>
+                            <span class="info-value">Habilidades avanzadas en trabajo directo con fauna salvaje, destacando el manejo de águilas en su ecosistema natural</span>
+                        </div>
+                        <div class="info-item special-skill">
+                            <span class="skill-icon">🚗</span>
+                            <span class="info-value">Licencia de conducir vigente</span>
+                        </div>
+                        <div class="info-item special-skill">
+                            <span class="skill-icon">✈️</span>
+                            <span class="info-value">Disponibilidad para viajar al extranjero</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Formación Profesional -->
+                <div class="info-section">
+                    <h3 class="section-title">
+                        <i data-lucide="graduation-cap"></i>
+                        Formación y Experiencia Profesional
+                    </h3>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-year">1996</div>
+                            <div class="timeline-content">
+                                <h4>Primeras clases en actuación</h4>
+                                <p>Universidad Cornell</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-year">1985-1995</div>
+                            <div class="timeline-content">
+                                <h4>Modelaje de fotografía comercial</h4>
+                                <p>Carrera activa con experiencia sólida en expresión visual y comunicación no verbal</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-year">2021-Presente</div>
+                            <div class="timeline-content">
+                                <h4>Formación continua</h4>
+                                <p>Con la Maestra Marisol Padilla</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-year">2024</div>
+                            <div class="timeline-content">
+                                <h4>Taller de Actuación de Método</h4>
+                                <p>Con Patricia Barbosa</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Experiencia Cinematográfica -->
+                <div class="info-section">
+                    <h3 class="section-title">
+                        <i data-lucide="tv"></i>
+                        Experiencia Cinematográfica
+                    </h3>
+                    <div class="experience-grid">
+                        <div class="experience-item">
+                            <h4>Debut Profesional</h4>
+                            <p>Papel de Embajador Americano en "El Centauro del Norte", reconocimiento crítico</p>
+                        </div>
+                        <div class="experience-item">
+                            <h4>Proyectos Cinematográficos</h4>
+                            <p>Participación en doblaje para cine ADR en "Campeón Gabacho" (dir. Jonás Cuarón), película en post-producción con estreno previsto para este año</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contacto Profesional -->
+                <div class="info-section">
+                    <h3 class="section-title">
+                        <i data-lucide="briefcase"></i>
+                        Contacto Profesional
+                    </h3>
+                    <div class="contact-card">
+                        <div class="contact-header">
+                            <div class="contact-icon">
+                                <i data-lucide="user-check"></i>
+                            </div>
+                            <div>
+                                <h4>Manager</h4>
+                                <p class="contact-name">Mimi Carrillo</p>
+                            </div>
+                        </div>
+                        <div class="contact-details">
+                            <div class="contact-item">
+                                <span class="contact-label">Agencia:</span>
+                                <span class="info-value">Mimi Carrillo Agency</span>
+                            </div>
+                            <div class="contact-item">
+                                <span class="contact-label">Sitio web:</span>
+                                <a href="https://mimicarrillo.com/" target="_blank" class="contact-link">
+                                    <i data-lucide="external-link"></i>
+                                    https://mimicarrillo.com/
+                                </a>
+                            </div>
+                            <div class="contact-item">
+                                <span class="contact-label">Email:</span>
+                                <a href="mailto:contacto@mimicarrillo.com" class="contact-link">
+                                    <i data-lucide="mail"></i>
+                                    contacto@mimicarrillo.com
+                                </a>
+                            </div>
+                            <div class="contact-item">
+                                <span class="contact-label">Teléfono:</span>
+                                <a href="tel:+525587435405" class="contact-link">
+                                    <i data-lucide="phone"></i>
+                                    +52 55 87 43 54 05
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Material Adicional -->
+                <div class="info-section">
+                    <h3 class="section-title">
+                        <i data-lucide="download"></i>
+                        Material Adicional
+                    </h3>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <span class="info-label">Fotos profesionales:</span>
+                            <span class="info-value">Disponibles en línea para descarga</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Press kit completo:</span>
+                            <span class="info-value">https://press-kit-nicol-s-capetillo.vercel.app/</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Botón de Tema -->
+    <button class="theme-toggle" id="themeToggle" aria-label="Cambiar tema">
+        <i data-lucide="sun" class="theme-icon sun-icon"></i>
+        <i data-lucide="moon" class="theme-icon moon-icon"></i>
+    </button>
+
+    <!-- Botón de Regreso -->
+    <a href="index.html" class="back-btn" title="Regresar al sitio principal">
+        <i data-lucide="arrow-left"></i>
+    </a>
+
+    <!-- JavaScript del Tema -->
+    <script>
+        // ===== SISTEMA DE TEMA OSCURO =====
+        function initThemeSystem() {
+            const themeToggle = document.getElementById('themeToggle');
+            const html = document.documentElement;
+            
+            // Obtener tema guardado o usar tema claro por defecto
+            const savedTheme = localStorage.getItem('theme');
+            
+            // Aplicar tema inicial
+            if (savedTheme) {
+                html.setAttribute('data-theme', savedTheme);
+            } else {
+                html.setAttribute('data-theme', 'light');
+            }
+            
+            // Función para cambiar tema
+            function toggleTheme() {
+                const currentTheme = html.getAttribute('data-theme');
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                
+                console.log('Cambiando tema de', currentTheme, 'a', newTheme);
+                
+                html.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+                
+                // Animación suave del cambio
+                document.body.style.transition = 'all 0.3s ease';
+                setTimeout(() => {
+                    document.body.style.transition = '';
+                }, 300);
+                
+                console.log('Tema cambiado a:', newTheme);
+            }
+            
+            // Event listener para el botón
+            if (themeToggle) {
+                themeToggle.addEventListener('click', toggleTheme);
+                console.log('Sistema de tema inicializado correctamente');
+            } else {
+                console.error('No se encontró el botón de tema');
+            }
+        }
+
+        // Inicializar cuando el DOM esté listo
+        document.addEventListener('DOMContentLoaded', function() {
+            initThemeSystem();
+        });
+    </script>
+
+    <!-- Initialize Lucide Icons -->
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
