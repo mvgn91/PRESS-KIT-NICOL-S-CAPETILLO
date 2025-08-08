@@ -8,57 +8,30 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     
     <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js?v=2.0"></script>
     
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css?v=10.2">
 </head>
 <body>
-    <!-- Splash Screen -->
-    <div id="splashScreen" class="splash-screen">
-        <div class="splash-content">
-            <div class="clapper-container">
-                <svg class="clapper-icon" viewBox="0 0 356.859 356.859" xmlns="http://www.w3.org/2000/svg">
-                    <defs>
-                        <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
-                            <feDropShadow dx="2" dy="2" stdDeviation="2" flood-color="#000" flood-opacity="0.3"/>
-                        </filter>
-                    </defs>
-                    <g fill="#ffffff" filter="url(#shadow)">
-                        <g>
-                            <path d="M9.849,130.711l341.726-60.257l-1.203-6.856l-8.612-48.845L0,75.016l1.347,7.629l7.265,41.216l1.208,6.856l0.005-0.001
-                                v188.596c0,12.534,10.255,22.794,22.794,22.794h301.445c12.534,0,22.794-10.255,22.794-22.794v-188.6H9.849z M336.174,23.606
-                                l6.077,34.468l-40.09-28.472L336.174,23.606z M287.36,32.212l47.939,34.043l-41.216,7.265l-47.939-34.043L287.36,32.212z
-                                 M230.252,42.283l47.939,34.043l-41.211,7.265l-47.939-34.043L230.252,42.283z M173.153,52.349l47.939,34.043l-41.216,7.265
-                                l-47.939-34.043L173.153,52.349z M116.045,62.42l47.939,34.043l-41.216,7.265L74.829,69.686L116.045,62.42z M58.941,72.492
-                                l47.939,34.043L65.664,113.8L17.725,79.757L58.941,72.492z M8.904,87.944L49.772,116.6l-34.877,6.149L8.904,87.944z
-                                 M340.224,138.458l-41.298,41.851h-41.851l41.298-41.851H340.224z M282.235,138.458l-41.298,41.851h-41.851l41.298-41.851H282.235
-                                z M224.246,138.458l-41.298,41.851h-41.846l41.298-41.851H224.246z M166.262,138.458l-41.298,41.851H83.113l41.298-41.851H166.262
-                                z M15.857,174.472v-36.014h35.538L15.857,174.472z M66.427,138.458h41.851L66.98,180.308H25.129L66.427,138.458z M333.619,321.856
-                                H31.846v-115.62h301.773V321.856z M350.817,180.308h-35.753l35.753-35.804V180.308z"/>
-                            <rect x="221.834" y="216.829" width="101.192" height="30.346"/>
-                            <rect x="221.834" y="258.266" width="101.192" height="52.997"/>
-                            <rect x="96.036" y="216.829" width="114.708" height="30.346"/>
-                            <rect x="42.44" y="216.829" width="42.506" height="94.433"/>
-                            <rect x="96.036" y="258.266" width="114.708" height="52.997"/>
-                        </g>
-                    </g>
-                </svg>
+                <!-- Splash Screen Minimalista Centrado -->
+            <div id="splashScreen" class="splash-screen" role="banner" aria-label="Pantalla de inicio">
+                <div class="splash-content">
+                    <div class="splash-name" id="splashName">NICOLÁS CAPETILLO</div>
+                    <div class="splash-profession" id="splashProfession">Actor de Cine y Televisión</div>
+                    <div class="splash-line"></div>
+                </div>
             </div>
-            <div class="splash-text">
-                <h2>Nicolás Capetillo</h2>
-                <p>Portafolio</p>
-            </div>
-        </div>
-        <div class="splash-particles"></div>
-    </div>
 
     <!-- Navegación Minimalista -->
     <nav class="nav-magazine">
@@ -130,9 +103,10 @@
                     <h3 class="bio-hero-name">Nicolás Capetillo Potter</h3>
                     <p class="bio-hero-subtitle">Actor Mexicano-Estadounidense</p>
                     <p class="bio-hero-text">
-                        Nacido el 13 de enero de 1978 en Lexington, Kentucky, Nicolás ha desarrollado una carrera 
-                        que abarca cine y televisión. Tiene como base Guadalajara, Jalisco, desde donde viaja 
-                        a proyectos nacionales e internacionales.
+                        Nacido el 13 de enero de 1978 en Lexington, Kentucky, Nicolás desarrolla una carrera 
+                        que fusiona su herencia multicultural con su pasión por las artes dramáticas. Con base 
+                        en Guadalajara, México, mantiene disponibilidad completa para proyectos nacionales e 
+                        internacionales, aportando versatilidad única en cada interpretación.
                     </p>
                 </div>
             </div>
@@ -141,31 +115,37 @@
                 <div class="bio-details-grid">
                     <div class="bio-detail-item scroll-animate-left">
                         <div class="detail-icon">
-                            <i data-lucide="graduation-cap"></i>
+                            <i data-lucide="languages"></i>
                         </div>
                         <div class="detail-content">
-                            <h4>Formación Actoral</h4>
-                            <p>Universidad Cornell 1996, <a href="https://www.imdb.com/es/name/nm6427676/" target="_blank" class="formation-link">Patricia Barbosa</a> Taller de Actuación de Método 2024, <a href="https://www.imdb.com/es-es/name/nm0655694/" target="_blank" class="formation-link">Maestra Marisol Padilla</a> 2021 a la fecha</p>
+                            <h4>Idiomas</h4>
+                            <p><strong>Español:</strong> Nativo<br>
+                            <strong>Inglés:</strong> Nativo<br>
+                            <strong>Alemán:</strong> Nativo<br>
+                            <strong>Japonés:</strong> Conversacional</p>
                         </div>
                     </div>
                     
                     <div class="bio-detail-item scroll-animate-right">
                         <div class="detail-icon">
-                            <i data-lucide="tv"></i>
+                            <i data-lucide="film"></i>
                         </div>
                         <div class="detail-content">
-                            <h4>Televisión</h4>
-                            <p>"El Centauro del Norte" (Netflix, 2023) - Embajador Americano en el episodio 6</p>
+                            <h4>Cine y Televisión</h4>
+                            <p><strong>Netflix:</strong> "El Centauro del Norte" (2023) - Embajador Americano<br>
+                            <strong>Doblaje ADR:</strong> "Campeón Gabacho" dirigida por Jonás Cuarón</p>
                         </div>
                     </div>
                     
                     <div class="bio-detail-item scroll-animate-left">
                         <div class="detail-icon">
-                            <i data-lucide="mic"></i>
+                            <i data-lucide="star"></i>
                         </div>
                         <div class="detail-content">
-                            <h4>Doblaje</h4>
-                            <p>Trabajo en doblaje para cine ADR, incluyendo "Campeón Gabacho" dirigida por Jonás Cuarón</p>
+                            <h4>Habilidades Especiales</h4>
+                            <p><strong>Fauna salvaje:</strong> Manejo avanzado de águilas en ecosistema natural<br>
+                            <strong>Deportes de combate:</strong> Boxeo y Jiujitsu<br>
+                            <strong>Música:</strong> Piano, guitarra y canto</p>
                         </div>
                     </div>
                     
@@ -174,8 +154,10 @@
                             <i data-lucide="map-pin"></i>
                         </div>
                         <div class="detail-content">
-                            <h4>Ubicación</h4>
-                            <p>Base en Guadalajara, Jalisco</p>
+                            <h4>Base y Alcance</h4>
+                            <p><strong>Base operativa:</strong> Guadalajara, México<br>
+                            <strong>Movilidad:</strong> Disponibilidad inmediata nacional e internacional<br>
+                            <strong>Experiencia:</strong> México, Estados Unidos y Europa</p>
                         </div>
                     </div>
                 </div>
@@ -186,24 +168,60 @@
             <div class="bio-timeline">
                 <h3 class="timeline-title">Trayectoria Artística</h3>
                 <div class="timeline-grid">
-                    <div class="timeline-item">
-                        <div class="timeline-marker"></div>
+                                        <div class="timeline-item">
+                        <div class="timeline-marker">
+                            <i data-lucide="circle"></i>
+                        </div>
                         <div class="timeline-content">
-                            <h4>Formación Inicial</h4>
-                            <p>Su formación actoral comenzó con las primeras clases en la Universidad Cornell en 1996, seguida por el Taller de Actuación de Método con <a href="https://www.imdb.com/es/name/nm6427676/" target="_blank" class="formation-link">Patricia Barbosa</a> en 2024, y continúa su formación con la <a href="https://www.imdb.com/es-es/name/nm0655694/" target="_blank" class="formation-link">Maestra Marisol Padilla</a> desde 2021 a la fecha.</p>
+                            <h4>Formación Artística Inicial</h4>
+                            <p>De 1985 a 1990, Nicolás comenzó su formación artística con modelaje infantil y juvenil para fotografía comercial de ropa, además de aprender piano y guitarra, desarrollando desde temprana edad sus habilidades expresivas y musicales.</p>
                         </div>
                     </div>
                     
                     <div class="timeline-item">
-                        <div class="timeline-marker"></div>
+                        <div class="timeline-marker">
+                            <i data-lucide="circle"></i>
+                        </div>
                         <div class="timeline-content">
-                            <h4>Modelaje de Fotografía Comercial</h4>
-                            <p>De 1985 a 1995, Nicolás desarrolló su carrera en el modelaje de fotografía comercial, experiencia que le proporcionó una base sólida en la expresión visual y la comunicación no verbal.</p>
+                            <h4>Carrera en Modelaje Profesional</h4>
+                            <p>De 1990 a 1995, desarrolló su carrera profesional en el modelaje de fotografía comercial, experiencia que le proporcionó una base sólida en la expresión visual y la comunicación no verbal.</p>
                         </div>
                     </div>
                     
                     <div class="timeline-item">
-                        <div class="timeline-marker"></div>
+                        <div class="timeline-marker">
+                            <i data-lucide="circle"></i>
+                        </div>
+                        <div class="timeline-content">
+                            <h4>[Placeholder Preparación]</h4>
+                            <p>Información pendiente de confirmar</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-marker">
+                            <i data-lucide="circle"></i>
+                        </div>
+                        <div class="timeline-content">
+                            <h4>Licenciatura en Artes Dramáticas</h4>
+                            <p>En 1996, completó su formación académica en la Universidad Cornell <i data-lucide="graduation-cap"></i>, obteniendo su licenciatura en Artes Dramáticas, consolidando su preparación actoral.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-marker">
+                            <i data-lucide="circle"></i>
+                        </div>
+                        <div class="timeline-content">
+                            <h4>[Placeholder Licenciatura]</h4>
+                            <p>Información pendiente de confirmar</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-marker">
+                            <i data-lucide="circle"></i>
+                        </div>
                         <div class="timeline-content">
                             <h4>Debut Profesional</h4>
                             <p>Su debut profesional llegó con "El Centauro del Norte", donde interpretó al Embajador Americano, papel que le valió reconocimiento crítico.</p>
@@ -211,7 +229,9 @@
                     </div>
                     
                     <div class="timeline-item">
-                        <div class="timeline-marker"></div>
+                        <div class="timeline-marker">
+                            <i data-lucide="circle"></i>
+                        </div>
                         <div class="timeline-content">
                             <h4>Proyectos Cinematográficos</h4>
                             <p>Ha trabajado en doblaje para cine ADR, incluyendo "Campeón Gabacho" dirigida por Jonás Cuarón, una película que explora temas de identidad y pertenencia en la frontera México-Estados Unidos.</p>
@@ -219,7 +239,29 @@
                     </div>
                     
                     <div class="timeline-item">
-                        <div class="timeline-marker"></div>
+                        <div class="timeline-marker">
+                            <i data-lucide="circle"></i>
+                        </div>
+                        <div class="timeline-content">
+                            <h4>Formación Actoral Avanzada</h4>
+                            <p>Desde 2021 a la fecha, continúa su formación actoral avanzada con la <a href="https://www.imdb.com/es-es/name/nm0655694/" target="_blank" class="formation-link">Maestra Marisol Padilla Sánchez</a>, actriz internacional conocida por "Traffic" (2000) y "L.A. Confidential" (1997), profundizando en técnicas interpretativas contemporáneas.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-marker">
+                            <i data-lucide="circle"></i>
+                        </div>
+                        <div class="timeline-content">
+                            <h4>Taller de Actuación de Método</h4>
+                            <p>En 2024, participó en el Taller de Actuación de Método con <a href="https://www.imdb.com/es/name/nm6427676/" target="_blank" class="formation-link">Patricia Barbosa</a>, actriz y directora de casting, conocida por "La vida es una danza" (2024) y "No Translation Required" (2021), expandiendo su repertorio técnico.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-marker">
+                            <i data-lucide="circle"></i>
+                        </div>
                         <div class="timeline-content">
                             <h4>Presente y Futuro</h4>
                             <p>Actualmente explora nuevos desafíos actoral en cine y televisión, buscando contar historias auténticas y conmovedoras.</p>
@@ -466,30 +508,30 @@
                 </div>
                 
                 <div class="press-awards">
-                    <h3>Premios y Festivales</h3>
+                    <h3>Destacados Profesionales</h3>
                     <div class="awards-list">
                         <div class="award-item">
-                            <div class="award-title">Mejor Actor</div>
-                            <div class="award-event">Festival de Cine de Guadalajara 2024</div>
-                            <div class="award-project">por "El Último Suspiro"</div>
+                            <div class="award-title">Debut Cinematográfico</div>
+                            <div class="award-event">Papel de Embajador Americano</div>
+                            <div class="award-project">en "El Centauro del Norte"</div>
                         </div>
                         
                         <div class="award-item">
-                            <div class="award-title">Premio de la Crítica</div>
-                            <div class="award-event">Festival Internacional de Cine de Morelia 2022</div>
-                            <div class="award-project">por "Vientos del Norte"</div>
+                            <div class="award-title">Colaboración ADR</div>
+                            <div class="award-event">Doblaje profesional para cine</div>
+                            <div class="award-project">"Campeón Gabacho" (dir. Jonás Cuarón)</div>
                         </div>
                         
                         <div class="award-item">
-                            <div class="award-title">Nominación Mejor Actor</div>
-                            <div class="award-event">Premios Ariel 2023</div>
-                            <div class="award-project">por "La Casa del Silencio"</div>
+                            <div class="award-title">Formación Internacional</div>
+                            <div class="award-event">Licenciatura en Artes Dramáticas</div>
+                            <div class="award-project">Cornell University, Estados Unidos</div>
                         </div>
                         
                         <div class="award-item">
-                            <div class="award-title">Reconocimiento Especial</div>
-                            <div class="award-event">Festival de Cannes 2021</div>
-                            <div class="award-project">por "Sombras del Pasado"</div>
+                            <div class="award-title">Entrenamiento Especializado</div>
+                            <div class="award-event">Maestra Marisol Padilla Sánchez</div>
+                            <div class="award-project">Actriz de "Traffic" y "L.A. Confidential"</div>
                         </div>
                     </div>
                 </div>

@@ -1,18 +1,21 @@
-// ===== SPLASH SCREEN =====
+// ===== SPLASH SCREEN ELEGANTE EDITORIAL =====
 function initSplashScreen() {
     const splashScreen = document.getElementById('splashScreen');
+    const splashName = document.getElementById('splashName');
+    const splashProfession = document.getElementById('splashProfession');
     
-    if (splashScreen) {
-        // Ocultar splash screen después de 2.5 segundos (tiempo optimizado)
+    if (!splashScreen) return;
+    
+    // Duración total del splash screen
+    const splashDuration = 4000; // 4 segundos
+    
+    // Ocultar splash screen después de la animación
+    setTimeout(() => {
+        splashScreen.classList.add('hidden');
         setTimeout(() => {
-            splashScreen.classList.add('fade-out');
-            
-            // Remover completamente después de la animación
-            setTimeout(() => {
-                splashScreen.style.display = 'none';
-            }, 1000);
-        }, 2500);
-    }
+            splashScreen.style.display = 'none';
+        }, 1200);
+    }, splashDuration);
 }
 
 // ===== NAVEGACIÓN =====
@@ -288,10 +291,10 @@ function showNotification(message, type = 'info') {
     };
     
     const colors = {
-        success: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
-        error: 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)',
-        warning: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)',
-        info: 'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)'
+        success: 'linear-gradient(135deg, #333333 0%, #333333 100%)',
+        error: 'linear-gradient(135deg, #333333 0%, #333333 100%)',
+        warning: 'linear-gradient(135deg, #333333 0%, #333333 100%)',
+        info: 'linear-gradient(135deg, #333333 0%, #333333 100%)'
     };
     
     notification.innerHTML = `
@@ -453,9 +456,9 @@ function showLightbox(imageSrc, imageAlt, caption, currentIndex = 0) {
             gap: 1rem;
         ">
             <button class="lightbox-nav prev-btn" ${currentIndex === 0 ? 'disabled' : ''} style="
-                background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
+                background: linear-gradient(135deg, #333333 0%, #333333 100%);
                 border: none;
-                border-radius: 50%;
+                border-radius: 0;
                 width: 48px;
                 height: 48px;
                 display: flex;
@@ -465,8 +468,8 @@ function showLightbox(imageSrc, imageAlt, caption, currentIndex = 0) {
                 color: white;
                 font-size: 1.5rem;
                 transition: all 0.3s ease;
-                box-shadow: 0 4px 15px rgba(220, 38, 38, 0.3);
-            ">&lt;</button>
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            " onmouseover="this.style.background='linear-gradient(135deg, #333333 0%, #333333 100%)'; this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(0, 0, 0, 0.4)';" onmouseout="this.style.background='linear-gradient(135deg, #333333 0%, #333333 100%)'; this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(0, 0, 0, 0.3)';">&lt;</button>
             
             <div style="flex: 1; display: flex; flex-direction: column; align-items: center;">
                 <img src="${imageSrc}" alt="${imageAlt}" class="lightbox-image" style="
@@ -482,9 +485,9 @@ function showLightbox(imageSrc, imageAlt, caption, currentIndex = 0) {
                 <!-- Botón Ver en Grande -->
                 <button class="view-full-btn" onclick="window.open('${imageSrc}', '_blank')" title="Abrir imagen en nueva pestaña (Enter)" style="
                     margin-top: 1rem;
-                    background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
+                    background: linear-gradient(135deg, #333333 0%, #333333 100%);
                     border: none;
-                    border-radius: 25px;
+                    border-radius: 0;
                     padding: 0.75rem 1.5rem;
                     color: white;
                     font-family: 'Space Grotesk', sans-serif;
@@ -494,11 +497,11 @@ function showLightbox(imageSrc, imageAlt, caption, currentIndex = 0) {
                     letter-spacing: 0.5px;
                     cursor: pointer;
                     transition: all 0.3s ease;
-                    box-shadow: 0 4px 15px rgba(220, 38, 38, 0.3);
+                    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
                     display: flex;
                     align-items: center;
                     gap: 0.5rem;
-                ">
+                " onmouseover="this.style.background='linear-gradient(135deg, #333333 0%, #333333 100%)'; this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(0, 0, 0, 0.4)';" onmouseout="this.style.background='linear-gradient(135deg, #333333 0%, #333333 100%)'; this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(0, 0, 0, 0.3)';">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink: 0;">
                         <path d="M15,3L21,3V9M9,21L3,21L3,15M21,3L14,10M3,21L10,14"/>
                     </svg>
@@ -507,9 +510,9 @@ function showLightbox(imageSrc, imageAlt, caption, currentIndex = 0) {
             </div>
             
             <button class="lightbox-nav next-btn" ${currentIndex === totalSlides - 1 ? 'disabled' : ''} style="
-                background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
+                background: linear-gradient(135deg, #333333 0%, #333333 100%);
                 border: none;
-                border-radius: 50%;
+                border-radius: 0;
                 width: 48px;
                 height: 48px;
                 display: flex;
@@ -519,8 +522,8 @@ function showLightbox(imageSrc, imageAlt, caption, currentIndex = 0) {
                 color: white;
                 font-size: 1.5rem;
                 transition: all 0.3s ease;
-                box-shadow: 0 4px 15px rgba(220, 38, 38, 0.3);
-            ">&gt;</button>
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            " onmouseover="this.style.background='linear-gradient(135deg, #333333 0%, #333333 100%)'; this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(0, 0, 0, 0.4)';" onmouseout="this.style.background='linear-gradient(135deg, #333333 0%, #333333 100%)'; this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(0, 0, 0, 0.3)';">&gt;</button>
             
             <button onclick="this.parentElement.parentElement.remove()" style="
                 position: absolute;
@@ -533,11 +536,12 @@ function showLightbox(imageSrc, imageAlt, caption, currentIndex = 0) {
                 color: #666;
                 width: 40px;
                 height: 40px;
-                border-radius: 50%;
+                border-radius: 0;
                 display: flex;
                 align-items: center;
                 justify-content: center;
-            ">&times;</button>
+                transition: all 0.3s ease;
+            " onmouseover="this.style.background='rgba(0,0,0,0.2)'; this.style.color='#333';" onmouseout="this.style.background='rgba(0,0,0,0.1)'; this.style.color='#666';">&times;</button>
         </div>
     `;
     
@@ -819,13 +823,13 @@ createGradientBackgrounds() {
         
         // Diferentes tipos de gradientes según la sección
         const gradients = [
-            'radial-gradient(circle at 20% 80%, rgba(220, 38, 38, 0.03) 0%, transparent 50%)',
-            'radial-gradient(circle at 80% 20%, rgba(220, 38, 38, 0.02) 0%, transparent 50%)',
-            'linear-gradient(45deg, transparent 30%, rgba(220, 38, 38, 0.02) 50%, transparent 70%)',
-            'radial-gradient(circle at 10% 90%, rgba(220, 38, 38, 0.03) 0%, transparent 50%)',
-            'linear-gradient(-45deg, transparent 30%, rgba(220, 38, 38, 0.02) 50%, transparent 70%)',
-            'radial-gradient(circle at 30% 70%, rgba(220, 38, 38, 0.03) 0%, transparent 50%)',
-            'linear-gradient(45deg, transparent 30%, rgba(220, 38, 38, 0.02) 50%, transparent 70%)'
+                    'radial-gradient(circle at 20% 80%, rgba(51, 51, 51, 0.03) 0%, transparent 50%)',
+        'radial-gradient(circle at 80% 20%, rgba(51, 51, 51, 0.02) 0%, transparent 50%)',
+        'linear-gradient(45deg, transparent 30%, rgba(51, 51, 51, 0.02) 50%, transparent 70%)',
+        'radial-gradient(circle at 10% 90%, rgba(51, 51, 51, 0.03) 0%, transparent 50%)',
+        'linear-gradient(-45deg, transparent 30%, rgba(51, 51, 51, 0.02) 50%, transparent 70%)',
+        'radial-gradient(circle at 30% 70%, rgba(51, 51, 51, 0.03) 0%, transparent 50%)',
+        'linear-gradient(45deg, transparent 30%, rgba(51, 51, 51, 0.02) 50%, transparent 70%)'
         ];
         
         gradientBg.style.cssText = `
@@ -975,19 +979,57 @@ document.addEventListener('keydown', function(e) {
 function createReadingProgress() {
     const progressBar = document.createElement('div');
     progressBar.className = 'reading-progress';
+    
+    // Detectar el tema actual
+    const isDarkTheme = document.documentElement.getAttribute('data-theme') === 'dark';
+    const progressColor = isDarkTheme 
+        ? 'linear-gradient(90deg, #ffffff 0%, #cccccc 50%, #ffffff 100%)'
+        : 'linear-gradient(90deg, #000000 0%, #333333 50%, #000000 100%)';
+    const shadowColor = isDarkTheme 
+        ? 'rgba(255, 255, 255, 0.3)'
+        : 'rgba(0, 0, 0, 0.3)';
+    
     progressBar.style.cssText = `
         position: fixed;
         top: 0;
         left: 0;
         width: 0%;
         height: 4px;
-        background: linear-gradient(90deg, #dc2626 0%, #ef4444 50%, #b91c1c 100%);
+        background: ${progressColor};
         z-index: 1001;
         transition: width 0.3s ease;
-        box-shadow: 0 2px 10px rgba(220, 38, 38, 0.4);
+        box-shadow: 0 2px 10px ${shadowColor};
     `;
     
     document.body.appendChild(progressBar);
+    
+    // Función para actualizar el color de la barra según el tema
+    function updateProgressBarTheme() {
+        const isDarkTheme = document.documentElement.getAttribute('data-theme') === 'dark';
+        const progressColor = isDarkTheme 
+            ? 'linear-gradient(90deg, #ffffff 0%, #cccccc 50%, #ffffff 100%)'
+            : 'linear-gradient(90deg, #000000 0%, #333333 50%, #000000 100%)';
+        const shadowColor = isDarkTheme 
+            ? 'rgba(255, 255, 255, 0.3)'
+            : 'rgba(0, 0, 0, 0.3)';
+        
+        progressBar.style.background = progressColor;
+        progressBar.style.boxShadow = `0 2px 10px ${shadowColor}`;
+    }
+    
+    // Escuchar cambios de tema
+    const observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+            if (mutation.type === 'attributes' && mutation.attributeName === 'data-theme') {
+                updateProgressBarTheme();
+            }
+        });
+    });
+    
+    observer.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ['data-theme']
+    });
     
     window.addEventListener('scroll', function() {
         const scrollTop = window.pageYOffset;
@@ -1391,4 +1433,52 @@ function initBackToTop() {
 // Inicializar botón volver arriba
 document.addEventListener('DOMContentLoaded', function() {
     initBackToTop();
+    initTabsSystem();
 });
+
+// ===== SISTEMA DE TABS =====
+function initTabsSystem() {
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    const tabPanels = document.querySelectorAll('.tab-panel');
+    
+    if (!tabButtons.length || !tabPanels.length) return;
+    
+    function switchTab(tabId) {
+        // Ocultar todos los paneles
+        tabPanels.forEach(panel => {
+            panel.classList.remove('active');
+        });
+        
+        // Remover clase active de todos los botones
+        tabButtons.forEach(btn => {
+            btn.classList.remove('active');
+        });
+        
+        // Mostrar panel seleccionado
+        const targetPanel = document.getElementById(tabId);
+        if (targetPanel) {
+            targetPanel.classList.add('active');
+        }
+        
+        // Activar botón seleccionado
+        const targetButton = document.querySelector(`[data-tab="${tabId}"]`);
+        if (targetButton) {
+            targetButton.classList.add('active');
+        }
+    }
+    
+    // Event listeners para los botones
+    tabButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const tabId = this.getAttribute('data-tab');
+            switchTab(tabId);
+        });
+    });
+    
+    // Activar primera tab por defecto
+    const firstTab = tabButtons[0];
+    if (firstTab) {
+        const firstTabId = firstTab.getAttribute('data-tab');
+        switchTab(firstTabId);
+    }
+}

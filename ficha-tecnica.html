@@ -2,13 +2,13 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Ficha Técnica - Nicolás Capetillo</title>
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
@@ -18,11 +18,14 @@
     
     <style>
         :root {
-            --accent-red: #dc2626;
-            --accent-red-light: #ef4444;
-            --accent-red-dark: #b91c1c;
-            --accent-gradient: linear-gradient(135deg, #dc2626 0%, #ef4444 50%, #b91c1c 100%);
-            --accent-gradient-hover: linear-gradient(135deg, #b91c1c 0%, #dc2626 50%, #ef4444 100%);
+            --nav-height: 72px;
+            --tabs-max-width: 1000px;
+            /* Solo blanco y negro - Material Design Editorial */
+            --accent-primary: #1a1a1a;
+            --accent-secondary: #000000;
+            --accent-light: #333333;
+            --accent-gradient: linear-gradient(135deg, #1a1a1a 0%, #000000 50%, #333333 100%);
+            --accent-gradient-hover: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #333333 100%);
             
             /* Tema Claro */
             --bg-primary: #ffffff;
@@ -46,17 +49,17 @@
         
         /* Tema Oscuro - Variables */
         [data-theme="dark"] {
-            --bg-primary: #0f0f0f;
-            --bg-secondary: #1a1a1a;
-            --bg-tertiary: #2a2a2a;
+            --bg-primary: #111111;
+            --bg-secondary: #111111;
+            --bg-tertiary: #111111;
             --text-primary: #ffffff;
-            --text-secondary: #e2e8f0;
-            --text-muted: #a0aec0;
-            --border-color: rgba(255, 255, 255, 0.1);
-            --shadow-color: rgba(0, 0, 0, 0.3);
-            --nav-bg: rgba(15, 15, 15, 0.95);
-            --card-bg: rgba(26, 26, 26, 0.95);
-            --overlay-bg: rgba(0, 0, 0, 0.95);
+            --text-secondary: #e5e7eb;
+            --text-muted: #b3b3b3;
+            --border-color: rgba(255, 255, 255, 0.15);
+            --shadow-color: rgba(0, 0, 0, 0.6);
+            --nav-bg: rgba(17, 17, 17, 0.96);
+            --card-bg: rgba(17, 17, 17, 0.96);
+            --overlay-bg: rgba(0, 0, 0, 0.9);
         }
 
         * {
@@ -65,333 +68,389 @@
             box-sizing: border-box;
         }
 
+        html, body {
+            height: 100%;
+            overflow: hidden; /* Sin scroll global; solo scroll interno en tabs */
+        }
+
         body {
             font-family: 'Inter', sans-serif;
             background: var(--bg-primary);
             color: var(--text-primary);
             line-height: 1.6;
             transition: var(--transition-smooth);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 2rem;
+            padding: 1.5rem;
+            padding-top: var(--nav-height);
+            height: 100vh; /* Ocupar toda la ventana */
+            display: grid;
+            grid-template-rows: auto 1fr; /* Header auto, contenido usa el resto */
+            gap: 0; /* sin gaps verticales entre header y contenido */
         }
 
-        .header {
-            text-align: center;
-            margin-bottom: 3rem;
-            padding-bottom: 2rem;
-            border-bottom: 2px solid var(--border-color);
+        /* Encabezado coherente con index */
+        .nav-magazine {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--nav-bg);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 1000;
+            backdrop-filter: blur(12px);
         }
 
-        .header h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 3rem;
-            color: var(--accent-red);
-            margin-bottom: 0.5rem;
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0.75rem 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
         }
 
-        .header p {
+        .nav-logo .logo-text {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 800;
             font-size: 1.2rem;
-            color: var(--text-secondary);
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
         }
+
+        .nav-title {
+            font-family: 'Fraunces', serif;
+            font-weight: 900;
+            font-size: clamp(1.2rem, 4vw, 1.6rem);
+            color: var(--text-primary);
+            margin: 0 auto;
+            text-transform: none;
+        }
+
+        /* Botón de tema dentro del header */
+        .nav-magazine .theme-toggle {
+            position: static !important;
+            width: 44px;
+            height: 44px;
+            background: transparent;
+            border: none;
+            box-shadow: none;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .home-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-secondary);
+            box-shadow: 0 2px 10px var(--shadow-color);
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .home-btn:hover { transform: translateY(-1px); }
 
         .ficha-content {
-            display: flex;
-            flex-direction: column;
-            gap: 3rem;
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+            gap: 2rem;
+            flex: 1;
+            min-height: 0;
+            align-items: start;
+            height: var(--content-height, calc(100vh - 120px));
         }
 
         .photo-section {
-            text-align: center;
-            margin-bottom: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-self: start;
+            height: 100%;
+            min-height: 0;
+            min-width: 0;
         }
 
         .photo-container {
-            border-radius: 16px;
+            border-radius: 0;
             overflow: hidden;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-            margin: 0 auto 1.5rem;
-            max-width: 500px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             position: relative;
+            border: 2px solid var(--border-color);
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+            height: auto; /* se ajusta al alto de la imagen, evitando espacios en blanco */
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .actor-photo {
             width: 100%;
             height: auto;
-            object-fit: contain;
             display: block;
         }
 
-        .photo-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
-            padding: 1.5rem;
-            color: white;
-            text-align: center;
-        }
-
-        .photo-caption {
-            font-family: 'Playfair Display', serif;
-            font-weight: 700;
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
-        }
-
-        .photo-subtitle {
-            font-family: 'Space Grotesk', sans-serif;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            opacity: 0.9;
-            text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
-        }
-
-        .info-sections {
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-        }
+        
 
         .info-section {
-            background: var(--card-bg);
-            border-radius: 12px;
-            padding: 2rem;
-            box-shadow: 0 4px 16px var(--shadow-color);
-            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            height: auto;
+            min-height: 0; /* permite que el hijo con overflow haga scroll */
+            overflow: hidden;
+            min-width: 0; /* evita crecimiento por contenido */
+            max-height: var(--photo-height, none); /* no superar alto de foto */
         }
 
-        .section-title {
+        .ficha-tabs {
+            flex: 1;
             display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            font-family: 'Playfair Display', serif;
-            font-size: 1.4rem;
+            flex-direction: column;
+            min-height: 0;
+            height: 100%;
+            min-width: 0;
+        }
+
+        .ficha-tabs .tabs-header {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(160px, 1fr));
+            gap: 0.75rem 1rem;
+            margin-bottom: 1.25rem;
+            border-bottom: 0;
+            overflow: visible;
+            padding-bottom: 0;
+            justify-items: stretch;
+            align-items: stretch;
+            max-width: var(--tabs-max-width);
+            margin-left: auto;
+            margin-right: auto;
+            flex: 0 0 auto; /* altura fija basada en contenido, no crece */
+            --tabs-header-height: 108px;
+        }
+
+        .ficha-tabs .tabs-header::-webkit-scrollbar {
+            display: none;
+        }
+
+        .ficha-tabs .tab-btn {
+            background: var(--bg-primary);
+            border: 2px solid var(--border-color);
+            padding: 0.9rem 1.1rem;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.9rem;
             font-weight: 700;
             color: var(--text-primary);
-            margin-bottom: 1.5rem;
-            padding-bottom: 1rem;
-            border-bottom: 2px solid var(--border-color);
-        }
-
-        .section-title i {
-            color: var(--accent-red);
-            background: rgba(220, 38, 38, 0.1);
-            padding: 0.5rem;
-            border-radius: 8px;
-        }
-
-        .info-grid {
-            display: grid;
-            gap: 1rem;
-        }
-
-        .info-item {
+            cursor: pointer;
+            transition: all 0.25s ease;
             display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            padding: 0.75rem;
-            background: var(--bg-secondary);
-            border-radius: 6px;
-            border-left: 3px solid var(--accent-red);
-        }
-
-        .info-label {
-            font-family: 'Space Grotesk', sans-serif;
-            font-weight: 600;
-            color: var(--text-secondary);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            font-size: 0.85rem;
-            min-width: 120px;
-        }
-
-        .info-value {
-            font-weight: 500;
-            color: var(--text-primary);
-            text-align: right;
-            flex: 1;
-        }
-
-        .special-skill {
-            flex-direction: row;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .skill-icon {
-            font-size: 1.3rem;
-            min-width: 35px;
-            text-align: center;
-            background: rgba(220, 38, 38, 0.1);
-            border-radius: 50%;
-            width: 35px;
-            height: 35px;
-            display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
+            gap: 0.35rem; /* menos espacio entre icono y título */
+            white-space: normal;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 2px 8px var(--shadow-color);
         }
 
-        .special-skill .info-value {
-            text-align: left;
+        .ficha-tabs .tab-btn i {
+            width: 18px;
+            height: 18px;
+            transition: all 0.3s ease;
+        }
+
+        .ficha-tabs .tab-btn:hover {
+            background: var(--bg-secondary);
+            border-color: var(--text-primary);
+            transform: translateY(-1px);
+        }
+
+        .ficha-tabs .tab-btn.active {
+            color: var(--bg-primary);
+            background: var(--text-primary);
+            border-color: var(--text-primary);
+            box-shadow: 0 4px 14px var(--shadow-color);
+        }
+
+        .ficha-tabs .tabs-content {
             flex: 1;
-            font-size: 0.95rem;
+            overflow-y: hidden; /* el scroll ocurrirá dentro de .tab-content */
+            min-height: 0;
+            min-width: 0; /* evita que títulos largos expandan el contenedor */
+            height: auto;
+            max-height: calc(var(--photo-height, 100vh) - var(--tabs-header-height, 0px) - 24px);
         }
 
-        .timeline {
-            display: grid;
-            gap: 1.5rem;
+        .ficha-tabs .tab-panel {
+            display: none;
+            animation: fadeIn 0.3s ease;
+            height: auto;
+            min-width: 0;
         }
 
-        .timeline-item {
-            display: grid;
-            grid-template-columns: 100px 1fr;
-            gap: 1.5rem;
+        .ficha-tabs .tab-panel.active {
+            display: block;          /* Volver a bloque normal */
+            height: auto;
+        }
+
+        .ficha-tabs .tab-content {
             padding: 1.25rem;
             background: var(--bg-secondary);
-            border-radius: 8px;
-            border-left: 3px solid var(--accent-red);
-        }
-
-        .timeline-year {
-            font-family: 'Space Grotesk', sans-serif;
-            font-weight: 700;
-            font-size: 1rem;
-            color: var(--accent-red);
-            text-align: center;
-            padding: 0.5rem;
-            background: rgba(220, 38, 38, 0.1);
-            border-radius: 6px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .timeline-content h4 {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 0.5rem;
-        }
-
-        .timeline-content p {
-            color: var(--text-secondary);
-            line-height: 1.6;
-            font-size: 0.95rem;
-        }
-
-        .experience-grid {
-            display: grid;
-            gap: 1.5rem;
-        }
-
-        .experience-item {
-            padding: 1.5rem;
-            background: var(--bg-secondary);
-            border-radius: 8px;
-            border-left: 3px solid var(--accent-red);
-        }
-
-        .experience-item h4 {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: var(--accent-red);
-            margin-bottom: 0.75rem;
-        }
-
-        .experience-item p {
-            color: var(--text-secondary);
-            line-height: 1.6;
-        }
-
-        .contact-card {
-            background: var(--bg-secondary);
-            border-radius: 12px;
-            padding: 1.5rem;
+            border-radius: 0;
             border: 1px solid var(--border-color);
+            height: auto;            /* Altura automática */
+            overflow-y: auto;        /* Scroll interno para contenido largo dentro del panel */
+            overflow-x: hidden;      /* Evita expansión por contenido horizontal */
+            max-width: var(--tabs-max-width);       /* Mismo ancho que las tabs */
+            margin: 0 auto;
+            min-width: 0;            /* Previene crecimiento por contenido largo */
+            max-height: calc(var(--photo-height, 100vh) - 20px - var(--tabs-header-height, 0px));
         }
 
-        .contact-header {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .contact-icon {
-            width: 50px;
-            height: 50px;
-            background: var(--accent-gradient);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            flex-shrink: 0;
-        }
-
-        .contact-header h4 {
-            font-family: 'Playfair Display', serif;
+        .ficha-tabs .tab-content h4 {
+            font-family: 'Space Grotesk', sans-serif;
             font-size: 1.2rem;
             font-weight: 700;
             color: var(--text-primary);
-            margin-bottom: 0.25rem;
+            margin-bottom: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding-bottom: 0.6rem;
+            border-bottom: 2px solid var(--border-color);
+            overflow-wrap: anywhere; /* permite cortes de línea flexibles */
+            hyphens: auto; /* guionado automático donde aplique */
         }
 
-        .contact-name {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--accent-red);
-            margin: 0;
+        /* Asegurar contraste correcto de títulos y habilidades en modo oscuro */
+        [data-theme="dark"] .ficha-tabs .tab-content h4 {
+            color: var(--text-primary);
         }
 
-        .contact-details {
-            display: grid;
-            gap: 1rem;
-        }
-
-        .contact-item {
+        .ficha-tabs .tab-list {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0.75rem;
+            flex-direction: column;
+            gap: 0.65rem;
+        }
+
+        .ficha-tabs .tab-item, 
+        .ficha-tabs .tab-project, 
+        .ficha-tabs .tab-skill, 
+        .ficha-tabs .tab-location {
+            display: grid;
+            grid-template-columns: 180px 1fr;
+            gap: 0.6rem;
+            padding: 0.6rem;
+            border-left: 3px solid var(--border-color);
+            transition: all 0.3s ease;
             background: var(--bg-primary);
-            border-radius: 6px;
-            border: 1px solid var(--border-color);
+            align-items: center;
         }
 
-        .contact-label {
+        .ficha-tabs .tab-item:hover, 
+        .ficha-tabs .tab-project:hover, 
+        .ficha-tabs .tab-skill:hover, 
+        .ficha-tabs .tab-location:hover {
+            border-left-color: var(--text-primary);
+            background: var(--bg-tertiary);
+        }
+
+        .ficha-tabs .tab-label, 
+        .ficha-tabs .project-type, 
+        .ficha-tabs .skill-type, 
+        .ficha-tabs .location-type {
             font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.85rem;
             font-weight: 600;
-            color: var(--text-secondary);
+            color: var(--text-primary);
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            font-size: 0.85rem;
-            min-width: 80px;
+            overflow-wrap: anywhere;
+            hyphens: auto;
         }
 
-        .contact-link {
+        .ficha-tabs .tab-value, 
+        .ficha-tabs .project-title, 
+        .ficha-tabs .skill-description, 
+        .ficha-tabs .location-value {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            word-break: break-word;
+        }
+
+        .ficha-tabs .project-details {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-style: italic;
+            margin-top: 0.25rem;
+        }
+
+        .ficha-tabs .skill-icon {
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            color: var(--accent-red);
-            text-decoration: none;
-            font-weight: 500;
         }
 
-        .contact-link:hover {
-            color: var(--accent-red-dark);
+        .ficha-tabs .skill-icon i {
+            width: 16px;
+            height: 16px;
+            color: var(--text-primary);
+        }
+
+        .ficha-tabs .tab-value a {
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .ficha-tabs .tab-value a:hover {
+            color: var(--text-secondary);
+            text-decoration: underline;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ===== CONTROLES SUPERIORES (TEMA + VOLVER) ===== */
+        .floating-controls {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            z-index: 1100;
+        }
+        .floating-controls .theme-toggle,
+        .floating-controls .back-btn {
+            position: static;
+            bottom: auto;
+            right: auto;
+            left: auto;
         }
 
         /* ===== BOTÓN DE TEMA ===== */
@@ -401,14 +460,14 @@
             cursor: pointer;
             width: 50px;
             height: 50px;
-            border-radius: 50%;
+            border-radius: 0;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: all 0.3s ease;
             position: fixed;
             bottom: 2rem;
-            left: 2rem;
+            right: 2rem;
             overflow: hidden;
             background: var(--card-bg);
             border: 2px solid var(--border-color);
@@ -460,107 +519,177 @@
             border-color: var(--border-color);
         }
 
-        .back-btn {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            background: var(--accent-gradient);
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 60px;
-            height: 60px;
-            cursor: pointer;
-            box-shadow: 0 4px 16px rgba(220, 38, 38, 0.3);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            transition: all 0.3s ease;
-            text-decoration: none;
+        [data-theme="dark"] .back-btn {
+            background: var(--text-primary);
+            color: var(--bg-primary);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
         }
+
+        [data-theme="dark"] .back-btn:hover {
+            background: var(--text-secondary);
+            color: var(--bg-primary);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Colores específicos en modo oscuro */
+        [data-theme="dark"] .ficha-tabs .skill-description {
+            color: var(--text-primary);
+        }
+
+        .back-btn { display: none; }
 
         .back-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(220, 38, 38, 0.4);
-            color: white;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+            background: var(--text-secondary);
+            color: var(--bg-primary);
         }
 
         /* Responsive */
+        @media (max-width: 1280px) {
+            .ficha-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .photo-container {
+                max-width: 350px;
+                margin: 0 auto;
+                max-height: 40vh; /* Limitar altura en pantallas medianas para evitar scroll global */
+            }
+        }
+
         @media (max-width: 768px) {
             .container {
                 padding: 1rem;
             }
 
             .header h1 {
-                font-size: 2.5rem;
-            }
-
-            .ficha-content {
-                gap: 2rem;
+                font-size: 2rem;
             }
 
             .photo-container {
-                max-width: 100%;
+                max-width: 300px;
+                max-height: 35vh; /* Más compacto en mobile */
             }
 
-            .info-sections {
-                gap: 1.5rem;
+            .ficha-tabs .tabs-header {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 0.75rem 1rem;
+            }
+            
+            .ficha-tabs .tab-btn {
+                padding: 0.9rem 1rem;
+                font-size: 0.8rem;
+            }
+            
+            .ficha-tabs .tab-btn i {
+                width: 18px;
+                height: 18px;
+            }
+            
+            .ficha-tabs .tab-content {
+                padding: 1.25rem;
             }
 
-            .info-item {
-                flex-direction: column;
-                gap: 0.5rem;
-                align-items: flex-start;
+            .ficha-tabs .tab-content h4 {
+                font-size: 1.1rem;
+                margin-bottom: 1.25rem;
+            }
+
+            .ficha-tabs .tab-list {
+                gap: 0.6rem;
+            }
+
+            .ficha-tabs .tab-item, 
+            .ficha-tabs .tab-project, 
+            .ficha-tabs .tab-skill, 
+            .ficha-tabs .tab-location {
+                padding: 0.6rem;
             }
 
             .theme-toggle {
                 width: 44px;
                 height: 44px;
-                bottom: 1rem;
-                left: 1rem;
-            }
-
-            .back-btn {
-                width: 50px;
-                height: 50px;
-                bottom: 1rem;
+                bottom: calc(1rem + env(safe-area-inset-bottom));
                 right: 1rem;
             }
+        }
 
-            .info-label {
+        @media (max-width: 480px) {
+        .ficha-tabs .tabs-header {
+                gap: 0.125rem;
+            flex-wrap: wrap;
+                margin-bottom: 1rem;
+        }
+
+        .ficha-tabs .tab-btn {
+                padding: 0.5rem 0.7rem;
+                font-size: 0.7rem;
                 min-width: auto;
-            }
+        }
 
-            .info-value {
-                text-align: left;
+        /* Ajuste de columnas de lista/tab para evitar desbordes en móvil */
+        @media (max-width: 768px) {
+            .ficha-tabs .tab-item, 
+            .ficha-tabs .tab-project, 
+            .ficha-tabs .tab-skill, 
+            .ficha-tabs .tab-location {
+                grid-template-columns: minmax(120px, 40%) 1fr;
+                min-width: 0; /* no permitir que el grid crezca por contenido */
             }
+        }
 
-            .special-skill {
-                flex-direction: row;
-                align-items: center;
-            }
-
-            .timeline-item {
+        @media (max-width: 480px) {
+            .ficha-tabs .tab-item, 
+            .ficha-tabs .tab-project, 
+            .ficha-tabs .tab-skill, 
+            .ficha-tabs .tab-location {
                 grid-template-columns: 1fr;
-                gap: 1rem;
-                text-align: center;
+                align-items: start;
+                min-width: 0;
             }
-
-            .timeline-year {
-                justify-self: center;
-                max-width: 100px;
+            .ficha-tabs .tab-label,
+            .ficha-tabs .project-type,
+            .ficha-tabs .skill-type,
+            .ficha-tabs .location-type {
+                margin-bottom: 0.25rem;
             }
+        }
 
-            .contact-header {
-                flex-direction: column;
-                text-align: center;
-            }
+        .ficha-tabs .tab-btn i {
+                width: 12px;
+                height: 12px;
+        }
 
-            .contact-item {
-                flex-direction: column;
-                gap: 0.5rem;
-                align-items: flex-start;
+        .ficha-tabs .tab-content {
+                padding: 1rem;
+        }
+
+        .ficha-tabs .tab-content h4 {
+                font-size: 1rem;
+                margin-bottom: 1rem;
+        }
+
+        .ficha-tabs .tab-item, 
+        .ficha-tabs .tab-project, 
+        .ficha-tabs .tab-skill, 
+        .ficha-tabs .tab-location {
+                padding: 0.5rem;
+        }
+
+        .ficha-tabs .tab-label, 
+        .ficha-tabs .project-type, 
+        .ficha-tabs .skill-type, 
+        .ficha-tabs .location-type {
+                font-size: 0.8rem;
+        }
+
+        .ficha-tabs .tab-value, 
+        .ficha-tabs .project-title, 
+        .ficha-tabs .skill-description, 
+        .ficha-tabs .location-value {
+            font-size: 0.9rem;
             }
         }
 
@@ -578,21 +707,69 @@
                 padding: 1rem;
             }
             
-            .info-section {
+            .ficha-tabs .tab-content {
                 box-shadow: none;
                 border: 1px solid #ccc;
                 page-break-inside: avoid;
                 margin-bottom: 1rem;
             }
         }
+
+        /* Responsive controles superiores */
+        @media (max-width: 768px) {
+            .floating-controls {
+                top: calc(0.75rem + env(safe-area-inset-top));
+                right: 0.75rem;
+                gap: 0.5rem;
+            }
+        }
+
+        /* Grid responsivo para el mosaico */
+        @media (max-width: 1200px) {
+            .ficha-tabs .tabs-header {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+        }
+        @media (max-width: 768px) {
+            .ficha-tabs .tabs-header {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 0.75rem 1rem;
+            }
+            .ficha-tabs .tab-btn {
+                padding: 0.9rem 1rem;
+                font-size: 0.8rem;
+            }
+            .ficha-tabs .tab-btn i { width: 18px; height: 18px; }
+        }
+        @media (max-width: 420px) {
+            .ficha-tabs .tabs-header {
+                grid-template-columns: 1fr;
+                max-width: 300px;
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>Ficha Técnica</h1>
-            <p>Actor Profesional</p>
+    <!-- Navegación coherente con index -->
+    <nav class="nav-magazine">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span class="logo-text">NC</span>
+            </div>
+            <div class="nav-title">Ficha Técnica</div>
+            <div class="nav-actions">
+                <a href="index.html" class="home-btn" aria-label="Volver al sitio principal">
+                    <i data-lucide="home"></i>
+                </a>
+                <button class="theme-toggle" id="themeToggle" aria-label="Cambiar tema">
+                    <i data-lucide="sun" class="theme-icon sun-icon"></i>
+                    <i data-lucide="moon" class="theme-icon moon-icon"></i>
+                </button>
+            </div>
         </div>
+    </nav>
+
+    <div class="container" style="padding-top: var(--nav-height);">
 
         <div class="ficha-content">
             <!-- Foto Principal -->
@@ -602,236 +779,263 @@
                 </div>
             </div>
 
-            <!-- Información Técnica -->
-            <div class="info-sections">
-                <!-- Datos Personales -->
-                <div class="info-section">
-                    <h3 class="section-title">
+            <!-- Información Técnica con Tabs -->
+            <div class="info-section">
+            <div class="ficha-tabs">
+                <div class="tabs-header">
+                    <button class="tab-btn active" data-tab="datos">
                         <i data-lucide="user"></i>
-                        Datos Personales
-                    </h3>
-                    <div class="info-grid">
-                        <div class="info-item">
-                            <span class="info-label">Nombre completo:</span>
-                            <span class="info-value">Nicolás Capetillo Potter</span>
-                        </div>
-                        <div class="info-item">
-                            <span class="info-label">Nombre artístico:</span>
-                            <span class="info-value">Nicolás Capetillo</span>
-                        </div>
-                        <div class="info-item">
-                            <span class="info-label">Fecha de nacimiento:</span>
-                            <span class="info-value">13 de enero de 1978</span>
-                        </div>
-                        <div class="info-item">
-                            <span class="info-label">Edad:</span>
-                            <span class="info-value">46 años</span>
-                        </div>
-                        <div class="info-item">
-                            <span class="info-label">Nacionalidad:</span>
-                            <span class="info-value">Estadounidense / Mexicano</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Características Físicas -->
-                <div class="info-section">
-                    <h3 class="section-title">
+                        Datos
+                    </button>
+                    <button class="tab-btn" data-tab="fisico">
                         <i data-lucide="ruler"></i>
-                        Características Físicas
-                    </h3>
-                    <div class="info-grid">
-                        <div class="info-item">
-                            <span class="info-label">Estatura:</span>
-                            <span class="info-value">1.78 m</span>
-                        </div>
-                        <div class="info-item">
-                            <span class="info-label">Peso:</span>
-                            <span class="info-value">80 kg</span>
-                        </div>
-                        <div class="info-item">
-                            <span class="info-label">Color de cabello:</span>
-                            <span class="info-value">Oscuro</span>
-                        </div>
-                        <div class="info-item">
-                            <span class="info-label">Color de ojos:</span>
-                            <span class="info-value">Azules</span>
-                        </div>
-                        <div class="info-item">
-                            <span class="info-label">Complexión:</span>
-                            <span class="info-value">Delgada</span>
-                        </div>
-                        <div class="info-item">
-                            <span class="info-label">Distintivos:</span>
-                            <span class="info-value">Ninguno relevante</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Idiomas -->
-                <div class="info-section">
-                    <h3 class="section-title">
+                        Físico
+                    </button>
+                    <button class="tab-btn" data-tab="idiomas">
                         <i data-lucide="globe"></i>
                         Idiomas
-                    </h3>
-                    <div class="info-grid">
-                        <div class="info-item">
-                            <span class="info-label">Español:</span>
-                            <span class="info-value">Nativo</span>
-                        </div>
-                        <div class="info-item">
-                            <span class="info-label">Inglés:</span>
-                            <span class="info-value">Nativo</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Habilidades Especiales -->
-                <div class="info-section">
-                    <h3 class="section-title">
+                    </button>
+                    <button class="tab-btn" data-tab="habilidades">
                         <i data-lucide="star"></i>
-                        Habilidades y Talentos Especiales
-                    </h3>
-                    <div class="info-grid">
-                        <div class="info-item special-skill">
-                            <span class="skill-icon">🎵</span>
-                            <span class="info-value">Canto</span>
-                        </div>
-                        <div class="info-item special-skill">
-                            <span class="skill-icon">🥾</span>
-                            <span class="info-value">Hiking (práctica frecuente)</span>
-                        </div>
-                        <div class="info-item special-skill">
-                            <span class="skill-icon">🦅</span>
-                            <span class="info-value">Habilidades avanzadas en trabajo directo con fauna salvaje, destacando el manejo de águilas en su ecosistema natural</span>
-                        </div>
-                        <div class="info-item special-skill">
-                            <span class="skill-icon">🚗</span>
-                            <span class="info-value">Licencia de conducir vigente</span>
-                        </div>
-                        <div class="info-item special-skill">
-                            <span class="skill-icon">✈️</span>
-                            <span class="info-value">Disponibilidad para viajar al extranjero</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Formación Profesional -->
-                <div class="info-section">
-                    <h3 class="section-title">
+                        Habilidades
+                    </button>
+                    <button class="tab-btn" data-tab="formacion">
                         <i data-lucide="graduation-cap"></i>
-                        Formación y Experiencia Profesional
-                    </h3>
-                    <div class="timeline">
-                        <div class="timeline-item">
-                            <div class="timeline-year">1996</div>
-                            <div class="timeline-content">
-                                <h4>Primeras clases en actuación</h4>
-                                <p>Universidad Cornell</p>
-                            </div>
-                        </div>
-                        <div class="timeline-item">
-                            <div class="timeline-year">1985-1995</div>
-                            <div class="timeline-content">
-                                <h4>Modelaje de fotografía comercial</h4>
-                                <p>Experiencia en expresión visual y comunicación no verbal</p>
-                            </div>
-                        </div>
-                        <div class="timeline-item">
-                            <div class="timeline-year">2021-Presente</div>
-                            <div class="timeline-content">
-                                <h4>Formación continua</h4>
-                                <p>Con la Maestra Marisol Padilla</p>
-                            </div>
-                        </div>
-                        <div class="timeline-item">
-                            <div class="timeline-year">2024</div>
-                            <div class="timeline-content">
-                                <h4>Taller de Actuación de Método</h4>
-                                <p>Con Patricia Barbosa</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Experiencia Cinematográfica -->
-                <div class="info-section">
-                    <h3 class="section-title">
+                        Formación
+                    </button>
+                    <button class="tab-btn" data-tab="experiencia">
                         <i data-lucide="tv"></i>
-                        Experiencia Cinematográfica
-                    </h3>
-                    <div class="experience-grid">
-                        <div class="experience-item">
-                            <h4>Debut Profesional</h4>
-                            <p>Papel de Embajador Americano en "El Centauro del Norte"</p>
-                        </div>
-                        <div class="experience-item">
-                            <h4>Proyectos Cinematográficos</h4>
-                            <p>Doblaje para cine ADR en "Campeón Gabacho" (dir. Jonás Cuarón)</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Contacto Profesional -->
-                <div class="info-section">
-                    <h3 class="section-title">
+                        Experiencia
+                    </button>
+                    <button class="tab-btn" data-tab="contacto">
                         <i data-lucide="briefcase"></i>
-                        Contacto Profesional
-                    </h3>
-                    <div class="contact-card">
-                        <div class="contact-header">
-                            <div class="contact-icon">
-                                <i data-lucide="user-check"></i>
-                            </div>
-                            <div>
-                                <h4>Manager</h4>
-                                <p class="contact-name">Mimi Carrillo</p>
-                            </div>
-                        </div>
-                        <div class="contact-details">
-                            <div class="contact-item">
-                                <span class="contact-label">Agencia:</span>
-                                <span class="info-value">Mimi Carrillo Agency</span>
-                            </div>
-                            <div class="contact-item">
-                                <span class="contact-label">Sitio web:</span>
-                                <a href="https://mimicarrillo.com/" target="_blank" class="contact-link">
-                                    <i data-lucide="external-link"></i>
-                                    https://mimicarrillo.com/
-                                </a>
-                            </div>
-                            <div class="contact-item">
-                                <span class="contact-label">Email:</span>
-                                <a href="mailto:contacto@mimicarrillo.com" class="contact-link">
-                                    <i data-lucide="mail"></i>
-                                    contacto@mimicarrillo.com
-                                </a>
-                            </div>
-                            <div class="contact-item">
-                                <span class="contact-label">Teléfono:</span>
-                                <a href="tel:+525587435405" class="contact-link">
-                                    <i data-lucide="phone"></i>
-                                    +52 55 87 43 54 05
-                                </a>
+                        Contacto
+                    </button>
+                    <button class="tab-btn" data-tab="material">
+                        <i data-lucide="download"></i>
+                        Material
+                    </button>
+                </div>
+
+                <div class="tabs-content">
+                    <!-- Tab Datos Personales -->
+                    <div class="tab-panel active" id="datos">
+                        <div class="tab-content">
+                            <h4>Datos Personales</h4>
+                            <div class="tab-list">
+                                <div class="tab-item">
+                                    <span class="tab-label">Nombre completo:</span>
+                                    <span class="tab-value">Nicolás Capetillo Potter</span>
+                                </div>
+                                <div class="tab-item">
+                                    <span class="tab-label">Nombre artístico:</span>
+                                    <span class="tab-value">Nicolás Capetillo</span>
+                                </div>
+                                <div class="tab-item">
+                                    <span class="tab-label">Fecha de nacimiento:</span>
+                                    <span class="tab-value">13 de enero de 1978</span>
+                                </div>
+                                <div class="tab-item">
+                                    <span class="tab-label">Edad:</span>
+                                    <span class="tab-value">47 años</span>
+                                </div>
+                                <div class="tab-item">
+                                    <span class="tab-label">Nacionalidad:</span>
+                                    <span class="tab-value">Estadounidense / Mexicano</span>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Material Adicional -->
-                <div class="info-section">
-                    <h3 class="section-title">
-                        <i data-lucide="download"></i>
-                        Material Adicional
-                    </h3>
-                    <div class="info-grid">
-                        <div class="info-item">
-                            <span class="info-label">Fotos profesionales:</span>
-                            <span class="info-value">Disponibles en línea para descarga</span>
+                    <!-- Tab Características Físicas -->
+                    <div class="tab-panel" id="fisico">
+                        <div class="tab-content">
+                            <h4>Características Físicas</h4>
+                            <div class="tab-list">
+                                <div class="tab-item">
+                                    <span class="tab-label">Estatura:</span>
+                                    <span class="tab-value">1.78 m</span>
+                                </div>
+                                <div class="tab-item">
+                                    <span class="tab-label">Peso:</span>
+                                    <span class="tab-value">80 kg</span>
+                                </div>
+                                <div class="tab-item">
+                                    <span class="tab-label">Color de cabello:</span>
+                                    <span class="tab-value">Oscuro</span>
+                                </div>
+                                <div class="tab-item">
+                                    <span class="tab-label">Color de ojos:</span>
+                                    <span class="tab-value">Azules</span>
+                                </div>
+                                <div class="tab-item">
+                                    <span class="tab-label">Complexión:</span>
+                                    <span class="tab-value">Delgada</span>
+                                </div>
+                            </div>
                         </div>
-                        <div class="info-item">
-                            <span class="info-label">Press kit completo:</span>
-                            <span class="info-value">https://press-kit-nicol-s-capetillo.vercel.app/</span>
+                    </div>
+
+                    <!-- Tab Idiomas -->
+                    <div class="tab-panel" id="idiomas">
+                        <div class="tab-content">
+                            <h4>Idiomas</h4>
+                            <div class="tab-list">
+                                <div class="tab-item">
+                                    <span class="tab-label">Español:</span>
+                                    <span class="tab-value">Nativo</span>
+                                </div>
+                                <div class="tab-item">
+                                    <span class="tab-label">Inglés:</span>
+                                    <span class="tab-value">Nativo</span>
+                                </div>
+                                <div class="tab-item">
+                                    <span class="tab-label">Alemán:</span>
+                                    <span class="tab-value">Nativo</span>
+                                </div>
+                                <div class="tab-item">
+                                    <span class="tab-label">Japonés:</span>
+                                    <span class="tab-value">Conversacional</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tab Habilidades Especiales -->
+                    <div class="tab-panel" id="habilidades">
+                        <div class="tab-content">
+                            <h4>Habilidades y Talentos Especiales</h4>
+                            <div class="tab-list">
+                                <div class="tab-skill">
+                                    <span class="skill-icon"><i data-lucide="music"></i></span>
+                                    <span class="skill-description">Canto</span>
+                                </div>
+                                <div class="tab-skill">
+                                    <span class="skill-icon"><i data-lucide="piano"></i></span>
+                                    <span class="skill-description">Piano</span>
+                                </div>
+                                <div class="tab-skill">
+                                    <span class="skill-icon"><i data-lucide="guitar"></i></span>
+                                    <span class="skill-description">Guitarra</span>
+                                </div>
+                                <div class="tab-skill">
+                                    <span class="skill-icon"><i data-lucide="mountain"></i></span>
+                                    <span class="skill-description">Hiking (práctica frecuente)</span>
+                                </div>
+                                <div class="tab-skill">
+                                    <span class="skill-icon"><i data-lucide="bird"></i></span>
+                                    <span class="skill-description">Habilidades avanzadas en trabajo directo con fauna salvaje, destacando el manejo de águilas en su ecosistema natural</span>
+                                </div>
+                                
+                                <div class="tab-skill">
+                                    <span class="skill-icon"><i data-lucide="dumbbell"></i></span>
+                                    <span class="skill-description">Boxeo</span>
+                                </div>
+                                <div class="tab-skill">
+                                    <span class="skill-icon"><i data-lucide="sword"></i></span>
+                                    <span class="skill-description">Jiujitsu</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tab Formación Profesional -->
+                    <div class="tab-panel" id="formacion">
+                        <div class="tab-content">
+                            <h4>Formación y Experiencia Profesional</h4>
+                            <div class="tab-list">
+                                <div class="tab-project">
+                                    <span class="project-type">1985-1990:</span>
+                                    <span class="project-title">Formación Artística Inicial</span>
+                                    <span class="project-details">Modelaje infantil y juvenil para fotografía comercial de ropa, formación en piano y guitarra</span>
+                                </div>
+                                <div class="tab-project">
+                                    <span class="project-type">1990-1995:</span>
+                                    <span class="project-title">Carrera en Modelaje Profesional</span>
+                                    <span class="project-details">Desarrollo de expresión visual y comunicación no verbal en fotografía comercial</span>
+                                </div>
+                                <div class="tab-project">
+                                    <span class="project-type">1996:</span>
+                                    <span class="project-title">Licenciatura en Artes Dramáticas</span>
+                                    <span class="project-details">Universidad Cornell</span>
+                                </div>
+                                <div class="tab-project">
+                                    <span class="project-type">2021-Presente:</span>
+                                    <span class="project-title">Formación Actoral Avanzada</span>
+                                    <span class="project-details">Con la Maestra Marisol Padilla Sánchez, actriz internacional conocida por "Traffic" (2000) y "L.A. Confidential" (1997)</span>
+                                </div>
+                                <div class="tab-project">
+                                    <span class="project-type">2024:</span>
+                                    <span class="project-title">Taller de Actuación de Método</span>
+                                    <span class="project-details">Con Patricia Barbosa, actriz y directora de casting, conocida por "La vida es una danza" (2024) y "No Translation Required" (2021)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tab Experiencia Cinematográfica -->
+                    <div class="tab-panel" id="experiencia">
+                        <div class="tab-content">
+                            <h4>Experiencia Cinematográfica</h4>
+                            <div class="tab-list">
+                                <div class="tab-project">
+                                    <span class="project-type">Debut Profesional:</span>
+                                    <span class="project-title">"El Centauro del Norte"</span>
+                                    <span class="project-details">Papel de Embajador Americano</span>
+                                </div>
+                                <div class="tab-project">
+                                    <span class="project-type">Proyectos Cinematográficos:</span>
+                                    <span class="project-title">"Campeón Gabacho"</span>
+                                    <span class="project-details">Doblaje para cine ADR (dir. Jonás Cuarón)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tab Contacto Profesional -->
+                    <div class="tab-panel" id="contacto">
+                        <div class="tab-content">
+                            <h4>Contacto Profesional</h4>
+                            <div class="tab-list">
+                                <div class="tab-item">
+                                    <span class="tab-label">Manager:</span>
+                                    <span class="tab-value">Mimi Carrillo</span>
+                                </div>
+                                <div class="tab-item">
+                                    <span class="tab-label">Agencia:</span>
+                                    <span class="tab-value">Mimi Carrillo Agency</span>
+                                </div>
+                                <div class="tab-item">
+                                    <span class="tab-label">Sitio web:</span>
+                                    <span class="tab-value"><a href="https://mimicarrillo.com/" target="_blank">https://mimicarrillo.com/</a></span>
+                                </div>
+                                <div class="tab-item">
+                                    <span class="tab-label">Email:</span>
+                                    <span class="tab-value"><a href="mailto:contacto@mimicarrillo.com">contacto@mimicarrillo.com</a></span>
+                                </div>
+                                <div class="tab-item">
+                                    <span class="tab-label">Teléfono:</span>
+                                    <span class="tab-value"><a href="tel:+525587435405">+52 55 87 43 54 05</a></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tab Material Adicional -->
+                    <div class="tab-panel" id="material">
+                        <div class="tab-content">
+                            <h4>Material Adicional</h4>
+                            <div class="tab-list">
+                                <div class="tab-item">
+                                    <span class="tab-label">Fotos profesionales:</span>
+                                        <span class="tab-value"><a id="photosDownloadFicha" href="https://1drv.ms/u/c/240b98da269be9b3/ETN3GiJhAzdJubm_okKxuPMB5V6cZ4Q6WZxW81VyTldKtg?e=VUhe1Z" target="_self">Descargar ZIP (alta calidad)</a></span>
+                                </div>
+                                <div class="tab-item">
+                                    <span class="tab-label">Press kit completo:</span>
+                                    <span class="tab-value"><a href="https://press-kit-nicol-s-capetillo.vercel.app/" target="_blank">https://press-kit-nicol-s-capetillo.vercel.app/</a></span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -839,16 +1043,7 @@
         </div>
     </div>
 
-    <!-- Botón de Tema -->
-    <button class="theme-toggle" id="themeToggle" aria-label="Cambiar tema">
-        <i data-lucide="sun" class="theme-icon sun-icon"></i>
-        <i data-lucide="moon" class="theme-icon moon-icon"></i>
-    </button>
-
-    <!-- Botón de Regreso -->
-    <a href="index.html" class="back-btn" title="Regresar al sitio principal">
-        <i data-lucide="arrow-left"></i>
-    </a>
+    <!-- Controles superiores: Regresar + Tema (el header ya los incluye) -->
 
     <!-- JavaScript del Tema -->
     <script>
@@ -895,10 +1090,75 @@
             }
         }
 
+        // ===== ALTURA DINÁMICA PARA EVITAR SCROLL GLOBAL =====
+        function setDynamicContentHeight() {
+            const root = document.documentElement;
+            const header = document.querySelector('.header');
+            const containerPadding = 32; // 1.5rem aprox a cada lado; margen seguro
+            const headerHeight = header ? header.getBoundingClientRect().height : 0;
+            const viewportHeight = window.innerHeight;
+            const offset = 40; // margen de seguridad para que siempre se vea el borde inferior
+            const available = Math.max(320, viewportHeight - headerHeight - containerPadding - offset);
+            root.style.setProperty('--content-height', available + 'px');
+        }
+
+        function initDynamicHeight() {
+            setDynamicContentHeight();
+            window.addEventListener('resize', setDynamicContentHeight);
+        }
+
         // Inicializar cuando el DOM esté listo
         document.addEventListener('DOMContentLoaded', function() {
             initThemeSystem();
+            initTabsSystem();
+            initFichaDownloads();
+            initDynamicHeight();
         });
+
+        // ===== SISTEMA DE TABS =====
+        function initTabsSystem() {
+            const tabButtons = document.querySelectorAll('.tab-btn');
+            const tabPanels = document.querySelectorAll('.tab-panel');
+            
+            if (!tabButtons.length || !tabPanels.length) return;
+            
+            function switchTab(tabId) {
+                tabPanels.forEach(panel => { panel.classList.remove('active'); });
+                tabButtons.forEach(btn => { btn.classList.remove('active'); });
+                document.getElementById(tabId)?.classList.add('active');
+                document.querySelector(`[data-tab="${tabId}"]`)?.classList.add('active');
+            }
+            
+            tabButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    switchTab(this.getAttribute('data-tab'));
+                });
+            });
+            
+            const firstTab = tabButtons[0];
+            if (firstTab) {
+                switchTab(firstTab.getAttribute('data-tab'));
+            }
+        }
+
+        // ===== DESCARGAS DIRECTAS (FICHA) =====
+        function initFichaDownloads() {
+            const photosLink = document.getElementById('photosDownloadFicha');
+            if (!photosLink) return;
+
+            photosLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                const href = this.getAttribute('href');
+                const downloadUrl = href + '&download=1';
+                const tempLink = document.createElement('a');
+                tempLink.href = downloadUrl;
+                tempLink.download = 'Nicolas_Capetillo_Fotos_Alta_Resolucion.zip';
+                tempLink.style.display = 'none';
+                document.body.appendChild(tempLink);
+                tempLink.click();
+                document.body.removeChild(tempLink);
+            });
+        }
     </script>
 
     <!-- Initialize Lucide Icons -->
