@@ -288,6 +288,31 @@
             box-shadow: 0 4px 14px var(--shadow-color);
         }
 
+        /* ===== Control móvil (selector) ===== */
+        .mobile-tabs {
+            display: none;
+            position: sticky;
+            top: var(--nav-height);
+            z-index: 999;
+            background: var(--nav-bg);
+            padding: 0.5rem 0.75rem;
+            border-bottom: 1px solid var(--border-color);
+            backdrop-filter: blur(12px);
+        }
+
+        .mobile-tabs select {
+            width: 100%;
+            padding: 0.75rem 0.9rem;
+            border: 2px solid var(--border-color);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 2px 8px var(--shadow-color);
+        }
+
         .ficha-tabs .tabs-content {
             flex: 1;
             overflow-y: hidden; /* el scroll ocurrirá dentro de .tab-content */
@@ -560,6 +585,8 @@
         }
 
         @media (max-width: 768px) {
+            .mobile-tabs { display: block; }
+            .ficha-tabs .tabs-header { display: none; }
             .container {
                 padding: 1rem;
             }
@@ -828,6 +855,19 @@
 
             <!-- Información Técnica con Tabs -->
             <div class="info-section">
+            <!-- Selector móvil para navegar tabs -->
+            <div class="mobile-tabs" aria-label="Navegación móvil de secciones">
+                <select id="mobileTabSelect">
+                    <option value="datos">Datos</option>
+                    <option value="fisico">Físico</option>
+                    <option value="idiomas">Idiomas</option>
+                    <option value="habilidades">Habilidades</option>
+                    <option value="formacion">Formación</option>
+                    <option value="experiencia">Experiencia</option>
+                    <option value="contacto">Contacto</option>
+                    <option value="material">Material</option>
+                </select>
+            </div>
             <div class="ficha-tabs">
                 <div class="tabs-header">
                     <button class="tab-btn active" data-tab="datos">
@@ -1166,6 +1206,7 @@
         function initTabsSystem() {
             const tabButtons = document.querySelectorAll('.tab-btn');
             const tabPanels = document.querySelectorAll('.tab-panel');
+            const mobileSelect = document.getElementById('mobileTabSelect');
             
             if (!tabButtons.length || !tabPanels.length) return;
             
@@ -1174,6 +1215,11 @@
                 tabButtons.forEach(btn => { btn.classList.remove('active'); });
                 document.getElementById(tabId)?.classList.add('active');
                 document.querySelector(`[data-tab="${tabId}"]`)?.classList.add('active');
+
+                // Sincronizar selector móvil
+                if (mobileSelect && mobileSelect.value !== tabId) {
+                    mobileSelect.value = tabId;
+                }
             }
             
             tabButtons.forEach(button => {
@@ -1182,6 +1228,17 @@
                 });
             });
             
+            // Cambio desde selector móvil
+            if (mobileSelect) {
+                mobileSelect.addEventListener('change', function() {
+                    switchTab(this.value);
+                    // Desplazar suavemente al inicio de la sección en móvil
+                    const infoTop = document.querySelector('.info-section')?.getBoundingClientRect().top || 0;
+                    const scrollTop = window.scrollY + infoTop - (parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-height')) || 72);
+                    window.scrollTo({ top: scrollTop, behavior: 'smooth' });
+                });
+            }
+
             const firstTab = tabButtons[0];
             if (firstTab) {
                 switchTab(firstTab.getAttribute('data-tab'));
