@@ -288,21 +288,29 @@
             box-shadow: 0 4px 14px var(--shadow-color);
         }
 
-        /* ===== Control móvil (selector) ===== */
-        .mobile-tabs {
+        /* ===== Control móvil: barra horizontal desplazable ===== */
+        .mobile-scroll-tabs {
             display: none;
             position: sticky;
             top: var(--nav-height);
             z-index: 999;
             background: var(--nav-bg);
-            padding: 0.5rem 0.75rem;
+            padding: 0.5rem 0.5rem;
             border-bottom: 1px solid var(--border-color);
             backdrop-filter: blur(12px);
+            overflow-x: auto;
+            overflow-y: hidden;
+            white-space: nowrap;
+            gap: 0.5rem;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
         }
-
-        .mobile-tabs select {
-            width: 100%;
-            padding: 0.75rem 0.9rem;
+        .mobile-scroll-tabs::-webkit-scrollbar { display: none; }
+        .tab-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.55rem 0.8rem;
             border: 2px solid var(--border-color);
             background: var(--bg-primary);
             color: var(--text-primary);
@@ -311,6 +319,13 @@
             text-transform: uppercase;
             letter-spacing: 0.5px;
             box-shadow: 0 2px 8px var(--shadow-color);
+            cursor: pointer;
+            scroll-snap-align: center;
+        }
+        .tab-chip.active {
+            background: var(--text-primary);
+            color: var(--bg-primary);
+            border-color: var(--text-primary);
         }
 
         .ficha-tabs .tabs-content {
@@ -614,10 +629,10 @@
         }
 
         @media (max-width: 768px) {
-            /* Mostrar acordeón y ocultar tabs/select para modo lectura */
-            .mobile-accordion { display: block; }
-            .mobile-tabs { display: none; }
-            .ficha-tabs { display: none; }
+            /* Mostrar barra horizontal y contenido de tabs; ocultar grid de header */
+            .mobile-scroll-tabs { display: flex; }
+            .mobile-accordion { display: none; }
+            .ficha-tabs { display: block; }
             .ficha-tabs .tabs-header { display: none; }
             .container {
                 padding: 1rem;
@@ -887,17 +902,19 @@
 
             <!-- Información Técnica con Tabs -->
             <div class="info-section">
-            <!-- Acordeón móvil (modo lectura) -->
-            <div class="mobile-accordion" id="mobileAccordion">
-                <details class="acc-item" data-tab="datos"><summary>Datos</summary><div class="acc-content"></div></details>
-                <details class="acc-item" data-tab="fisico"><summary>Físico</summary><div class="acc-content"></div></details>
-                <details class="acc-item" data-tab="idiomas"><summary>Idiomas</summary><div class="acc-content"></div></details>
-                <details class="acc-item" data-tab="habilidades"><summary>Habilidades</summary><div class="acc-content"></div></details>
-                <details class="acc-item" data-tab="formacion"><summary>Formación</summary><div class="acc-content"></div></details>
-                <details class="acc-item" data-tab="experiencia"><summary>Experiencia</summary><div class="acc-content"></div></details>
-                <details class="acc-item" data-tab="contacto"><summary>Contacto</summary><div class="acc-content"></div></details>
-                <details class="acc-item" data-tab="material"><summary>Material</summary><div class="acc-content"></div></details>
+            <!-- Tabs móviles: barra scrollable -->
+            <div class="mobile-scroll-tabs" id="mobileScrollTabs" aria-label="Navegación móvil de secciones">
+                <button class="tab-chip active" data-tab="datos">Datos</button>
+                <button class="tab-chip" data-tab="fisico">Físico</button>
+                <button class="tab-chip" data-tab="idiomas">Idiomas</button>
+                <button class="tab-chip" data-tab="habilidades">Habilidades</button>
+                <button class="tab-chip" data-tab="formacion">Formación</button>
+                <button class="tab-chip" data-tab="experiencia">Experiencia</button>
+                <button class="tab-chip" data-tab="contacto">Contacto</button>
+                <button class="tab-chip" data-tab="material">Material</button>
             </div>
+            <!-- Acordeón móvil (modo lectura alternativo, ahora oculto por defecto) -->
+            <div class="mobile-accordion" id="mobileAccordion" hidden></div>
             <div class="ficha-tabs">
                 <div class="tabs-header">
                     <button class="tab-btn active" data-tab="datos">
@@ -1238,6 +1255,7 @@
             const tabButtons = document.querySelectorAll('.tab-btn');
             const tabPanels = document.querySelectorAll('.tab-panel');
             const mobileAccordion = document.getElementById('mobileAccordion');
+            const mobileScrollTabs = document.getElementById('mobileScrollTabs');
             
             if (!tabButtons.length || !tabPanels.length) return;
             
@@ -1258,6 +1276,16 @@
                         }
                     });
                 }
+
+                // Sincronizar chips móviles
+                if (mobileScrollTabs) {
+                    mobileScrollTabs.querySelectorAll('.tab-chip').forEach(chip => {
+                        chip.classList.toggle('active', chip.getAttribute('data-tab') === tabId);
+                        if (chip.classList.contains('active')) {
+                            chip.scrollIntoView({ inline: 'center', behavior: 'smooth', block: 'nearest' });
+                        }
+                    });
+                }
             }
             
             tabButtons.forEach(button => {
@@ -1274,6 +1302,16 @@
                             const tabId = this.getAttribute('data-tab');
                             switchTab(tabId);
                         }
+                    });
+                });
+            }
+
+            // Interacción desde chips móviles (barra scrollable)
+            if (mobileScrollTabs) {
+                mobileScrollTabs.querySelectorAll('.tab-chip').forEach(chip => {
+                    chip.addEventListener('click', function() {
+                        const tabId = this.getAttribute('data-tab');
+                        switchTab(tabId);
                     });
                 });
             }
