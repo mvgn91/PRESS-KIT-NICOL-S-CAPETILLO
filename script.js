@@ -3,19 +3,37 @@ function initSplashScreen() {
     const splashScreen = document.getElementById('splashScreen');
     const splashName = document.getElementById('splashName');
     const splashProfession = document.getElementById('splashProfession');
+    const splashLine = document.querySelector('.splash-line');
     
     if (!splashScreen) return;
     
-    // Duración total del splash screen
-    const splashDuration = 4000; // 4 segundos
-    
-    // Ocultar splash screen después de la animación
-    setTimeout(() => {
+    // Esperar a que terminen las animaciones clave (nombre, profesión y línea)
+    function waitAnimationEnd(element) {
+        return new Promise(resolve => {
+            if (!element) return resolve();
+            const onEnd = () => {
+                element.removeEventListener('animationend', onEnd);
+                resolve();
+            };
+            element.addEventListener('animationend', onEnd, { once: true });
+        });
+    }
+
+    const safetyTimeout = new Promise(resolve => setTimeout(resolve, 3000)); // respaldo por si falla algún evento
+
+    Promise.race([
+        Promise.all([
+            waitAnimationEnd(splashName),
+            waitAnimationEnd(splashProfession),
+            waitAnimationEnd(splashLine)
+        ]),
+        safetyTimeout
+    ]).then(() => {
         splashScreen.classList.add('hidden');
         setTimeout(() => {
             splashScreen.style.display = 'none';
-        }, 1200);
-    }, splashDuration);
+        }, 1200); // coincide con transition en CSS
+    });
 }
 
 // ===== NAVEGACIÓN =====
