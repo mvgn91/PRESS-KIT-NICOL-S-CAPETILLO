@@ -429,7 +429,7 @@
         .ficha-tabs .skill-icon {
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.35rem; /* reducir separación icono-texto */
         }
 
         .ficha-tabs .skill-icon i {
@@ -437,6 +437,35 @@
             height: 16px;
             color: var(--text-primary);
         }
+
+        /* Reducir separación excesiva en habilidades (icono + texto) */
+        .ficha-tabs .tab-skill {
+            grid-template-columns: auto 1fr; /* ancho automático para el icono */
+            align-items: center;
+        }
+
+        /* ===== Acordeón móvil (modo lectura) ===== */
+        .mobile-accordion { display: none; }
+        .acc-item {
+            border: 1px solid var(--border-color);
+            background: var(--bg-secondary);
+            margin-bottom: 0.75rem;
+        }
+        .acc-item summary {
+            list-style: none;
+            cursor: pointer;
+            padding: 0.9rem 1rem;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--bg-primary);
+        }
+        .acc-item[open] summary { background: var(--bg-tertiary); }
+        .acc-content { padding: 1rem; border-top: 1px solid var(--border-color); }
 
         .ficha-tabs .tab-value a {
             color: var(--text-primary);
@@ -585,7 +614,10 @@
         }
 
         @media (max-width: 768px) {
-            .mobile-tabs { display: block; }
+            /* Mostrar acordeón y ocultar tabs/select para modo lectura */
+            .mobile-accordion { display: block; }
+            .mobile-tabs { display: none; }
+            .ficha-tabs { display: none; }
             .ficha-tabs .tabs-header { display: none; }
             .container {
                 padding: 1rem;
@@ -672,13 +704,13 @@
 
             .ficha-tabs .tab-item,
             .ficha-tabs .tab-project,
-            .ficha-tabs .tab-skill,
             .ficha-tabs .tab-location {
                 padding: 0.5rem;
                 grid-template-columns: 1fr;
                 align-items: start;
                 min-width: 0;
             }
+            .ficha-tabs .tab-skill { grid-template-columns: auto 1fr; align-items: center; }
 
             .ficha-tabs .tab-label,
             .ficha-tabs .project-type,
@@ -855,18 +887,16 @@
 
             <!-- Información Técnica con Tabs -->
             <div class="info-section">
-            <!-- Selector móvil para navegar tabs -->
-            <div class="mobile-tabs" aria-label="Navegación móvil de secciones">
-                <select id="mobileTabSelect">
-                    <option value="datos">Datos</option>
-                    <option value="fisico">Físico</option>
-                    <option value="idiomas">Idiomas</option>
-                    <option value="habilidades">Habilidades</option>
-                    <option value="formacion">Formación</option>
-                    <option value="experiencia">Experiencia</option>
-                    <option value="contacto">Contacto</option>
-                    <option value="material">Material</option>
-                </select>
+            <!-- Acordeón móvil (modo lectura) -->
+            <div class="mobile-accordion" id="mobileAccordion">
+                <details class="acc-item" data-tab="datos"><summary>Datos</summary><div class="acc-content"></div></details>
+                <details class="acc-item" data-tab="fisico"><summary>Físico</summary><div class="acc-content"></div></details>
+                <details class="acc-item" data-tab="idiomas"><summary>Idiomas</summary><div class="acc-content"></div></details>
+                <details class="acc-item" data-tab="habilidades"><summary>Habilidades</summary><div class="acc-content"></div></details>
+                <details class="acc-item" data-tab="formacion"><summary>Formación</summary><div class="acc-content"></div></details>
+                <details class="acc-item" data-tab="experiencia"><summary>Experiencia</summary><div class="acc-content"></div></details>
+                <details class="acc-item" data-tab="contacto"><summary>Contacto</summary><div class="acc-content"></div></details>
+                <details class="acc-item" data-tab="material"><summary>Material</summary><div class="acc-content"></div></details>
             </div>
             <div class="ficha-tabs">
                 <div class="tabs-header">
@@ -1200,13 +1230,14 @@
             initTabsSystem();
             initFichaDownloads();
             initDynamicHeight();
+            hydrateMobileAccordion();
         });
 
         // ===== SISTEMA DE TABS =====
         function initTabsSystem() {
             const tabButtons = document.querySelectorAll('.tab-btn');
             const tabPanels = document.querySelectorAll('.tab-panel');
-            const mobileSelect = document.getElementById('mobileTabSelect');
+            const mobileAccordion = document.getElementById('mobileAccordion');
             
             if (!tabButtons.length || !tabPanels.length) return;
             
@@ -1216,9 +1247,16 @@
                 document.getElementById(tabId)?.classList.add('active');
                 document.querySelector(`[data-tab="${tabId}"]`)?.classList.add('active');
 
-                // Sincronizar selector móvil
-                if (mobileSelect && mobileSelect.value !== tabId) {
-                    mobileSelect.value = tabId;
+                // Sincronizar acordeón móvil: abrir el item correspondiente
+                if (mobileAccordion) {
+                    const items = mobileAccordion.querySelectorAll('.acc-item');
+                    items.forEach((item) => {
+                        if (item.getAttribute('data-tab') === tabId) {
+                            item.setAttribute('open', '');
+                        } else {
+                            item.removeAttribute('open');
+                        }
+                    });
                 }
             }
             
@@ -1228,14 +1266,15 @@
                 });
             });
             
-            // Cambio desde selector móvil
-            if (mobileSelect) {
-                mobileSelect.addEventListener('change', function() {
-                    switchTab(this.value);
-                    // Desplazar suavemente al inicio de la sección en móvil
-                    const infoTop = document.querySelector('.info-section')?.getBoundingClientRect().top || 0;
-                    const scrollTop = window.scrollY + infoTop - (parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-height')) || 72);
-                    window.scrollTo({ top: scrollTop, behavior: 'smooth' });
+            // Interacción desde acordeón móvil
+            if (mobileAccordion) {
+                mobileAccordion.querySelectorAll('.acc-item').forEach((item) => {
+                    item.addEventListener('toggle', function() {
+                        if (this.open) {
+                            const tabId = this.getAttribute('data-tab');
+                            switchTab(tabId);
+                        }
+                    });
                 });
             }
 
@@ -1243,6 +1282,22 @@
             if (firstTab) {
                 switchTab(firstTab.getAttribute('data-tab'));
             }
+        }
+
+        // ===== HIDRATAR ACORDEÓN MÓVIL CON EL CONTENIDO EXISTENTE =====
+        function hydrateMobileAccordion() {
+            const mobileAccordion = document.getElementById('mobileAccordion');
+            if (!mobileAccordion) return;
+
+            // Mapea cada details con su panel correspondiente y copia el HTML
+            mobileAccordion.querySelectorAll('.acc-item').forEach((item) => {
+                const tabId = item.getAttribute('data-tab');
+                const panel = document.getElementById(tabId);
+                const target = item.querySelector('.acc-content');
+                if (panel && target) {
+                    target.innerHTML = panel.querySelector('.tab-content')?.innerHTML || '';
+                }
+            });
         }
 
         // ===== DESCARGAS DIRECTAS (FICHA) =====
