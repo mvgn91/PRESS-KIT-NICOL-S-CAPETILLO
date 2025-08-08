@@ -617,79 +617,66 @@
         }
 
         @media (max-width: 480px) {
-        .ficha-tabs .tabs-header {
+            .ficha-tabs .tabs-header {
                 gap: 0.125rem;
-            flex-wrap: wrap;
+                flex-wrap: wrap;
                 margin-bottom: 1rem;
-        }
+            }
 
-        .ficha-tabs .tab-btn {
+            .ficha-tabs .tab-btn {
                 padding: 0.5rem 0.7rem;
                 font-size: 0.7rem;
                 min-width: auto;
-        }
-
-        /* Ajuste de columnas de lista/tab para evitar desbordes en móvil */
-        @media (max-width: 768px) {
-            .ficha-tabs .tab-item, 
-            .ficha-tabs .tab-project, 
-            .ficha-tabs .tab-skill, 
-            .ficha-tabs .tab-location {
-                grid-template-columns: minmax(120px, 40%) 1fr;
-                min-width: 0; /* no permitir que el grid crezca por contenido */
             }
-        }
 
-        @media (max-width: 480px) {
-            .ficha-tabs .tab-item, 
-            .ficha-tabs .tab-project, 
-            .ficha-tabs .tab-skill, 
+            .ficha-tabs .tab-btn i {
+                width: 12px;
+                height: 12px;
+            }
+
+            .ficha-tabs .tab-content {
+                padding: 1rem;
+            }
+
+            .ficha-tabs .tab-content h4 {
+                font-size: 1rem;
+                margin-bottom: 1rem;
+            }
+
+            .ficha-tabs .tab-item,
+            .ficha-tabs .tab-project,
+            .ficha-tabs .tab-skill,
             .ficha-tabs .tab-location {
+                padding: 0.5rem;
                 grid-template-columns: 1fr;
                 align-items: start;
                 min-width: 0;
             }
+
             .ficha-tabs .tab-label,
             .ficha-tabs .project-type,
             .ficha-tabs .skill-type,
             .ficha-tabs .location-type {
+                font-size: 0.8rem;
                 margin-bottom: 0.25rem;
+            }
+
+            .ficha-tabs .tab-value,
+            .ficha-tabs .project-title,
+            .ficha-tabs .skill-description,
+            .ficha-tabs .location-value {
+                font-size: 0.9rem;
             }
         }
 
-        .ficha-tabs .tab-btn i {
-                width: 12px;
-                height: 12px;
-        }
-
-        .ficha-tabs .tab-content {
-                padding: 1rem;
-        }
-
-        .ficha-tabs .tab-content h4 {
-                font-size: 1rem;
-                margin-bottom: 1rem;
-        }
-
-        .ficha-tabs .tab-item, 
-        .ficha-tabs .tab-project, 
-        .ficha-tabs .tab-skill, 
-        .ficha-tabs .tab-location {
-                padding: 0.5rem;
-        }
-
-        .ficha-tabs .tab-label, 
-        .ficha-tabs .project-type, 
-        .ficha-tabs .skill-type, 
-        .ficha-tabs .location-type {
-                font-size: 0.8rem;
-        }
-
-        .ficha-tabs .tab-value, 
-        .ficha-tabs .project-title, 
-        .ficha-tabs .skill-description, 
-        .ficha-tabs .location-value {
-            font-size: 0.9rem;
+        /* Ajuste de columnas de lista/tab para evitar desbordes en móvil y tablet */
+        @media (max-width: 768px) {
+            .ficha-tabs .tab-item,
+            .ficha-tabs .tab-project,
+            .ficha-tabs .tab-skill,
+            .ficha-tabs .tab-location {
+                grid-template-columns: minmax(120px, 40%) 1fr;
+                min-width: 0; /* no permitir que el grid crezca por contenido */
             }
         }
 
@@ -743,9 +730,69 @@
         }
         @media (max-width: 420px) {
             .ficha-tabs .tabs-header {
-                grid-template-columns: 1fr;
-                max-width: 300px;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                max-width: 100%;
             }
+        }
+        @media (max-width: 360px) {
+            .ficha-tabs .tabs-header {
+                grid-template-columns: 1fr; /* una por fila en pantallas muy estrechas */
+            }
+        }
+
+        /* ===== Correcciones móviles: permitir scroll y evitar recortes ===== */
+        @media (max-width: 768px) {
+            :root { --nav-height: 60px; }
+            html, body {
+                height: auto;
+                overflow-x: hidden;
+                overflow-y: auto; /* habilita scroll vertical global en móvil */
+            }
+
+            .container {
+                display: block; /* quitar grid para flujo natural */
+                height: auto;   /* evitar 100vh que recorta en móviles */
+                min-height: 100vh;
+                padding-top: var(--nav-height);
+            }
+
+            .ficha-content {
+                height: auto;              /* sin altura fija */
+                grid-template-columns: 1fr;/* una sola columna */
+                align-content: start;
+            }
+
+            .photo-section,
+            .info-section {
+                height: auto;
+                max-height: none; /* que no dependa del alto de la foto */
+                overflow: visible;
+            }
+
+            .ficha-tabs .tabs-content {
+                height: auto;
+                max-height: none;  /* elimina límite que causaba recortes */
+                overflow: visible; /* evita scroll anidado en móvil */
+            }
+
+            .ficha-tabs .tab-content {
+                height: auto;
+                max-height: none;          /* elimina límite por --photo-height */
+                overflow: visible;         /* que el scroll sea el de la página */
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .photo-container {
+                width: 100%;
+                max-width: 320px; /* tamaño cómodo en móviles estrechos */
+                max-height: none; /* permitir crecer si hace falta */
+                margin-bottom: 1rem;
+            }
+        }
+
+        /* Ajustes extra para móviles muy estrechos */
+        @media (max-width: 480px) {
+            .photo-container { max-width: 280px; }
         }
     </style>
 </head>
