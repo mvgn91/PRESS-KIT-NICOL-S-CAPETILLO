@@ -1112,38 +1112,492 @@ function adjustContainer(img) {
 }
 
 // FunciÃ³n para ajustar contenedores de galerÃ­a
-// Función para ajustar contenedores de galería - REMOVIDA
-// La galería ahora se maneja completamente en gallery-manager.js
+function adjustGalleryContainers() {
+    const galleryItems = document.querySelectorAll('.gallery-item');
+    
+    galleryItems.forEach(item => {
+        const img = item.querySelector('.gallery-photo');
+        if (img && img.complete) {
+            adjustGalleryItem(item, img);
+        } else if (img) {
+            img.addEventListener('load', () => adjustGalleryItem(item, img));
+        }
+    });
+}
+
+function adjustGalleryItem(item, img) {
+    // Mantener las proporciones naturales de la imagen
+    img.style.width = '100%';
+    img.style.height = 'auto';
+    img.style.display = 'block';
+}
 
 // Ejecutar ajustes cuando el DOM estÃ© listo
 document.addEventListener('DOMContentLoaded', function() {
     // Ajustar contenedores de imÃ¡genes
     adjustImageContainers();
-    // adjustGalleryContainers(); // REMOVIDO
+    adjustGalleryContainers();
     
     // Ajustar en resize
     window.addEventListener('resize', () => {
         setTimeout(() => {
             adjustImageContainers();
-            // adjustGalleryContainers(); // REMOVIDO
+            adjustGalleryContainers();
         }, 100);
     });
 }); 
 
+// ===== GALERÃA COMPLETAMENTE REDISEÃ‘ADA =====
+class GalleryManager {
+    constructor() {
+        this.currentImageIndex = 0;
+        this.images = [];
+        this.currentZoom = 1;
+        this.init();
+    }
+    
+    init() {
+        this.loadGalleryImages();
+        this.setupCarousel();
+        this.setupThumbnails();
+        this.setupLightbox();
+        this.setupKeyboardNavigation();
+        this.setupTouchGestures();
+    }
+    
+    loadGalleryImages() {
+        // Array de todas las imÃ¡genes disponibles
+        this.images = [
+            { src: 'assets/fotos/3.jpg', alt: 'NicolÃ¡s Capetillo - Headshot Profesional', title: 'Headshot Profesional' },
+            { src: 'assets/fotos/4.jpg', alt: 'NicolÃ¡s Capetillo - Retrato ArtÃ­stico', title: 'Retrato ArtÃ­stico' },
+            { src: 'assets/fotos/5.jpg', alt: 'NicolÃ¡s Capetillo - Escena DramÃ¡tica', title: 'Escena DramÃ¡tica' },
+            { src: 'assets/fotos/6.jpg', alt: 'NicolÃ¡s Capetillo - Retrato ContemporÃ¡neo', title: 'Retrato ContemporÃ¡neo' },
+            { src: 'assets/fotos/7.jpg', alt: 'NicolÃ¡s Capetillo - ExpresiÃ³n Natural', title: 'ExpresiÃ³n Natural' },
+            { src: 'assets/fotos/8.jpg', alt: 'NicolÃ¡s Capetillo - Retrato ClÃ¡sico', title: 'Retrato ClÃ¡sico' },
+            { src: 'assets/fotos/_P5A7048.jpg', alt: 'NicolÃ¡s Capetillo - Retrato Profesional', title: 'Retrato Profesional' },
+            { src: 'assets/fotos/_P5A7051.jpg', alt: 'NicolÃ¡s Capetillo - ExpresiÃ³n DramÃ¡tica', title: 'ExpresiÃ³n DramÃ¡tica' },
+            { src: 'assets/fotos/_P5A7061.jpg', alt: 'NicolÃ¡s Capetillo - Retrato ArtÃ­stico', title: 'Retrato ArtÃ­stico' },
+            { src: 'assets/fotos/_P5A7068.jpg', alt: 'NicolÃ¡s Capetillo - Headshot ClÃ¡sico', title: 'Headshot ClÃ¡sico' },
+            { src: 'assets/fotos/_P5A7071.jpg', alt: 'NicolÃ¡s Capetillo - Retrato ContemporÃ¡neo', title: 'Retrato ContemporÃ¡neo' },
+            { src: 'assets/fotos/_P5A7079.jpg', alt: 'NicolÃ¡s Capetillo - ExpresiÃ³n Natural', title: 'ExpresiÃ³n Natural' },
+            { src: 'assets/fotos/_P5A7080.jpg', alt: 'NicolÃ¡s Capetillo - Retrato ArtÃ­stico', title: 'Retrato ArtÃ­stico' },
+            { src: 'assets/fotos/_P5A7081.jpg', alt: 'NicolÃ¡s Capetillo - Headshot Profesional', title: 'Headshot Profesional' },
+            { src: 'assets/fotos/_P5A7082.jpg', alt: 'NicolÃ¡s Capetillo - Retrato ClÃ¡sico', title: 'Retrato ClÃ¡sico' },
+            { src: 'assets/fotos/_P5A7085.jpg', alt: 'NicolÃ¡s Capetillo - ExpresiÃ³n DramÃ¡tica', title: 'ExpresiÃ³n DramÃ¡tica' },
+            { src: 'assets/fotos/_P5A7097.jpg', alt: 'NicolÃ¡s Capetillo - Retrato ArtÃ­stico', title: 'Retrato ArtÃ­stico' },
+            { src: 'assets/fotos/_P5A7104.jpg', alt: 'NicolÃ¡s Capetillo - Headshot Profesional', title: 'Headshot Profesional' },
+            { src: 'assets/fotos/_P5A7105.jpg', alt: 'NicolÃ¡s Capetillo - Retrato ContemporÃ¡neo', title: 'Retrato ContemporÃ¡neo' },
+            { src: 'assets/fotos/_P5A7107.jpg', alt: 'NicolÃ¡s Capetillo - ExpresiÃ³n Natural', title: 'ExpresiÃ³n Natural' },
+            { src: 'assets/fotos/_P5A7111.jpg', alt: 'NicolÃ¡s Capetillo - Retrato ClÃ¡sico', title: 'Retrato ClÃ¡sico' },
+            { src: 'assets/fotos/_P5A7112.jpg', alt: 'NicolÃ¡s Capetillo - Retrato ArtÃ­stico', title: 'Retrato ArtÃ­stico' },
+            { src: 'assets/fotos/_P5A7121.jpg', alt: 'NicolÃ¡s Capetillo - Headshot Profesional', title: 'Headshot Profesional' },
+            { src: 'assets/fotos/_P5A7122.jpg', alt: 'NicolÃ¡s Capetillo - ExpresiÃ³n DramÃ¡tica', title: 'ExpresiÃ³n DramÃ¡tica' },
+            { src: 'assets/fotos/_P5A7131.jpg', alt: 'NicolÃ¡s Capetillo - Retrato ArtÃ­stico', title: 'Retrato ArtÃ­stico' },
+            { src: 'assets/fotos/_P5A7138.jpg', alt: 'NicolÃ¡s Capetillo - Retrato ContemporÃ¡neo', title: 'Retrato ContemporÃ¡neo' },
+            { src: 'assets/fotos/_P5A7145.jpg', alt: 'NicolÃ¡s Capetillo - Headshot ClÃ¡sico', title: 'Headshot ClÃ¡sico' },
+            { src: 'assets/fotos/_P5A7146.jpg', alt: 'NicolÃ¡s Capetillo - ExpresiÃ³n Natural', title: 'ExpresiÃ³n Natural' },
+            { src: 'assets/fotos/_P5A7147.jpg', alt: 'NicolÃ¡s Capetillo - Retrato ArtÃ­stico', title: 'Retrato ArtÃ­stico' },
+            { src: 'assets/fotos/_P5A7148.jpg', alt: 'NicolÃ¡s Capetillo - Retrato ClÃ¡sico', title: 'Retrato ClÃ¡sico' },
+            { src: 'assets/fotos/_P5A7152.jpg', alt: 'NicolÃ¡s Capetillo - Headshot Profesional', title: 'Headshot Profesional' },
+            { src: 'assets/fotos/1.jpg', alt: 'NicolÃ¡s Capetillo - Retrato ContemporÃ¡neo', title: 'Retrato ContemporÃ¡neo' },
+            { src: 'assets/fotos/2.jpg', alt: 'NicolÃ¡s Capetillo - ExpresiÃ³n Natural', title: 'ExpresiÃ³n Natural' }
+        ];
+    }
+    
+    setupCarousel() {
+        const track = document.getElementById('galleryCarouselTrack');
+        const prevBtn = document.getElementById('carouselPrevBtn');
+        const nextBtn = document.getElementById('carouselNextBtn');
+        const indicators = document.getElementById('carouselIndicators');
+        const counter = document.getElementById('imageCounter');
+        const title = document.getElementById('imageTitle');
+        
+        if (!track) return;
+        
+        // Crear slides del carrusel
+        this.images.forEach((image, index) => {
+            const slide = document.createElement('div');
+            slide.className = 'gallery-carousel-slide';
+            slide.innerHTML = `
+                <img src="${image.src}" alt="${image.alt}" class="gallery-carousel-image" loading="lazy">
+                <div class="gallery-carousel-overlay">
+                    <h3>${image.title}</h3>
+                    <p>Click para ver en grande</p>
+                </div>
+            `;
+            
+            slide.addEventListener('click', () => {
+                this.openLightbox(index);
+            });
+            
+            track.appendChild(slide);
+        });
+        
+        // Crear indicadores
+        this.images.forEach((_, index) => {
+            const indicator = document.createElement('button');
+            indicator.className = 'carousel-indicator';
+            indicator.setAttribute('data-index', index);
+            indicator.setAttribute('aria-label', `Ir a imagen ${index + 1}`);
+            
+            indicator.addEventListener('click', () => {
+                this.goToImage(index);
+            });
+            
+            indicators.appendChild(indicator);
+        });
+        
+        // Configurar botones de navegaciÃ³n
+        if (prevBtn) {
+            prevBtn.addEventListener('click', () => {
+                this.previousImage();
+            });
+        }
+        
+        if (nextBtn) {
+            nextBtn.addEventListener('click', () => {
+                this.nextImage();
+            });
+        }
+        
+        // Actualizar estado inicial
+        this.updateCarousel();
+    }
+    
+    setupThumbnails() {
+        const thumbnailsGrid = document.getElementById('thumbnailsGrid');
+        
+        if (!thumbnailsGrid) return;
+        
+        this.images.forEach((image, index) => {
+            const thumbnail = document.createElement('div');
+            thumbnail.className = 'thumbnail-item';
+            thumbnail.setAttribute('data-index', index);
+            
+            thumbnail.innerHTML = `
+                <img src="${image.src}" alt="${image.alt}" class="thumbnail-image" loading="lazy">
+                <div class="thumbnail-overlay">
+                    <span>${image.title}</span>
+                </div>
+            `;
+            
+            thumbnail.addEventListener('click', () => {
+                this.goToImage(index);
+            });
+            
+            thumbnailsGrid.appendChild(thumbnail);
+        });
+    }
+    
+    setupLightbox() {
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImage = document.getElementById('lightboxImage');
+        const lightboxCaption = document.getElementById('lightboxCaption');
+        const lightboxCounter = document.getElementById('lightboxCounter');
+        const lightboxClose = document.getElementById('lightboxClose');
+        const lightboxPrev = document.getElementById('lightboxPrev');
+        const lightboxNext = document.getElementById('lightboxNext');
+        const lightboxDownload = document.getElementById('lightboxDownloadBtn');
+        const zoomInBtn = document.getElementById('zoomInBtn');
+        const zoomOutBtn = document.getElementById('zoomOutBtn');
+        const zoomResetBtn = document.getElementById('zoomResetBtn');
+        
+        if (!lightbox) return;
+        
+        // Cerrar lightbox
+        lightboxClose.addEventListener('click', () => {
+            this.closeLightbox();
+        });
+        
+        // NavegaciÃ³n
+        lightboxPrev.addEventListener('click', () => {
+            this.previousImage();
+        });
+        
+        lightboxNext.addEventListener('click', () => {
+            this.nextImage();
+        });
+        
+        // Descarga
+        lightboxDownload.addEventListener('click', () => {
+            this.downloadImage();
+        });
+        
+        // Controles de zoom
+        zoomInBtn.addEventListener('click', () => {
+            this.zoomIn();
+        });
+        
+        zoomOutBtn.addEventListener('click', () => {
+            this.zoomOut();
+        });
+        
+        zoomResetBtn.addEventListener('click', () => {
+            this.resetZoom();
+        });
+        
+        // Cerrar con Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+                this.closeLightbox();
+            }
+        });
+        
+        // Click fuera de la imagen para cerrar
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) {
+                this.closeLightbox();
+            }
+        });
+    }
+    
+    setupKeyboardNavigation() {
+        document.addEventListener('keydown', (e) => {
+            if (!document.getElementById('lightbox').classList.contains('active')) return;
+            
+            switch (e.key) {
+                case 'ArrowLeft':
+                    e.preventDefault();
+                    this.previousImage();
+                    break;
+                case 'ArrowRight':
+                    e.preventDefault();
+                    this.nextImage();
+                    break;
+                case '+':
+                case '=':
+                    e.preventDefault();
+                    this.zoomIn();
+                    break;
+                case '-':
+                    e.preventDefault();
+                    this.zoomOut();
+                    break;
+                case '0':
+                    e.preventDefault();
+                    this.resetZoom();
+                    break;
+            }
+        });
+    }
+    
+    setupTouchGestures() {
+        const track = document.getElementById('galleryCarouselTrack');
+        
+        if (!track) return;
+        
+        let startX = 0;
+        let currentX = 0;
+        let isDragging = false;
+        
+        const handleTouchStart = (e) => {
+            startX = e.touches[0].clientX;
+            isDragging = true;
+            track.style.transition = 'none';
+        };
+        
+        const handleTouchMove = (e) => {
+            if (!isDragging) return;
+            e.preventDefault();
+            currentX = e.touches[0].clientX;
+            const diffX = currentX - startX;
+            const slideWidth = 100;
+            const currentTranslate = -this.currentImageIndex * slideWidth;
+            const newTranslate = currentTranslate + (diffX / window.innerWidth) * 100;
+            track.style.transform = `translateX(${newTranslate}%)`;
+        };
+        
+        const handleTouchEnd = () => {
+            if (!isDragging) return;
+            isDragging = false;
+            track.style.transition = 'transform 0.3s ease';
+            
+            const diffX = currentX - startX;
+            if (Math.abs(diffX) > 50) {
+                if (diffX > 0 && this.currentImageIndex > 0) {
+                    this.previousImage();
+                } else if (diffX < 0 && this.currentImageIndex < this.images.length - 1) {
+                    this.currentImageIndex++;
+                }
+            }
+            this.updateCarousel();
+        };
+        
+        track.addEventListener('touchstart', handleTouchStart, { passive: false });
+        track.addEventListener('touchmove', handleTouchMove, { passive: false });
+        track.addEventListener('touchend', handleTouchEnd);
+    }
+    
+    goToImage(index) {
+        if (index < 0 || index >= this.images.length) return;
+        
+        this.currentImageIndex = index;
+        this.updateCarousel();
+    }
+    
+    updateCarousel() {
+        const track = document.getElementById('galleryCarouselTrack');
+        const indicators = document.querySelectorAll('.carousel-indicator');
+        const thumbnails = document.querySelectorAll('.thumbnail-item');
+        const counter = document.getElementById('imageCounter');
+        const title = document.getElementById('imageTitle');
+        const prevBtn = document.getElementById('carouselPrevBtn');
+        const nextBtn = document.getElementById('carouselNextBtn');
+        
+        if (!track) return;
+        
+        // Mover carrusel
+        track.style.transform = `translateX(-${this.currentImageIndex * 100}%)`;
+        
+        // Actualizar indicadores
+        indicators.forEach((indicator, index) => {
+            indicator.classList.toggle('active', index === this.currentImageIndex);
+        });
+        
+        // Actualizar miniaturas
+        thumbnails.forEach((thumbnail, index) => {
+            thumbnail.classList.toggle('active', index === this.currentImageIndex);
+        });
+        
+        // Actualizar informaciÃ³n
+        if (counter) {
+            counter.textContent = `${this.currentImageIndex + 1} / ${this.images.length}`;
+        }
+        
+        if (title) {
+            title.textContent = this.images[this.currentImageIndex].title;
+        }
+        
+        // Actualizar botones
+        if (prevBtn) {
+            prevBtn.disabled = this.currentImageIndex === 0;
+        }
+        
+        if (nextBtn) {
+            nextBtn.disabled = this.currentImageIndex === this.images.length - 1;
+        }
+    }
+    
+    openLightbox(index) {
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImage = document.getElementById('lightboxImage');
+        const lightboxCaption = document.getElementById('lightboxCaption');
+        const lightboxCounter = document.getElementById('lightboxCounter');
+        const lightboxPrev = document.getElementById('lightboxPrev');
+        const lightboxNext = document.getElementById('lightboxNext');
+        
+        if (!lightbox || !this.images[index]) return;
+        
+        this.currentImageIndex = index;
+        const imageData = this.images[index];
+        
+        lightboxImage.src = imageData.src;
+        lightboxImage.alt = imageData.alt;
+        lightboxCaption.textContent = imageData.title;
+        lightboxCounter.textContent = `${index + 1} / ${this.images.length}`;
+        
+        // Actualizar botones de navegaciÃ³n
+        lightboxPrev.disabled = index === 0;
+        lightboxNext.disabled = index === this.images.length - 1;
+        
+        // Resetear zoom
+        this.resetZoom();
+        
+        // Mostrar lightbox
+        lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        
+        // Actualizar carrusel
+        this.updateCarousel();
+    }
+    
+    closeLightbox() {
+        const lightbox = document.getElementById('lightbox');
+        lightbox.classList.remove('active');
+        document.body.style.overflow = '';
+        this.resetZoom();
+    }
+    
+    previousImage() {
+        if (this.currentImageIndex > 0) {
+            this.currentImageIndex--;
+            this.updateCarousel();
+            
+            // Si el lightbox estÃ¡ abierto, actualizar la imagen
+            const lightbox = document.getElementById('lightbox');
+            if (lightbox.classList.contains('active')) {
+                this.openLightbox(this.currentImageIndex);
+            }
+        }
+    }
+    
+    nextImage() {
+        if (this.currentImageIndex < this.images.length - 1) {
+            this.currentImageIndex++;
+            this.updateCarousel();
+            
+            // Si el lightbox estÃ¡ abierto, actualizar la imagen
+            const lightbox = document.getElementById('lightbox');
+            if (lightbox.classList.contains('active')) {
+                this.openLightbox(this.currentImageIndex);
+            }
+        }
+    }
+    
+    zoomIn() {
+        const lightboxImage = document.getElementById('lightboxImage');
+        if (lightboxImage && this.currentZoom < 3) {
+            this.currentZoom += 0.5;
+            lightboxImage.style.transform = `scale(${this.currentZoom})`;
+        }
+    }
+    
+    zoomOut() {
+        const lightboxImage = document.getElementById('lightboxImage');
+        if (lightboxImage && this.currentZoom > 0.5) {
+            this.currentZoom -= 0.5;
+            this.currentZoom = Math.max(0.5, this.currentZoom);
+            lightboxImage.style.transform = `scale(${this.currentZoom})`;
+        }
+    }
+    
+    resetZoom() {
+        const lightboxImage = document.getElementById('lightboxImage');
+        if (lightboxImage) {
+            this.currentZoom = 1;
+            lightboxImage.style.transform = 'scale(1)';
+        }
+    }
+    
+    downloadImage() {
+        const imageData = this.images[this.currentImageIndex];
+        if (!imageData) return;
+        
+        // Crear enlace de descarga
+        const link = document.createElement('a');
+        link.href = imageData.src;
+        link.download = `nicolas-capetillo-${imageData.title.toLowerCase().replace(/\s+/g, '-')}.jpg`;
+        link.style.display = 'none';
+        
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+}
 // Inicializar carrusel cuando el DOM estÃ© listo
 document.addEventListener('DOMContentLoaded', function() {
     // Ajustar contenedores de imÃ¡genes
     adjustImageContainers();
-    // adjustGalleryContainers(); // REMOVIDO
+    adjustGalleryContainers();
     
     // Inicializar carrusel
-    // new GalleryManager(); // REMOVIDO
+    new GalleryManager();
     
     // Ajustar en resize
     window.addEventListener('resize', () => {
         setTimeout(() => {
             adjustImageContainers();
-            // adjustGalleryContainers(); // REMOVIDO
+            adjustGalleryContainers();
         }, 100);
     });
 }); 
@@ -1199,10 +1653,10 @@ function initThemeSystem() {
 document.addEventListener('DOMContentLoaded', function() {
     // Ajustar contenedores de imÃ¡genes
     adjustImageContainers();
-    // adjustGalleryContainers(); // REMOVIDO
+    adjustGalleryContainers();
     
     // Inicializar carrusel
-    // new GalleryManager(); // REMOVIDO
+    new GalleryManager();
     
     // Inicializar sistema de tema
     initThemeSystem();
@@ -1211,7 +1665,7 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('resize', () => {
         setTimeout(() => {
             adjustImageContainers();
-            // adjustGalleryContainers(); // REMOVIDO
+            adjustGalleryContainers();
         }, 100);
     });
 }); 
@@ -1487,15 +1941,4 @@ function initMobileCarousel() {
     startAutoPlay();
 }
 
-
-
-
-// Inicializar galería modular cuando el DOM esté listo
-document.addEventListener('DOMContentLoaded', function() {
-    // Inicializar galería modular
-    const gallery = // new GalleryManager(); // REMOVIDO
-    
-    // Hacer la galería disponible globalmente si es necesario
-    window.gallery = gallery;
-});
 

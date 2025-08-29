@@ -1119,13 +1119,13 @@ function adjustContainer(img) {
 document.addEventListener('DOMContentLoaded', function() {
     // Ajustar contenedores de imÃ¡genes
     adjustImageContainers();
-    // adjustGalleryContainers(); // REMOVIDO
+    adjustGalleryContainers();
     
     // Ajustar en resize
     window.addEventListener('resize', () => {
         setTimeout(() => {
             adjustImageContainers();
-            // adjustGalleryContainers(); // REMOVIDO
+            adjustGalleryContainers();
         }, 100);
     });
 }); 
@@ -1134,16 +1134,16 @@ document.addEventListener('DOMContentLoaded', function() {
 document.addEventListener('DOMContentLoaded', function() {
     // Ajustar contenedores de imÃ¡genes
     adjustImageContainers();
-    // adjustGalleryContainers(); // REMOVIDO
+    adjustGalleryContainers();
     
     // Inicializar carrusel
-    // new GalleryManager(); // REMOVIDO
+    new GalleryManager();
     
     // Ajustar en resize
     window.addEventListener('resize', () => {
         setTimeout(() => {
             adjustImageContainers();
-            // adjustGalleryContainers(); // REMOVIDO
+            adjustGalleryContainers();
         }, 100);
     });
 }); 
@@ -1199,10 +1199,10 @@ function initThemeSystem() {
 document.addEventListener('DOMContentLoaded', function() {
     // Ajustar contenedores de imÃ¡genes
     adjustImageContainers();
-    // adjustGalleryContainers(); // REMOVIDO
+    adjustGalleryContainers();
     
     // Inicializar carrusel
-    // new GalleryManager(); // REMOVIDO
+    new GalleryManager();
     
     // Inicializar sistema de tema
     initThemeSystem();
@@ -1211,7 +1211,7 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('resize', () => {
         setTimeout(() => {
             adjustImageContainers();
-            // adjustGalleryContainers(); // REMOVIDO
+            adjustGalleryContainers();
         }, 100);
     });
 }); 
@@ -1493,9 +1493,8 @@ function initMobileCarousel() {
 // Inicializar galería modular cuando el DOM esté listo
 document.addEventListener('DOMContentLoaded', function() {
     // Inicializar galería modular
-    const gallery = // new GalleryManager(); // REMOVIDO
+    const gallery = new GalleryManager();
     
     // Hacer la galería disponible globalmente si es necesario
     window.gallery = gallery;
 });
-

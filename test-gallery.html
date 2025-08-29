@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prueba de Galería</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="gallery-styles.css">
+    
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: 'Space Grotesk', sans-serif;
+            background: #f5f5f5;
+        }
+        
+        .test-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .test-title {
+            text-align: center;
+            margin-bottom: 40px;
+            color: #333;
+        }
+        
+        /* Variables CSS básicas para la prueba */
+        :root {
+            --spacing-xs: 4px;
+            --spacing-sm: 8px;
+            --spacing-md: 16px;
+            --spacing-lg: 24px;
+            --spacing-xl: 32px;
+            --font-size-sm: 14px;
+            --bg-tertiary: #f8f9fa;
+            --border-color: #dee2e6;
+            --text-primary: #495057;
+            --text-muted: #6c757d;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+            --accent-primary: #007bff;
+            --transition-normal: 0.3s;
+            --transition-slow: 0.5s;
+            
+            /* Variables adicionales necesarias */
+            --section-container: 1200px;
+            --section-header: 48px;
+            --section-title: 32px;
+            --section-subtitle: 18px;
+            --section-number: 14px;
+            --btn-primary: #007bff;
+            --btn-secondary: #6c757d;
+        }
+        
+        /* Estilos adicionales para la prueba */
+        .section-container {
+            max-width: var(--section-container);
+            margin: 0 auto;
+            padding: 0 var(--spacing-lg);
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: var(--spacing-xl);
+        }
+        
+        .section-title {
+            font-size: var(--section-title);
+            font-weight: 600;
+            margin-bottom: var(--spacing-sm);
+            color: var(--text-primary);
+        }
+        
+        .section-subtitle {
+            font-size: var(--section-subtitle);
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .btn-secondary {
+            background: var(--btn-secondary);
+            color: white;
+            border: none;
+            padding: var(--spacing-sm) var(--spacing-md);
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: var(--font-size-sm);
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            transition: all var(--transition-normal) ease;
+        }
+        
+        .btn-secondary:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1 class="test-title">Prueba de Galería Elegante</h1>
+        
+        <!-- Galería Editorial Elegante -->
+        <section class="gallery-section">
+            <div class="section-container">
+                <div class="section-header">
+                    <h2 class="section-title">Galería de Imágenes</h2>
+                </div>
+                
+                <!-- Botón para recargar con nuevas imágenes -->
+                <div class="gallery-controls">
+                    <button class="btn-secondary gallery-reload-btn" id="galleryReloadBtn">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M17.65,6.35C16.2,4.9 14.21,4 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20C15.73,20 18.84,17.45 19.73,14H17.65C16.83,16.33 14.61,18 12,18A6,6 0 0,1 6,12A6,6 0 0,1 12,6C13.66,6 15.14,6.69 16.22,7.78L13,11H20V4L17.65,6.35Z"/>
+                        </svg>
+                        Nuevas Imágenes
+                    </button>
+                </div>
+                
+                <!-- Contenedor de la Galería Elegante -->
+                <div class="gallery-layout-container" id="galleryLayoutContainer">
+                    <!-- Área para la imagen destacada en desktop -->
+                    <div class="gallery-featured-wrapper" id="galleryFeaturedWrapper">
+                        <!-- La imagen destacada se cargará aquí con JS -->
+                    </div>
+                    <!-- Contenedor para las miniaturas (desktop) o el carrusel (móvil) -->
+                    <div class="gallery-scroll-wrapper" id="galleryScrollWrapper">
+                        <div class="gallery-container" id="galleryContainer">
+                            <!-- Las imágenes se cargarán dinámicamente -->
+                        </div>
+                    </div>
+                </div>
+                <!-- Indicadores de puntos para el carrusel móvil -->
+                <div class="gallery-dots" id="galleryDots"></div>
+            </div>
+        </section>
+    </div>
+    
+    <!-- Gallery JavaScript -->
+    <script src="gallery-config.js"></script>
+    <script src="gallery-manager.js"></script>
+    
+    <script>
+        // Verificar que la galería se haya inicializado correctamente
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM cargado');
+            
+            if (window.elegantGallery) {
+                console.log('Galería inicializada correctamente');
+                console.log('Información de la galería:', window.elegantGallery.getGalleryInfo());
+            } else {
+                console.error('Error: La galería no se inicializó');
+            }
+        });
+    </script>
+</body>
+</html>

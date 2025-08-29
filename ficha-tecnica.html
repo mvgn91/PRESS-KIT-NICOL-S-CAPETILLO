@@ -20,6 +20,17 @@
         :root {
             --nav-height: 72px;
             --tabs-max-width: 1000px;
+            
+            /* Sistema de Espaciado Responsivo */
+            --spacing-xs: 4px;
+            --spacing-sm: 8px;
+            --spacing-md: 16px;
+            --spacing-lg: 24px;
+            --spacing-xl: 32px;
+            --spacing-xxl: 48px;
+            --container-padding: 20px;
+            --section-margin: 40px;
+            
             /* Solo blanco y negro - Material Design Editorial */
             --accent-primary: #1a1a1a;
             --accent-secondary: #000000;
@@ -40,9 +51,11 @@
             --card-bg: rgba(255, 255, 255, 0.95);
             --overlay-bg: rgba(0, 0, 0, 0.9);
             
-            /* Transiciones suaves para cambio de tema */
-            --transition-smooth: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-            --transition-fast: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            /* Sistema de Duración de Transiciones */
+            --transition-fast: 0.1s;
+            --transition-normal: 0.3s;
+            --transition-slow: 0.5s;
+            --transition-slower: 0.8s;
         }
 
         /* ===== TEMA OSCURO COMPLETO ===== */
@@ -62,6 +75,29 @@
             --overlay-bg: rgba(0, 0, 0, 0.9);
         }
 
+        /* ===== AJUSTES RESPONSIVOS DE VARIABLES ===== */
+        @media (max-width: 768px) {
+            :root {
+                --container-padding: 16px;
+                --section-margin: 32px;
+                --nav-height: 60px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            :root {
+                --container-padding: 14px;
+                --section-margin: 24px;
+            }
+        }
+
+        @media (max-width: 375px) {
+            :root {
+                --container-padding: 12px;
+                --section-margin: 20px;
+            }
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -78,7 +114,7 @@
             background: var(--bg-primary);
             color: var(--text-primary);
             line-height: 1.6;
-            transition: var(--transition-smooth);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -87,12 +123,12 @@
         .container {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 1.5rem;
+            padding: var(--container-padding);
             padding-top: var(--nav-height);
-            height: 100vh; /* Ocupar toda la ventana */
+            height: 100vh;
             display: grid;
-            grid-template-rows: auto 1fr; /* Header auto, contenido usa el resto */
-            gap: 0; /* sin gaps verticales entre header y contenido */
+            grid-template-rows: auto 1fr;
+            gap: 0;
         }
 
         /* Encabezado coherente con index */
@@ -110,11 +146,11 @@
         .nav-container {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 0.75rem 1rem;
+            padding: var(--spacing-md) var(--spacing-md);
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 1rem;
+            gap: var(--spacing-md);
         }
 
         .nav-logo .logo-text {
@@ -127,7 +163,7 @@
         .nav-title {
             font-family: 'Fraunces', serif;
             font-weight: 900;
-            font-size: clamp(1.2rem, 4vw, 1.6rem);
+            font-size: min(4.5svh, 1.6em);
             color: var(--text-primary);
             margin: 0 auto;
             text-transform: none;
@@ -168,11 +204,11 @@
         .ficha-content {
             display: grid;
             grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
-            gap: 2rem;
+            gap: var(--spacing-xl);
             flex: 1;
             min-height: 0;
             align-items: start;
-            height: var(--content-height, calc(100vh - 120px));
+            height: calc(100vh - var(--nav-height) - var(--spacing-xl));
         }
 
         .photo-section {
@@ -194,7 +230,7 @@
             width: 100%;
             max-width: 400px;
             margin: 0 auto;
-            height: auto; /* se ajusta al alto de la imagen, evitando espacios en blanco */
+            height: auto;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -211,11 +247,10 @@
         .info-section {
             display: flex;
             flex-direction: column;
-            height: auto;
-            min-height: 0; /* permite que el hijo con overflow haga scroll */
+            height: 100%;
+            min-height: 0;
             overflow: hidden;
-            min-width: 0; /* evita crecimiento por contenido */
-            max-height: var(--photo-height, none); /* no superar alto de foto */
+            min-width: 0;
         }
 
         .ficha-tabs {
@@ -230,8 +265,8 @@
         .ficha-tabs .tabs-header {
             display: grid;
             grid-template-columns: repeat(4, minmax(160px, 1fr));
-            gap: 0.75rem 1rem;
-            margin-bottom: 1.25rem;
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-lg);
             border-bottom: 0;
             overflow: visible;
             padding-bottom: 0;
@@ -240,8 +275,7 @@
             max-width: var(--tabs-max-width);
             margin-left: auto;
             margin-right: auto;
-            flex: 0 0 auto; /* altura fija basada en contenido, no crece */
-            --tabs-header-height: 108px;
+            flex: 0 0 auto;
         }
 
         .ficha-tabs .tabs-header::-webkit-scrollbar {
@@ -251,18 +285,18 @@
         .ficha-tabs .tab-btn {
             background: var(--bg-primary);
             border: 2px solid var(--border-color);
-            padding: 0.9rem 1.1rem;
+            padding: var(--spacing-md) var(--spacing-lg);
             font-family: 'Space Grotesk', sans-serif;
-            font-size: 0.9rem;
+            font-size: min(2.8svh, 0.9em);
             font-weight: 700;
             color: var(--text-primary);
             cursor: pointer;
-            transition: all 0.25s ease;
+            transition: all var(--transition-normal) cubic-bezier(0.25, 0.46, 0.45, 0.94);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 0.35rem; /* menos espacio entre icono y título */
+            gap: var(--spacing-sm); /* menos espacio entre icono y título */
             white-space: normal;
             text-transform: uppercase;
             letter-spacing: 0.5px;
@@ -290,51 +324,77 @@
 
         /* ===== Control móvil: barra horizontal desplazable ===== */
         .mobile-scroll-tabs {
-            display: none;
+            display: none; /* Oculto por defecto, se muestra en móvil */
             position: sticky;
             top: var(--nav-height);
             z-index: 999;
             background: var(--nav-bg);
-            padding: 0.5rem 0.5rem;
+            padding: var(--spacing-sm);
             border-bottom: 1px solid var(--border-color);
             backdrop-filter: blur(12px);
             overflow-x: auto;
             overflow-y: hidden;
             white-space: nowrap;
-            gap: 0.5rem;
+            gap: var(--spacing-sm);
             scroll-snap-type: x mandatory;
             -webkit-overflow-scrolling: touch;
+            flex-shrink: 0;
+            width: 100%;
+            /* Mejoras de rendimiento */
+            will-change: scroll-position;
+            contain: layout style;
         }
         .mobile-scroll-tabs::-webkit-scrollbar { display: none; }
         .tab-chip {
             display: inline-flex;
             align-items: center;
-            gap: 0.4rem;
-            padding: 0.55rem 0.8rem;
+            gap: var(--spacing-sm);
+            padding: var(--spacing-sm) var(--spacing-md);
             border: 2px solid var(--border-color);
             background: var(--bg-primary);
             color: var(--text-primary);
             font-family: 'Space Grotesk', sans-serif;
             font-weight: 700;
+            font-size: min(2.4svh, 0.75em);
             text-transform: uppercase;
             letter-spacing: 0.5px;
             box-shadow: 0 2px 8px var(--shadow-color);
             cursor: pointer;
             scroll-snap-align: center;
+            white-space: nowrap;
+            flex-shrink: 0;
+            /* Transiciones suaves */
+            transition: all var(--transition-normal) cubic-bezier(0.4, 0, 0.2, 1);
+            /* Optimizaciones de rendimiento */
+            will-change: transform, background-color, border-color;
+            contain: layout style;
         }
         .tab-chip.active {
             background: var(--text-primary);
             color: var(--bg-primary);
             border-color: var(--text-primary);
+            /* Mejoras visuales para estado activo */
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px var(--shadow-color);
+        }
+
+        /* Hover y active states para chips móviles */
+        .tab-chip:hover {
+            background: var(--bg-secondary);
+            border-color: var(--text-primary);
+            transform: translateY(-1px);
+        }
+
+        .tab-chip:active {
+            transform: scale(0.98);
         }
 
         .ficha-tabs .tabs-content {
             flex: 1;
-            overflow-y: hidden; /* el scroll ocurrirá dentro de .tab-content */
+            overflow-y: hidden;
             min-height: 0;
-            min-width: 0; /* evita que títulos largos expandan el contenedor */
+            min-width: 0;
             height: auto;
-            max-height: calc(var(--photo-height, 100vh) - var(--tabs-header-height, 0px) - 24px);
         }
 
         .ficha-tabs .tab-panel {
@@ -350,22 +410,27 @@
         }
 
         .ficha-tabs .tab-content {
-            padding: 1.25rem;
+            padding: var(--spacing-lg);
             background: var(--bg-secondary);
             border-radius: 0;
             border: 1px solid var(--border-color);
-            height: auto;            /* Altura automática */
-            overflow-y: auto;        /* Scroll interno para contenido largo dentro del panel */
-            overflow-x: hidden;      /* Evita expansión por contenido horizontal */
-            max-width: var(--tabs-max-width);       /* Mismo ancho que las tabs */
+            height: auto;
+            overflow-y: auto;
+            overflow-x: hidden;
+            max-width: var(--tabs-max-width);
             margin: 0 auto;
-            min-width: 0;            /* Previene crecimiento por contenido largo */
-            max-height: calc(var(--photo-height, 100vh) - 20px - var(--tabs-header-height, 0px));
+            min-width: 0;
+            /* Mejoras para scroll interno */
+            -webkit-overflow-scrolling: touch;
+            scroll-behavior: smooth;
+            /* Optimizaciones de rendimiento */
+            will-change: scroll-position;
+            contain: layout style;
         }
 
         .ficha-tabs .tab-content h4 {
             font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.2rem;
+            font-size: min(3.8svh, 1.2em);
             font-weight: 700;
             color: var(--text-primary);
             margin-bottom: 1.1rem;
@@ -385,7 +450,7 @@
         .ficha-tabs .tab-list {
             display: flex;
             flex-direction: column;
-            gap: 0.65rem;
+            gap: var(--spacing-sm);
         }
 
         .ficha-tabs .tab-item, 
@@ -393,10 +458,10 @@
         .ficha-tabs .tab-location {
             display: grid;
             grid-template-columns: 180px 1fr;
-            gap: 0.6rem;
-            padding: 0.6rem;
+            gap: var(--spacing-sm);
+            padding: var(--spacing-sm);
             border-left: 3px solid var(--border-color);
-            transition: all 0.3s ease;
+            transition: all var(--transition-normal) ease;
             background: var(--bg-primary);
             align-items: center;
         }
@@ -414,7 +479,7 @@
         .ficha-tabs .skill-type, 
         .ficha-tabs .location-type {
             font-family: 'Space Grotesk', sans-serif;
-            font-size: 0.85rem;
+            font-size: min(2.8svh, 0.85em);
             font-weight: 600;
             color: var(--text-primary);
             text-transform: uppercase;
@@ -427,7 +492,7 @@
         .ficha-tabs .project-title, 
         .ficha-tabs .skill-description, 
         .ficha-tabs .location-value {
-            font-size: 0.95rem;
+            font-size: min(3.2svh, 0.95em);
             color: var(--text-secondary);
             line-height: 1.5;
             word-break: break-word;
@@ -443,7 +508,7 @@
         .ficha-tabs .skill-icon {
             display: inline-flex;
             align-items: center;
-            gap: 0.35rem; /* reducir separación icono-texto */
+            gap: var(--spacing-sm); /* reducir separación icono-texto */
         }
 
         .ficha-tabs .skill-icon i {
@@ -457,7 +522,7 @@
             display: grid;
             grid-template-columns: 32px 1fr; /* columna estrecha para el icono */
             align-items: center;
-            gap: 0.5rem;
+            gap: var(--spacing-sm);
         }
 
         /* ===== Acordeón móvil (modo lectura) ===== */
@@ -492,6 +557,41 @@
         .ficha-tabs .tab-value a:hover {
             color: var(--text-secondary);
             text-decoration: underline;
+        }
+
+        /* ===== ANIMACIONES CONDICIONALES ===== */
+        
+        /* Solo en desktop */
+        @media (hover: hover) and (pointer: fine) {
+            .ficha-tabs .tab-btn:hover {
+                transform: translateY(-4px);
+                box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+            }
+            
+            .home-btn:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+            }
+            
+            .theme-toggle:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+            }
+        }
+
+        /* Solo en móvil */
+        @media (hover: none) and (pointer: coarse) {
+            .ficha-tabs .tab-btn:active {
+                transform: translateY(-2px);
+            }
+            
+            .home-btn:active {
+                transform: translateY(-1px);
+            }
+            
+            .theme-toggle:active {
+                transform: translateY(-1px);
+            }
         }
 
         @keyframes fadeIn {
@@ -619,7 +719,7 @@
         @media (max-width: 1280px) {
             .ficha-content {
                 grid-template-columns: 1fr;
-                gap: 2rem;
+                gap: var(--spacing-xl);
             }
 
             .photo-container {
@@ -629,78 +729,219 @@
             }
         }
 
+        /* ===== MEDIA QUERY CONSOLIDADO PARA MÓVIL (≤768px) ===== */
         @media (max-width: 768px) {
-            /* Mostrar barra horizontal y contenido de tabs; ocultar grid de header */
-            .mobile-scroll-tabs { display: flex; }
-            .mobile-accordion { display: none; }
-            .ficha-tabs { display: block; }
-            .ficha-tabs .tabs-header { display: none; }
-            .container {
-                padding: 1rem;
+            /* Variables responsivas */
+            :root { 
+                --nav-height: 60px; 
+            }
+            
+            /* Layout base móvil */
+            html, body {
+                height: 100vh;
+                overflow: hidden;
             }
 
-            .header h1 {
-                font-size: 2rem;
+            .container {
+                display: flex;
+                flex-direction: column;
+                height: 100vh;
+                padding: var(--spacing-md);
+                padding-top: var(--nav-height);
+                padding-bottom: 0;
+            }
+
+            .ficha-content {
+                display: flex;
+                flex-direction: column;
+                height: calc(100vh - var(--nav-height) - var(--spacing-md));
+                gap: var(--spacing-md);
+            }
+
+            /* Sección de foto */
+            .photo-section {
+                flex: 0 0 auto;
+                text-align: center;
+                padding: 0;
             }
 
             .photo-container {
-                max-width: 300px;
-                max-height: 35vh; /* Más compacto en mobile */
+                width: 100%;
+                max-width: 250px;
+                height: auto;
+                margin: 0 auto;
+                border-radius: 0;
+                overflow: hidden;
+                border: 2px solid var(--border-color);
             }
 
-            .ficha-tabs .tabs-header {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-                gap: 0.75rem 1rem;
+            .actor-photo {
+                width: 100%;
+                height: auto;
+                display: block;
             }
-            
-            .ficha-tabs .tab-btn {
-                padding: 0.9rem 1rem;
-                font-size: 0.8rem;
+
+            /* Sección de información */
+            .info-section {
+                flex: 1;
+                min-height: 0;
+                overflow: hidden;
+                display: flex;
+                flex-direction: column;
             }
-            
-            .ficha-tabs .tab-btn i {
-                width: 18px;
-                height: 18px;
+
+            /* Sistema de tabs móvil */
+            .ficha-tabs {
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                overflow: hidden;
             }
-            
+
+            .ficha-tabs .tabs-header { 
+                display: none; 
+            }
+
+            .mobile-scroll-tabs {
+                flex: 0 0 auto;
+                display: flex !important;
+                overflow-x: auto;
+                overflow-y: hidden;
+                white-space: nowrap;
+                padding: var(--spacing-sm);
+                border-bottom: 1px solid var(--border-color);
+                background: var(--nav-bg);
+                backdrop-filter: blur(12px);
+                gap: var(--spacing-sm);
+                width: 100%;
+                /* Mejoras específicas para móvil */
+                scroll-snap-type: x mandatory;
+                -webkit-overflow-scrolling: touch;
+                /* Asegurar que se mantenga visible */
+                position: sticky;
+                top: var(--nav-height);
+                z-index: 999;
+            }
+
+            .mobile-accordion { 
+                display: none; 
+            }
+
+            /* Contenido de tabs */
+            .ficha-tabs .tabs-content {
+                flex: 1;
+                min-height: 0;
+                overflow: hidden;
+            }
+
+            .ficha-tabs .tab-panel {
+                height: 100%;
+                display: none;
+            }
+
+            .ficha-tabs .tab-panel.active {
+                display: block;
+            }
+
             .ficha-tabs .tab-content {
-                padding: 1.25rem;
+                height: 100%;
+                overflow-y: auto;
+                overflow-x: hidden;
+                -webkit-overflow-scrolling: touch;
+                padding: var(--spacing-md);
+                background: var(--bg-secondary);
+                border: 1px solid var(--border-color);
+                /* Mejoras para scroll interno en móvil */
+                scroll-behavior: smooth;
+                /* Optimizaciones de rendimiento */
+                will-change: scroll-position;
+                contain: layout style;
+                /* Asegurar que el scroll funcione correctamente */
+                min-height: 0;
+                flex: 1;
             }
 
+            /* Grid responsivo para items */
+            .ficha-tabs .tab-item,
+            .ficha-tabs .tab-project,
+            .ficha-tabs .tab-location {
+                grid-template-columns: minmax(120px, 40%) 1fr;
+                min-width: 0;
+                padding: var(--spacing-sm);
+            }
+            
+            .ficha-tabs .tab-skill { 
+                grid-template-columns: 32px 1fr; 
+                padding: var(--spacing-sm);
+            }
+
+            /* Tipografía responsiva */
             .ficha-tabs .tab-content h4 {
-                font-size: 1.1rem;
-                margin-bottom: 1.25rem;
+                font-size: min(3.2svh, 1.1em);
+                margin-bottom: var(--spacing-lg);
             }
 
             .ficha-tabs .tab-list {
-                gap: 0.6rem;
+                gap: var(--spacing-sm);
             }
 
-            .ficha-tabs .tab-item, 
-            .ficha-tabs .tab-project, 
-            .ficha-tabs .tab-skill, 
-            .ficha-tabs .tab-location {
-                padding: 0.6rem;
-            }
-
+            /* Controles */
             .theme-toggle {
                 width: 44px;
                 height: 44px;
                 bottom: calc(1rem + env(safe-area-inset-bottom));
                 right: 1rem;
             }
+
+            .floating-controls {
+                top: calc(0.75rem + env(safe-area-inset-top));
+                right: 0.75rem;
+                gap: var(--spacing-sm);
+            }
+
+            /* Mejoras específicas para tabs móviles */
+            .tab-chip {
+                padding: var(--spacing-sm) var(--spacing-md);
+                font-size: min(2.4svh, 0.75em);
+                min-width: auto;
+                flex-shrink: 0;
+            }
+
+            /* Asegurar que el scroll interno funcione correctamente */
+            .ficha-tabs .tabs-content {
+                flex: 1;
+                min-height: 0;
+                overflow: hidden;
+                display: flex;
+                flex-direction: column;
+            }
+
+            .ficha-tabs .tab-panel {
+                height: 100%;
+                display: none;
+                flex: 1;
+                min-height: 0;
+            }
+
+            .ficha-tabs .tab-panel.active {
+                display: flex;
+                flex-direction: column;
+            }
         }
 
+        /* ===== SISTEMA RESPONSIVO COMPLETO ===== */
+        
+        /* Breakpoint 480px - Móviles pequeños */
         @media (max-width: 480px) {
             .ficha-tabs .tabs-header {
-                gap: 0.125rem;
+                gap: var(--spacing-xs);
                 flex-wrap: wrap;
-                margin-bottom: 1rem;
+                margin-bottom: var(--spacing-md);
             }
 
             .ficha-tabs .tab-btn {
-                padding: 0.5rem 0.7rem;
-                font-size: 0.7rem;
+                padding: var(--spacing-sm) var(--spacing-md);
+                font-size: min(2.2svh, 0.7em);
                 min-width: auto;
             }
 
@@ -710,50 +951,55 @@
             }
 
             .ficha-tabs .tab-content {
-                padding: 1rem;
+                padding: var(--spacing-sm);
             }
 
             .ficha-tabs .tab-content h4 {
-                font-size: 1rem;
-                margin-bottom: 1rem;
+                font-size: min(3.0svh, 1.0em);
+                margin-bottom: var(--spacing-md);
             }
 
             .ficha-tabs .tab-item,
             .ficha-tabs .tab-project,
             .ficha-tabs .tab-location {
-                padding: 0.5rem;
+                padding: var(--spacing-sm);
                 grid-template-columns: 1fr;
                 align-items: start;
                 min-width: 0;
             }
-            .ficha-tabs .tab-skill { grid-template-columns: auto 1fr; align-items: center; }
+            
+            .ficha-tabs .tab-skill { 
+                grid-template-columns: auto 1fr; 
+                align-items: center; 
+            }
 
             .ficha-tabs .tab-label,
             .ficha-tabs .project-type,
             .ficha-tabs .skill-type,
             .ficha-tabs .location-type {
-                font-size: 0.8rem;
-                margin-bottom: 0.25rem;
+                font-size: min(2.6svh, 0.8em);
+                margin-bottom: var(--spacing-xs);
             }
 
             .ficha-tabs .tab-value,
             .ficha-tabs .project-title,
             .ficha-tabs .skill-description,
             .ficha-tabs .location-value {
-                font-size: 0.9rem;
+                font-size: min(2.8svh, 0.9em);
+            }
+
+            /* Ajustes específicos para móviles pequeños */
+            .photo-container {
+                max-width: 250px;
+                max-height: 25vh;
+            }
+
+            .mobile-scroll-tabs {
+                padding: var(--spacing-xs);
             }
         }
 
-        /* Ajuste de columnas de lista/tab para evitar desbordes en móvil y tablet */
-        @media (max-width: 768px) {
-            .ficha-tabs .tab-item,
-            .ficha-tabs .tab-project,
-            .ficha-tabs .tab-location {
-                grid-template-columns: minmax(120px, 40%) 1fr;
-                min-width: 0; /* no permitir que el grid crezca por contenido */
-            }
-            .ficha-tabs .tab-skill { grid-template-columns: 32px 1fr; }
-        }
+
 
         @media print {
             .back-btn {
@@ -777,97 +1023,225 @@
             }
         }
 
-        /* Responsive controles superiores */
-        @media (max-width: 768px) {
-            .floating-controls {
-                top: calc(0.75rem + env(safe-area-inset-top));
-                right: 0.75rem;
-                gap: 0.5rem;
+        /* ===== OPTIMIZACIONES DE ACCESIBILIDAD ===== */
+        
+        /* Alto contraste para mejor legibilidad */
+        @media (prefers-contrast: high) {
+            .ficha-tabs .tab-content h4 {
+                color: var(--accent-primary);
+                border-bottom-color: var(--accent-primary);
+            }
+            
+            .ficha-tabs .tab-btn {
+                border-color: var(--accent-primary);
+            }
+            
+            .ficha-tabs .tab-btn.active {
+                background: var(--accent-primary);
+                color: var(--bg-primary);
             }
         }
 
-        /* Grid responsivo para el mosaico */
-        @media (max-width: 1200px) {
+        /* Reducción de movimiento */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation: none !important;
+                transition: none !important;
+            }
+            
+            .ficha-tabs .tab-btn {
+                transition: none !important;
+            }
+            
+            .theme-toggle {
+                transition: none !important;
+            }
+        }
+
+
+
+        /* ===== SISTEMA DE GRID RESPONSIVO ===== */
+        
+        /* Desktop: 4 columnas */
+        @media (min-width: 1200px) {
+            .ficha-tabs .tabs-header {
+                grid-template-columns: repeat(4, minmax(0, 1fr));
+            }
+        }
+
+        /* Desktop pequeño: 3 columnas */
+        @media (max-width: 1199px) and (min-width: 769px) {
             .ficha-tabs .tabs-header {
                 grid-template-columns: repeat(3, minmax(0, 1fr));
             }
         }
-        @media (max-width: 768px) {
+
+        /* Tablet: 2 columnas */
+        @media (max-width: 768px) and (min-width: 481px) {
             .ficha-tabs .tabs-header {
                 grid-template-columns: repeat(2, minmax(0, 1fr));
-                gap: 0.75rem 1rem;
+                gap: var(--spacing-md);
             }
             .ficha-tabs .tab-btn {
-                padding: 0.9rem 1rem;
-                font-size: 0.8rem;
+                padding: var(--spacing-md);
+                font-size: min(2.4svh, 0.8em);
             }
             .ficha-tabs .tab-btn i { width: 18px; height: 18px; }
         }
-        @media (max-width: 420px) {
+
+        /* Mobile: 1 columna */
+        @media (max-width: 480px) {
             .ficha-tabs .tabs-header {
                 grid-template-columns: repeat(2, minmax(0, 1fr));
                 max-width: 100%;
+                gap: var(--spacing-sm);
+            }
+            .ficha-tabs .tab-btn {
+                padding: var(--spacing-sm) var(--spacing-md);
+                font-size: min(2.2svh, 0.7em);
             }
         }
+
         @media (max-width: 360px) {
             .ficha-tabs .tabs-header {
                 grid-template-columns: 1fr; /* una por fila en pantallas muy estrechas */
             }
         }
 
-        /* ===== Correcciones móviles: permitir scroll y evitar recortes ===== */
-        @media (max-width: 768px) {
-            :root { --nav-height: 60px; }
-            html, body {
-                height: auto;
-                overflow-x: hidden;
-                overflow-y: auto; /* habilita scroll vertical global en móvil */
+        /* ===== OPTIMIZACIONES DE RENDIMIENTO PARA MÓVIL ===== */
+        
+        /* Efectos táctiles optimizados */
+        @media (hover: none) and (pointer: coarse) {
+            .ficha-tabs .tab-btn {
+                transition: transform var(--transition-fast) ease;
+            }
+            
+            .ficha-tabs .tab-btn:active {
+                transform: translateY(-2px);
+                box-shadow: rgba(0, 0, 0, 0.15) 0 8px 16px -2px;
+            }
+            
+            .home-btn:active {
+                transform: translateY(-1px);
+                background: var(--bg-tertiary);
+                transition: background var(--transition-fast) ease;
+            }
+            
+            .theme-toggle:active {
+                transform: translateY(-1px);
+                background: var(--bg-tertiary);
+                transition: background var(--transition-fast) ease;
+            }
+        }
+
+        /* Propiedades will-change optimizadas */
+        @media (hover: hover) and (pointer: fine) {
+            .ficha-tabs .tab-btn {
+                will-change: transform, box-shadow;
+                contain: layout style paint;
+            }
+        }
+
+        @media (hover: none) and (pointer: coarse) {
+            .ficha-tabs .tab-btn {
+                will-change: transform;
+                contain: layout style;
+            }
+        }
+
+        /* ===== SISTEMA DE TIPOGRAFÍA RESPONSIVO COMPLETO ===== */
+        
+        /* Desktop: Tamaños base */
+        @media (min-width: 769px) {
+            .nav-title { font-size: min(4.5svh, 1.6em); }
+            .ficha-tabs .tab-btn { font-size: min(2.8svh, 0.9em); }
+            .ficha-tabs .tab-content h4 { font-size: min(3.8svh, 1.2em); }
+            .ficha-tabs .tab-label { font-size: min(2.8svh, 0.85em); }
+            .ficha-tabs .tab-value { font-size: min(3.2svh, 0.95em); }
+        }
+
+        /* Tablet: Reducción moderada */
+        @media (max-width: 768px) and (min-width: 481px) {
+            .nav-title { font-size: min(3.8svh, 1.4em); }
+            .ficha-tabs .tab-btn { font-size: min(2.4svh, 0.8em); }
+            .ficha-tabs .tab-content h4 { font-size: min(3.2svh, 1.1em); }
+            .ficha-tabs .tab-label { font-size: min(2.4svh, 0.8em); }
+            .ficha-tabs .tab-value { font-size: min(2.8svh, 0.9em); }
+        }
+
+        /* Mobile: Reducción significativa */
+        @media (max-width: 480px) and (min-width: 376px) {
+            .nav-title { font-size: min(3.5svh, 1.2em); }
+            .ficha-tabs .tab-btn { font-size: min(2.2svh, 0.7em); }
+            .ficha-tabs .tab-content h4 { font-size: min(3.0svh, 1.0em); }
+            .ficha-tabs .tab-label { font-size: min(2.6svh, 0.8em); }
+            .ficha-tabs .tab-value { font-size: min(2.8svh, 0.9em); }
+        }
+
+        /* Mobile pequeño: Máxima reducción */
+        @media (max-width: 375px) {
+            .nav-title { font-size: min(3.2svh, 1.1em); }
+            .ficha-tabs .tab-btn { font-size: min(2.0svh, 0.65em); }
+            .ficha-tabs .tab-content h4 { font-size: min(2.8svh, 0.9em); }
+            .ficha-tabs .tab-label { font-size: min(2.4svh, 0.75em); }
+            .ficha-tabs .tab-value { font-size: min(2.6svh, 0.85em); }
+
+            /* Ajustes específicos para móviles muy estrechos */
+            .photo-container {
+                max-width: 220px;
+                max-height: 22vh;
             }
 
-            .container {
-                display: block; /* quitar grid para flujo natural */
-                height: auto;   /* evitar 100vh que recorta en móviles */
-                min-height: 100vh;
-                padding-top: var(--nav-height);
-            }
-
-            .ficha-content {
-                height: auto;              /* sin altura fija */
-                grid-template-columns: 1fr;/* una sola columna */
-                align-content: start;
-            }
-
-            .photo-section,
-            .info-section {
-                height: auto;
-                max-height: none; /* que no dependa del alto de la foto */
-                overflow: visible;
-            }
-
-            .ficha-tabs .tabs-content {
-                height: auto;
-                max-height: none;  /* elimina límite que causaba recortes */
-                overflow: visible; /* evita scroll anidado en móvil */
+            .mobile-scroll-tabs {
+                padding: var(--spacing-xs);
+                gap: var(--spacing-xs);
             }
 
             .ficha-tabs .tab-content {
-                height: auto;
-                max-height: none;          /* elimina límite por --photo-height */
-                overflow: visible;         /* que el scroll sea el de la página */
-                -webkit-overflow-scrolling: touch;
+                padding: var(--spacing-sm);
             }
 
-            .photo-container {
-                width: 100%;
-                max-width: 320px; /* tamaño cómodo en móviles estrechos */
-                max-height: none; /* permitir crecer si hace falta */
-                margin-bottom: 1rem;
+            .ficha-tabs .tab-item,
+            .ficha-tabs .tab-project,
+            .ficha-tabs .tab-location {
+                padding: var(--spacing-xs);
+            }
+
+            /* Optimizaciones adicionales para pantallas muy estrechas */
+            .tab-chip {
+                padding: var(--spacing-xs) var(--spacing-sm);
+                font-size: min(2.0svh, 0.65em);
+                min-width: auto;
+            }
+
+            /* Asegurar que el scroll horizontal funcione correctamente */
+            .mobile-scroll-tabs {
+                scroll-snap-type: x mandatory;
+                -webkit-overflow-scrolling: touch;
             }
         }
 
         /* Ajustes extra para móviles muy estrechos */
         @media (max-width: 480px) {
-            .photo-container { max-width: 280px; }
+            .photo-container { 
+                max-width: 280px; 
+                max-height: 25vh;
+            }
+            
+            /* Optimizaciones para tabs móviles en pantallas pequeñas */
+            .mobile-scroll-tabs {
+                padding: var(--spacing-xs);
+                gap: var(--spacing-xs);
+            }
+            
+            .tab-chip {
+                padding: var(--spacing-xs) var(--spacing-sm);
+                font-size: min(2.2svh, 0.7em);
+            }
+            
+            .ficha-tabs .tab-content {
+                padding: var(--spacing-sm);
+            }
         }
     </style>
 </head>

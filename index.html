@@ -22,6 +22,11 @@
     
     <!-- Custom CSS -->
     <link rel="stylesheet" href="styles.css?v=10.2">
+    <link rel="stylesheet" href="gallery-styles.css?v=1.2">
+    
+    <!-- Gallery JavaScript -->
+    <script src="gallery-config.js" defer></script>
+    <script src="gallery-manager.js" defer></script>
 </head>
 <body>
                 <!-- Splash Screen Minimalista Centrado -->
@@ -296,7 +301,7 @@
                 
                 <div class="film-item scroll-animate">
                     <div class="film-image">
-                        <img src="assets/fotos/scene 2.jpg" alt="Nicolás Capetillo - Campeón Gabacho" class="film-photo" style="object-position: center 30%;">
+                        <img src="assets/fotos/scene 2.jpg" alt="Nicolás Capetillo - Campeón Gabacho" class="film-photo campeon-gabacho-photo" style="object-position: center 30%;">
                         <div class="film-overlay">
                             <span class="imdb-rating">En Post-Producción</span>
                         </div>
@@ -359,7 +364,7 @@
         </div>
     </section>
 
-    <!-- Galería Editorial -->
+    <!-- Galería Editorial Elegante -->
     <section id="galeria" class="magazine-section gallery-section">
         <div class="section-container">
             <div class="section-header scroll-animate">
@@ -367,67 +372,29 @@
                 <h2 class="section-title">Galería de Imágenes</h2>
             </div>
             
-            <div class="gallery-carousel">
-                <div class="carousel-container">
-                    <div class="carousel-track">
-                        <div class="carousel-slide">
-                            <img src="assets/fotos/3.jpg" alt="Nicolás Capetillo - Headshot Profesional" class="carousel-photo">
-                        </div>
-                        <div class="carousel-slide">
-                            <img src="assets/fotos/4.jpg" alt="Nicolás Capetillo - Retrato Artístico" class="carousel-photo">
-                        </div>
-                        <div class="carousel-slide">
-                            <img src="assets/fotos/5.jpg" alt="Nicolás Capetillo - Escena Dramática" class="carousel-photo">
-                        </div>
-                        <div class="carousel-slide">
-                            <img src="assets/fotos/6.jpg" alt="Nicolás Capetillo - Retrato Contemporáneo" class="carousel-photo">
-                        </div>
-                        <div class="carousel-slide">
-                            <img src="assets/fotos/7.jpg" alt="Nicolás Capetillo - Expresión Natural" class="carousel-photo">
-                        </div>
-                        <div class="carousel-slide">
-                            <img src="assets/fotos/8.jpg" alt="Nicolás Capetillo - Retrato Clásico" class="carousel-photo">
-                        </div>
-                        <div class="carousel-slide">
-                            <img src="assets/fotos/_P5A7048.jpg" alt="Nicolás Capetillo - Retrato Profesional" class="carousel-photo">
-                        </div>
-                        <div class="carousel-slide">
-                            <img src="assets/fotos/_P5A7051.jpg" alt="Nicolás Capetillo - Expresión Dramática" class="carousel-photo">
-                        </div>
-                        <div class="carousel-slide">
-                            <img src="assets/fotos/_P5A7061.jpg" alt="Nicolás Capetillo - Retrato Artístico" class="carousel-photo">
-                        </div>
-                        <div class="carousel-slide">
-                            <img src="assets/fotos/_P5A7068.jpg" alt="Nicolás Capetillo - Headshot Clásico" class="carousel-photo">
-                        </div>
-                    </div>
+            <!-- Botón para recargar con nuevas imágenes -->
+            <div class="gallery-controls">
+                <button class="btn-secondary gallery-reload-btn" id="galleryReloadBtn">
+                    <i data-lucide="refresh-cw"></i>
+                    Nuevas Imágenes
+                </button>
+            </div>
+            
+            <!-- Contenedor de la Galería Elegante -->
+            <div class="gallery-layout-container" id="galleryLayoutContainer">
+                <!-- Área para la imagen destacada en desktop -->
+                <div class="gallery-featured-wrapper" id="galleryFeaturedWrapper">
+                    <!-- La imagen destacada se cargará aquí con JS -->
                 </div>
-                
-                <div class="carousel-controls">
-                    <button class="carousel-btn prev-btn" aria-label="Anterior">
-                        <i data-lucide="chevron-left"></i>
-                    </button>
-                    <div class="carousel-dots">
-                        <button class="dot active" data-slide="0" aria-label="Ir a imagen 1"></button>
-                        <button class="dot" data-slide="1" aria-label="Ir a imagen 2"></button>
-                        <button class="dot" data-slide="2" aria-label="Ir a imagen 3"></button>
-                        <button class="dot" data-slide="3" aria-label="Ir a imagen 4"></button>
-                        <button class="dot" data-slide="4" aria-label="Ir a imagen 5"></button>
-                        <button class="dot" data-slide="5" aria-label="Ir a imagen 6"></button>
-                        <button class="dot" data-slide="6" aria-label="Ir a imagen 7"></button>
-                        <button class="dot" data-slide="7" aria-label="Ir a imagen 8"></button>
-                        <button class="dot" data-slide="8" aria-label="Ir a imagen 9"></button>
-                        <button class="dot" data-slide="9" aria-label="Ir a imagen 10"></button>
+                <!-- Contenedor para las miniaturas (desktop) o el carrusel (móvil) -->
+                <div class="gallery-scroll-wrapper" id="galleryScrollWrapper">
+                    <div class="gallery-container" id="galleryContainer">
+                        <!-- Las imágenes se cargarán dinámicamente -->
                     </div>
-                    <button class="carousel-btn next-btn" aria-label="Siguiente">
-                        <i data-lucide="chevron-right"></i>
-                    </button>
-                </div>
-                
-                <div class="carousel-counter">
-                    <span class="current-slide">1</span> / <span class="total-slides">10</span>
                 </div>
             </div>
+            <!-- Indicadores de puntos para el carrusel móvil -->
+            <div class="gallery-dots" id="galleryDots"></div>
         </div>
     </section>
 
@@ -647,6 +614,63 @@
         </svg>
     </button>
 
+    <!-- Lightbox Modal Mejorado -->
+    <div class="lightbox" id="lightbox">
+        <div class="lightbox-content">
+            <div class="lightbox-header">
+                <button class="lightbox-close" id="lightboxClose" aria-label="Cerrar">
+                    <i data-lucide="x"></i>
+                </button>
+                
+                <div class="lightbox-actions">
+                    <button class="lightbox-download-btn" id="lightboxDownloadBtn" aria-label="Descargar imagen">
+                        <i data-lucide="download"></i>
+                        <span>Descargar</span>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="lightbox-main">
+                <button class="lightbox-nav prev" id="lightboxPrev" aria-label="Anterior">
+                    <i data-lucide="chevron-left"></i>
+                </button>
+                
+                <div class="lightbox-image-container">
+                    <img class="lightbox-image" id="lightboxImage" alt="Imagen de la galería">
+                    <div class="lightbox-image-overlay">
+                        <div class="lightbox-zoom-controls">
+                            <button class="zoom-btn zoom-in" id="zoomInBtn" aria-label="Acercar">
+                                <i data-lucide="zoom-in"></i>
+                            </button>
+                            <button class="zoom-btn zoom-out" id="zoomOutBtn" aria-label="Alejar">
+                                <i data-lucide="zoom-out"></i>
+                            </button>
+                            <button class="zoom-btn zoom-reset" id="zoomResetBtn" aria-label="Restablecer zoom">
+                                <i data-lucide="rotate-ccw"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="lightbox-nav next" id="lightboxNext" aria-label="Siguiente">
+                    <i data-lucide="chevron-right"></i>
+                </button>
+            </div>
+            
+            <div class="lightbox-footer">
+                <div class="lightbox-caption" id="lightboxCaption"></div>
+                <div class="lightbox-counter" id="lightboxCounter"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Módulos de la Galería -->
+    <script src="gallery-config.js"></script>
+    <script src="gallery-carousel.js"></script>
+    <script src="gallery-thumbnails.js"></script>
+    <script src="gallery-lightbox.js"></script>
+    <script src="gallery-manager.js"></script>
+    
     <!-- Custom JS -->
     <script src="script.js"></script>
     

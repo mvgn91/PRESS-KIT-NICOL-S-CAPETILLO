@@ -1112,38 +1112,304 @@ function adjustContainer(img) {
 }
 
 // FunciÃ³n para ajustar contenedores de galerÃ­a
-// Función para ajustar contenedores de galería - REMOVIDA
-// La galería ahora se maneja completamente en gallery-manager.js
+function adjustGalleryContainers() {
+    const galleryItems = document.querySelectorAll('.gallery-item');
+    
+    galleryItems.forEach(item => {
+        const img = item.querySelector('.gallery-photo');
+        if (img && img.complete) {
+            adjustGalleryItem(item, img);
+        } else if (img) {
+            img.addEventListener('load', () => adjustGalleryItem(item, img));
+        }
+    });
+}
+
+function adjustGalleryItem(item, img) {
+    // Mantener las proporciones naturales de la imagen
+    img.style.width = '100%';
+    img.style.height = 'auto';
+    img.style.display = 'block';
+}
 
 // Ejecutar ajustes cuando el DOM estÃ© listo
 document.addEventListener('DOMContentLoaded', function() {
     // Ajustar contenedores de imÃ¡genes
     adjustImageContainers();
-    // adjustGalleryContainers(); // REMOVIDO
+    adjustGalleryContainers();
     
     // Ajustar en resize
     window.addEventListener('resize', () => {
         setTimeout(() => {
             adjustImageContainers();
-            // adjustGalleryContainers(); // REMOVIDO
+            adjustGalleryContainers();
         }, 100);
     });
 }); 
+
+// ===== GALERÃA COMPLETAMENTE RENOVADA =====
+class GalleryManager {
+    constructor() {
+        this.currentImageIndex = 0;
+        this.images = [];
+        this.init();
+    }
+    
+    init() {
+        this.setupDesktopGallery();
+        this.setupMobileGallery();
+        this.setupLightbox();
+        this.setupKeyboardNavigation();
+    }
+    
+    setupDesktopGallery() {
+        const galleryItems = document.querySelectorAll('.gallery-item');
+        galleryItems.forEach((item, index) => {
+            this.images.push({
+                src: item.querySelector('.gallery-photo').src,
+                alt: item.querySelector('.gallery-photo').alt,
+                index: index
+            });
+            
+            item.addEventListener('click', () => {
+                this.openLightbox(index);
+            });
+        });
+    }
+    
+    setupMobileGallery() {
+        const track = document.querySelector('.mobile-gallery-track');
+        const slides = document.querySelectorAll('.mobile-gallery-slide');
+        const prevBtn = document.querySelector('.mobile-gallery-btn.prev-btn');
+        const nextBtn = document.querySelector('.mobile-gallery-btn.next-btn');
+        const dots = document.querySelectorAll('.mobile-dot');
+        
+        if (!track || !slides.length) return;
+        
+        let currentSlide = 0;
+        const totalSlides = slides.length;
+        
+        // Configurar imÃ¡genes para el lightbox
+        slides.forEach((slide, index) => {
+            const img = slide.querySelector('.mobile-gallery-photo');
+            if (img && !this.images.find(imgData => imgData.src === img.src)) {
+                this.images.push({
+                    src: img.src,
+                    alt: img.alt,
+                    index: this.images.length
+                });
+            }
+            
+            // Click en imagen para lightbox
+            slide.addEventListener('click', () => {
+                this.openLightbox(index);
+            });
+        });
+        
+        // FunciÃ³n para actualizar carrusel
+        const updateCarousel = () => {
+            track.style.transform = `translateX(-${currentSlide * 100}%)`;
+            
+            // Actualizar botones
+            if (prevBtn) prevBtn.disabled = currentSlide === 0;
+            if (nextBtn) nextBtn.disabled = currentSlide === totalSlides - 1;
+            
+            // Actualizar dots
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentSlide);
+            });
+        };
+        
+        // NavegaciÃ³n con botones
+        if (prevBtn) {
+            prevBtn.addEventListener('click', () => {
+                if (currentSlide > 0) {
+                    currentSlide--;
+                    updateCarousel();
+                }
+            });
+        }
+        
+        if (nextBtn) {
+            nextBtn.addEventListener('click', () => {
+                if (currentSlide < totalSlides - 1) {
+                    currentSlide++;
+                    updateCarousel();
+                }
+            });
+        }
+        
+        // NavegaciÃ³n con dots
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                currentSlide = index;
+                updateCarousel();
+            });
+        });
+        
+        // Swipe tÃ¡ctil
+        let startX = 0;
+        let currentX = 0;
+        let isDragging = false;
+        
+        const handleTouchStart = (e) => {
+            startX = e.touches[0].clientX;
+            isDragging = true;
+            track.style.transition = 'none';
+        };
+        
+        const handleTouchMove = (e) => {
+            if (!isDragging) return;
+            e.preventDefault();
+            currentX = e.touches[0].clientX;
+            const diffX = currentX - startX;
+            const slideWidth = 100;
+            const currentTranslate = -currentSlide * slideWidth;
+            const newTranslate = currentTranslate + (diffX / window.innerWidth) * 100;
+            track.style.transform = `translateX(${newTranslate}%)`;
+        };
+        
+        const handleTouchEnd = () => {
+            if (!isDragging) return;
+            isDragging = false;
+            track.style.transition = 'transform 0.3s ease';
+            
+            const diffX = currentX - startX;
+            if (Math.abs(diffX) > 50) {
+                if (diffX > 0 && currentSlide > 0) {
+                    currentSlide--;
+                } else if (diffX < 0 && currentSlide < totalSlides - 1) {
+                    currentSlide++;
+                }
+            }
+            updateCarousel();
+        };
+        
+        track.addEventListener('touchstart', handleTouchStart, { passive: false });
+        track.addEventListener('touchmove', handleTouchMove, { passive: false });
+        track.addEventListener('touchend', handleTouchEnd);
+        
+        // Inicializar
+        updateCarousel();
+    }
+    
+    setupLightbox() {
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImage = document.getElementById('lightboxImage');
+        const lightboxCaption = document.getElementById('lightboxCaption');
+        const lightboxCounter = document.getElementById('lightboxCounter');
+        const lightboxClose = document.getElementById('lightboxClose');
+        const lightboxPrev = document.getElementById('lightboxPrev');
+        const lightboxNext = document.getElementById('lightboxNext');
+        
+        if (!lightbox) return;
+        
+        // Cerrar lightbox
+        lightboxClose.addEventListener('click', () => {
+            this.closeLightbox();
+        });
+        
+        // NavegaciÃ³n
+        lightboxPrev.addEventListener('click', () => {
+            this.previousImage();
+        });
+        
+        lightboxNext.addEventListener('click', () => {
+            this.nextImage();
+        });
+        
+        // Cerrar con Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+                this.closeLightbox();
+            }
+        });
+        
+        // Click fuera de la imagen para cerrar
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) {
+                this.closeLightbox();
+            }
+        });
+    }
+    
+    setupKeyboardNavigation() {
+        document.addEventListener('keydown', (e) => {
+            if (!document.getElementById('lightbox').classList.contains('active')) return;
+            
+            switch (e.key) {
+                case 'ArrowLeft':
+                    e.preventDefault();
+                    this.previousImage();
+                    break;
+                case 'ArrowRight':
+                    e.preventDefault();
+                    this.nextImage();
+                    break;
+            }
+        });
+    }
+    
+    openLightbox(index) {
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImage = document.getElementById('lightboxImage');
+        const lightboxCaption = document.getElementById('lightboxCaption');
+        const lightboxCounter = document.getElementById('lightboxCounter');
+        const lightboxPrev = document.getElementById('lightboxPrev');
+        const lightboxNext = document.getElementById('lightboxNext');
+        
+        if (!lightbox || !this.images[index]) return;
+        
+        this.currentImageIndex = index;
+        const imageData = this.images[index];
+        
+        lightboxImage.src = imageData.src;
+        lightboxImage.alt = imageData.alt;
+        lightboxCaption.textContent = imageData.alt;
+        lightboxCounter.textContent = `${index + 1} / ${this.images.length}`;
+        
+        // Actualizar botones de navegaciÃ³n
+        lightboxPrev.disabled = index === 0;
+        lightboxNext.disabled = index === this.images.length - 1;
+        
+        // Mostrar lightbox
+        lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+    
+    closeLightbox() {
+        const lightbox = document.getElementById('lightbox');
+        lightbox.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+    
+    previousImage() {
+        if (this.currentImageIndex > 0) {
+            this.openLightbox(this.currentImageIndex - 1);
+        }
+    }
+    
+    nextImage() {
+        if (this.currentImageIndex < this.images.length - 1) {
+            this.openLightbox(this.currentImageIndex + 1);
+        }
+    }
+}
 
 // Inicializar carrusel cuando el DOM estÃ© listo
 document.addEventListener('DOMContentLoaded', function() {
     // Ajustar contenedores de imÃ¡genes
     adjustImageContainers();
-    // adjustGalleryContainers(); // REMOVIDO
+    adjustGalleryContainers();
     
     // Inicializar carrusel
-    // new GalleryManager(); // REMOVIDO
+    new GalleryManager();
     
     // Ajustar en resize
     window.addEventListener('resize', () => {
         setTimeout(() => {
             adjustImageContainers();
-            // adjustGalleryContainers(); // REMOVIDO
+            adjustGalleryContainers();
         }, 100);
     });
 }); 
@@ -1199,10 +1465,10 @@ function initThemeSystem() {
 document.addEventListener('DOMContentLoaded', function() {
     // Ajustar contenedores de imÃ¡genes
     adjustImageContainers();
-    // adjustGalleryContainers(); // REMOVIDO
+    adjustGalleryContainers();
     
     // Inicializar carrusel
-    // new GalleryManager(); // REMOVIDO
+    new GalleryManager();
     
     // Inicializar sistema de tema
     initThemeSystem();
@@ -1211,7 +1477,7 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('resize', () => {
         setTimeout(() => {
             adjustImageContainers();
-            // adjustGalleryContainers(); // REMOVIDO
+            adjustGalleryContainers();
         }, 100);
     });
 }); 
@@ -1486,16 +1752,4 @@ function initMobileCarousel() {
     // Iniciar auto-play
     startAutoPlay();
 }
-
-
-
-
-// Inicializar galería modular cuando el DOM esté listo
-document.addEventListener('DOMContentLoaded', function() {
-    // Inicializar galería modular
-    const gallery = // new GalleryManager(); // REMOVIDO
-    
-    // Hacer la galería disponible globalmente si es necesario
-    window.gallery = gallery;
-});
 
