@@ -1,1746 +1,837 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-theme="light">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Ficha Técnica - Nicolás Capetillo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Ficha Técnica Moderna - Nicolás Capetillo</title>
     
-    <!-- Google Fonts -->
+    <!-- Google Fonts: Inter (sans) y FRAUNCES (serif) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <!-- Font Awesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
+        /* 1. PALETA B&N, CON ALGUNOS EFECTOS DE SOMBRA Y TRANSICIONES SUAVES */
         :root {
-            --nav-height: 72px;
-            --tabs-max-width: 1000px;
+            /* Typography */
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-serif: 'Fraunces', Georgia, serif; 
             
-            /* Sistema de Espaciado Responsivo */
-            --spacing-xs: 4px;
-            --spacing-sm: 8px;
-            --spacing-md: 16px;
-            --spacing-lg: 24px;
-            --spacing-xl: 32px;
-            --spacing-xxl: 48px;
-            --container-padding: 20px;
-            --section-margin: 40px;
+            /* Spacing */
+            --space-xs: 0.5rem;
+            --space-sm: 1rem;
+            --space-md: 2rem;
+            --space-lg: 3rem;
             
-            /* Solo blanco y negro - Material Design Editorial */
-            --accent-primary: #1a1a1a;
-            --accent-secondary: #000000;
-            --accent-light: #333333;
-            --accent-gradient: linear-gradient(135deg, #1a1a1a 0%, #000000 50%, #333333 100%);
-            --accent-gradient-hover: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #333333 100%);
+            /* Colors - Light Theme (B&N/Grayscale) */
+            --color-bg: #f3f3f3; /* Fondo más suave que el blanco puro */
+            --color-surface: #ffffff; /* Las tarjetas flotan en blanco */
+            --color-text: #111111;
+            --color-text-light: #444444;
+            --color-primary: #111111; 
+            --color-primary-light: #dddddd; 
+            --color-border: #eeeeee;
+            --color-shadow: rgba(0, 0, 0, 0.08); /* Sombra sutil para "flotación" */
             
-            /* Tema Claro */
-            --bg-primary: #ffffff;
-            --bg-secondary: #fafafa;
-            --bg-tertiary: #f8f9fa;
-            --text-primary: #1a1a1a;
-            --text-secondary: #4a5568;
-            --text-muted: #666;
-            --border-color: rgba(0, 0, 0, 0.1);
-            --shadow-color: rgba(0, 0, 0, 0.1);
-            --nav-bg: rgba(255, 255, 255, 0.95);
-            --card-bg: rgba(255, 255, 255, 0.95);
-            --overlay-bg: rgba(0, 0, 0, 0.9);
+            /* Border Radius (Ligero redondeo para modernidad) */
+            --radius-sm: 4px;
+            --radius-md: 8px;
             
-            /* Sistema de Duración de Transiciones */
-            --transition-fast: 0.1s;
-            --transition-normal: 0.3s;
-            --transition-slow: 0.5s;
-            --transition-slower: 0.8s;
+            /* Transitions */
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
-        /* ===== TEMA OSCURO COMPLETO ===== */
-        
-        /* Tema Oscuro - Variables */
+        /* Dark Theme (Invertido) */
         [data-theme="dark"] {
-            --bg-primary: #111111;
-            --bg-secondary: #111111;
-            --bg-tertiary: #111111;
-            --text-primary: #ffffff;
-            --text-secondary: #e5e7eb;
-            --text-muted: #b3b3b3;
-            --border-color: rgba(255, 255, 255, 0.15);
-            --shadow-color: rgba(0, 0, 0, 0.6);
-            --nav-bg: rgba(17, 17, 17, 0.96);
-            --card-bg: rgba(17, 17, 17, 0.96);
-            --overlay-bg: rgba(0, 0, 0, 0.9);
+            --color-bg: #1a1a1a;
+            --color-surface: #262626;
+            --color-text: #f7f7f7;
+            --color-text-light: #cccccc;
+            --color-primary: #f7f7f7; 
+            --color-primary-light: #444444; 
+            --color-border: #3a3a3a;
+            --color-shadow: rgba(255, 255, 255, 0.05);
         }
 
-        /* ===== AJUSTES RESPONSIVOS DE VARIABLES ===== */
-        @media (max-width: 768px) {
-            :root {
-                --container-padding: 16px;
-                --section-margin: 32px;
-                --nav-height: 60px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            :root {
-                --container-padding: 14px;
-                --section-margin: 24px;
-            }
-        }
-
-        @media (max-width: 375px) {
-            :root {
-                --container-padding: 12px;
-                --section-margin: 20px;
-            }
-        }
-
+        /* Reset & Base Styles */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        html, body {
-            height: 100%;
-            overflow: hidden; /* Sin scroll global; solo scroll interno en tabs */
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            line-height: 1.6;
-            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
+            font-family: var(--font-sans);
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.5;
+            transition: var(--transition);
+            padding-top: 55px;
+            overflow-x: hidden;
+            width: 100%;
+            position: relative;
         }
 
+        a {
+            color: var(--color-primary);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        /* Typography */
+        h1, h2, h3, h4 {
+            font-family: var(--font-serif); /* TODOS LOS TÍTULOS EN FRAUNCES */
+            font-weight: 600;
+            line-height: 1.1;
+            margin-bottom: 0.75rem;
+            color: var(--color-text);
+        }
+
+        h1 { font-size: 3.5rem; }
+        h2 { font-size: 2rem; }
+        h4 { font-size: 1.35rem; }
+
+        p {
+            margin-bottom: 1rem;
+            color: var(--color-text-light);
+        }
+
+        /* Layout */
         .container {
-            max-width: 1400px;
+            width: 100%;
+            max-width: 100%;
             margin: 0 auto;
-            padding: var(--container-padding);
-            padding-top: var(--nav-height);
-            height: 100vh;
-            display: grid;
-            grid-template-rows: auto 1fr;
-            gap: 0;
+            padding: 0 15px;
+            box-sizing: border-box;
+        }
+        
+        @media (min-width: 992px) {
+            .container {
+                max-width: 960px;
+                padding: 0 var(--space-md);
+            }
+        }
+        
+        .section {
+            padding: 4rem 0; 
+            position: relative;
         }
 
-        /* Encabezado coherente con index */
-        .nav-magazine {
+        /* --- Header Fijo (Contiene Título, Nombre y Subtítulo) --- */
+        .header {
+            background: var(--color-surface);
+            box-shadow: 0 1px 5px var(--color-shadow);
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
-            background: var(--nav-bg);
-            border-bottom: 1px solid var(--border-color);
             z-index: 1000;
-            backdrop-filter: blur(12px);
+            /* Ultra-minimalista: Solo padding vertical pequeño */
+            padding: 0.5rem 0; 
+            border-bottom: 1px solid var(--color-border);
         }
 
-        .nav-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: var(--spacing-md) var(--spacing-md);
+        .header-container {
             display: flex;
-            align-items: center;
             justify-content: space-between;
-            gap: var(--spacing-md);
+            align-items: center;
         }
-
-        .nav-logo .logo-text {
-            font-family: 'Space Grotesk', sans-serif;
-            font-weight: 800;
-            font-size: 1.2rem;
-            letter-spacing: 2px;
+        
+        /* Contenedor del Título Principal y Alternador */
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0; 
+            width: 100%; 
         }
-
-        .nav-title {
-            font-family: 'Fraunces', serif;
-            font-weight: 900;
-            font-size: min(4.5svh, 1.6em);
-            color: var(--text-primary);
-            margin: 0 auto;
-            text-transform: none;
-        }
-
-        /* Botón de tema dentro del header */
-        .nav-magazine .theme-toggle {
-            position: static !important;
-            width: 44px;
-            height: 44px;
+        
+        /* Botón del tema más grande */
+        .theme-toggle {
             background: transparent;
             border: none;
-            box-shadow: none;
-        }
-
-        .nav-actions {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .home-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 44px;
-            height: 44px;
-            border: 1px solid var(--border-color);
-            background: var(--bg-secondary);
-            box-shadow: 0 2px 10px var(--shadow-color);
-            color: var(--text-primary);
-            text-decoration: none;
-            transition: all 0.2s ease;
-        }
-
-        .home-btn:hover { transform: translateY(-1px); }
-
-        .ficha-content {
-            display: grid;
-            grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
-            gap: var(--spacing-xl);
-            flex: 1;
-            min-height: 0;
-            align-items: start;
-            height: calc(100vh - var(--nav-height) - var(--spacing-xl));
-        }
-
-        .photo-section {
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            align-self: start;
-            height: 100%;
-            min-height: 0;
-            min-width: 0;
-        }
-
-        .photo-container {
-            border-radius: 0;
-            overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            position: relative;
-            border: 2px solid var(--border-color);
-            width: 100%;
-            max-width: 400px;
-            margin: 0 auto;
-            height: auto;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .actor-photo {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-
-        
-
-        .info-section {
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-            min-height: 0;
-            overflow: hidden;
-            min-width: 0;
-        }
-
-        .ficha-tabs {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            min-height: 0;
-            height: 100%;
-            min-width: 0;
-        }
-
-        .ficha-tabs .tabs-header {
-            display: grid;
-            grid-template-columns: repeat(4, minmax(160px, 1fr));
-            gap: var(--spacing-md);
-            margin-bottom: var(--spacing-lg);
-            border-bottom: 0;
-            overflow: visible;
-            padding-bottom: 0;
-            justify-items: stretch;
-            align-items: stretch;
-            max-width: var(--tabs-max-width);
-            margin-left: auto;
-            margin-right: auto;
-            flex: 0 0 auto;
-        }
-
-        .ficha-tabs .tabs-header::-webkit-scrollbar {
-            display: none;
-        }
-
-        .ficha-tabs .tab-btn {
-            background: var(--bg-primary);
-            border: 2px solid var(--border-color);
-            padding: var(--spacing-md) var(--spacing-lg);
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: min(2.8svh, 0.9em);
-            font-weight: 700;
-            color: var(--text-primary);
+            color: var(--color-text);
             cursor: pointer;
-            transition: all var(--transition-normal) cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: var(--spacing-sm); /* menos espacio entre icono y título */
-            white-space: normal;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            box-shadow: 0 2px 8px var(--shadow-color);
-        }
-
-        .ficha-tabs .tab-btn i {
-            width: 18px;
-            height: 18px;
-            transition: all 0.3s ease;
-        }
-
-        .ficha-tabs .tab-btn:hover {
-            background: var(--bg-secondary);
-            border-color: var(--text-primary);
-            transform: translateY(-1px);
-        }
-
-        .ficha-tabs .tab-btn.active {
-            color: var(--bg-primary);
-            background: var(--text-primary);
-            border-color: var(--text-primary);
-            box-shadow: 0 4px 14px var(--shadow-color);
-        }
-
-        /* ===== Control móvil: barra horizontal desplazable ===== */
-        .mobile-scroll-tabs {
-            display: none; /* Oculto por defecto, se muestra en móvil */
-            position: sticky;
-            top: var(--nav-height);
-            z-index: 999;
-            background: var(--nav-bg);
-            padding: var(--spacing-sm);
-            border-bottom: 1px solid var(--border-color);
-            backdrop-filter: blur(12px);
-            overflow-x: auto;
-            overflow-y: hidden;
-            white-space: nowrap;
-            gap: var(--spacing-sm);
-            scroll-snap-type: x mandatory;
-            -webkit-overflow-scrolling: touch;
-            flex-shrink: 0;
-            width: 100%;
-            /* Mejoras de rendimiento */
-            will-change: scroll-position;
-            contain: layout style;
-        }
-        .mobile-scroll-tabs::-webkit-scrollbar { display: none; }
-        .tab-chip {
-            display: inline-flex;
-            align-items: center;
-            gap: var(--spacing-sm);
-            padding: var(--spacing-sm) var(--spacing-md);
-            border: 2px solid var(--border-color);
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            font-family: 'Space Grotesk', sans-serif;
-            font-weight: 700;
-            font-size: min(2.4svh, 0.75em);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            box-shadow: 0 2px 8px var(--shadow-color);
-            cursor: pointer;
-            scroll-snap-align: center;
-            white-space: nowrap;
-            flex-shrink: 0;
-            /* Transiciones suaves */
-            transition: all var(--transition-normal) cubic-bezier(0.4, 0, 0.2, 1);
-            /* Optimizaciones de rendimiento */
-            will-change: transform, background-color, border-color;
-            contain: layout style;
-        }
-        .tab-chip.active {
-            background: var(--text-primary);
-            color: var(--bg-primary);
-            border-color: var(--text-primary);
-            /* Mejoras visuales para estado activo */
-            transform: scale(1.05);
-            box-shadow: 0 4px 12px var(--shadow-color);
-        }
-
-        /* Hover y active states para chips móviles */
-        .tab-chip:hover {
-            background: var(--bg-secondary);
-            border-color: var(--text-primary);
-            transform: translateY(-1px);
-        }
-
-        .tab-chip:active {
-            transform: scale(0.98);
-        }
-
-        .ficha-tabs .tabs-content {
-            flex: 1;
-            overflow-y: hidden;
-            min-height: 0;
-            min-width: 0;
-            height: auto;
-        }
-
-        .ficha-tabs .tab-panel {
-            display: none;
-            animation: fadeIn 0.3s ease;
-            height: auto;
-            min-width: 0;
-        }
-
-        .ficha-tabs .tab-panel.active {
-            display: block;          /* Volver a bloque normal */
-            height: auto;
-        }
-
-        .ficha-tabs .tab-content {
-            padding: var(--spacing-lg);
-            background: var(--bg-secondary);
-            border-radius: 0;
-            border: 1px solid var(--border-color);
-            height: auto;
-            overflow-y: auto;
-            overflow-x: hidden;
-            max-width: var(--tabs-max-width);
-            margin: 0 auto;
-            min-width: 0;
-            /* Mejoras para scroll interno */
-            -webkit-overflow-scrolling: touch;
-            scroll-behavior: smooth;
-            /* Optimizaciones de rendimiento */
-            will-change: scroll-position;
-            contain: layout style;
-        }
-
-        .ficha-tabs .tab-content h4 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: min(3.8svh, 1.2em);
-            font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: 1.1rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            padding-bottom: 0.6rem;
-            border-bottom: 2px solid var(--border-color);
-            overflow-wrap: anywhere; /* permite cortes de línea flexibles */
-            hyphens: auto; /* guionado automático donde aplique */
-        }
-
-        /* Asegurar contraste correcto de títulos y habilidades en modo oscuro */
-        [data-theme="dark"] .ficha-tabs .tab-content h4 {
-            color: var(--text-primary);
-        }
-
-        .ficha-tabs .tab-list {
-            display: flex;
-            flex-direction: column;
-            gap: var(--spacing-sm);
-        }
-
-        .ficha-tabs .tab-item, 
-        .ficha-tabs .tab-project, 
-        .ficha-tabs .tab-location {
-            display: grid;
-            grid-template-columns: 180px 1fr;
-            gap: var(--spacing-sm);
-            padding: var(--spacing-sm);
-            border-left: 3px solid var(--border-color);
-            transition: all var(--transition-normal) ease;
-            background: var(--bg-primary);
-            align-items: center;
-        }
-
-        .ficha-tabs .tab-item:hover, 
-        .ficha-tabs .tab-project:hover, 
-        .ficha-tabs .tab-skill:hover, 
-        .ficha-tabs .tab-location:hover {
-            border-left-color: var(--text-primary);
-            background: var(--bg-tertiary);
-        }
-
-        .ficha-tabs .tab-label, 
-        .ficha-tabs .project-type, 
-        .ficha-tabs .skill-type, 
-        .ficha-tabs .location-type {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: min(2.8svh, 0.85em);
-            font-weight: 600;
-            color: var(--text-primary);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            overflow-wrap: anywhere;
-            hyphens: auto;
-        }
-
-        .ficha-tabs .tab-value, 
-        .ficha-tabs .project-title, 
-        .ficha-tabs .skill-description, 
-        .ficha-tabs .location-value {
-            font-size: min(3.2svh, 0.95em);
-            color: var(--text-secondary);
-            line-height: 1.5;
-            word-break: break-word;
-        }
-
-        .ficha-tabs .project-details {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            font-style: italic;
-            margin-top: 0.25rem;
-        }
-
-        .ficha-tabs .skill-icon {
-            display: inline-flex;
-            align-items: center;
-            gap: var(--spacing-sm); /* reducir separación icono-texto */
-        }
-
-        .ficha-tabs .skill-icon i {
-            width: 22px;
-            height: 22px;
-            color: var(--text-primary);
-        }
-
-        /* Reducir separación excesiva en habilidades (icono + texto) */
-        .ficha-tabs .tab-skill {
-            display: grid;
-            grid-template-columns: 32px 1fr; /* columna estrecha para el icono */
-            align-items: center;
-            gap: var(--spacing-sm);
-        }
-
-        /* ===== Acordeón móvil (modo lectura) ===== */
-        .mobile-accordion { display: none; }
-        .acc-item {
-            border: 1px solid var(--border-color);
-            background: var(--bg-secondary);
-            margin-bottom: 0.75rem;
-        }
-        .acc-item summary {
-            list-style: none;
-            cursor: pointer;
-            padding: 0.9rem 1rem;
-            font-family: 'Space Grotesk', sans-serif;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: var(--bg-primary);
-        }
-        .acc-item[open] summary { background: var(--bg-tertiary); }
-        .acc-content { padding: 1rem; border-top: 1px solid var(--border-color); }
-
-        .ficha-tabs .tab-value a {
-            color: var(--text-primary);
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .ficha-tabs .tab-value a:hover {
-            color: var(--text-secondary);
-            text-decoration: underline;
-        }
-
-        /* ===== ANIMACIONES CONDICIONALES ===== */
-        
-        /* Solo en desktop */
-        @media (hover: hover) and (pointer: fine) {
-            .ficha-tabs .tab-btn:hover {
-                transform: translateY(-4px);
-                box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
-            }
-            
-            .home-btn:hover {
-                transform: translateY(-2px);
-                box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
-            }
-            
-            .theme-toggle:hover {
-                transform: translateY(-2px);
-                box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-            }
-        }
-
-        /* Solo en móvil */
-        @media (hover: none) and (pointer: coarse) {
-            .ficha-tabs .tab-btn:active {
-                transform: translateY(-2px);
-            }
-            
-            .home-btn:active {
-                transform: translateY(-1px);
-            }
-            
-            .theme-toggle:active {
-                transform: translateY(-1px);
-            }
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* ===== CONTROLES SUPERIORES (TEMA + VOLVER) ===== */
-        .floating-controls {
-            position: fixed;
-            top: 1rem;
-            right: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            z-index: 1100;
-        }
-        .floating-controls .theme-toggle,
-        .floating-controls .back-btn {
-            position: static;
-            bottom: auto;
-            right: auto;
-            left: auto;
-        }
-
-        /* ===== BOTÓN DE TEMA ===== */
-        .theme-toggle {
-            background: none;
-            border: none;
-            cursor: pointer;
-            width: 50px;
-            height: 50px;
-            border-radius: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            overflow: hidden;
-            background: var(--card-bg);
-            border: 2px solid var(--border-color);
-            box-shadow: 0 2px 10px var(--shadow-color);
-            z-index: 1000;
+            padding: 0.5rem; 
+            font-size: 1.5rem; 
+            transition: var(--transition);
+            line-height: 1;
         }
 
         .theme-toggle:hover {
+            opacity: 0.7;
+        }
+
+        .logo {
+            font-size: 1.2rem; 
+            font-weight: 700;
+            color: var(--color-text);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: var(--font-sans); 
+            padding: 0.5rem; /* Para alinearlo con el botón de tema */
+        }
+
+        /* Nombre y Subtítulo Movidos al Header (AHORA OCULTOS) */
+        .header-info-block {
+            /* OCULTAMOS COMPLETAMENTE ESTE BLOQUE */
+            display: none; 
+        }
+
+        /* NOTA: Las clases .hero-title y .hero-subtitle solo tienen efecto en el cuerpo del documento, no en el header. */
+        .hero-title {
+            font-size: 1.6rem; 
+            margin-bottom: 0;
+            line-height: 1.1;
+        }
+
+        .hero-subtitle {
+            font-size: 0.8rem;
+            color: var(--color-text-light);
+            margin-top: 0.25rem;
+            font-weight: 500;
+            letter-spacing: 1px; 
+            text-transform: uppercase;
+            font-family: var(--font-sans);
+        }
+        
+        /* --- Hero Section (Solo Imagen) --- */
+        .hero {
+            /* AJUSTE CLAVE 1: Agregar padding superior para separar la imagen del header */
+            padding: 2rem 0 2rem; 
+            text-align: center;
+            background: var(--color-surface);
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        /* AJUSTE CLAVE: Reducir el tamaño de la imagen */
+        .profile-image-container {
+            display: inline-block; /* Ajustar al tamaño de la imagen */
+            margin: 0 auto;
+            line-height: 0; /* Eliminar espacio fantasma debajo de la imagen */
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+
+        .profile-image {
+            max-width: 100%;
+            height: auto;
+            max-height: 70vh;
+            object-fit: contain;
+            border: 4px solid var(--color-primary);
+            filter: grayscale(0%);
+            transition: all 0.5s ease;
+            border-radius: var(--radius-md);
+            display: block;
+            margin: 0 auto;
+        }
+        
+        @media (min-width: 768px) {
+            .profile-image {
+                max-width: 500px;
+                width: 80%;
+                max-height: 80vh;
+            }
+        }
+
+        .profile-image:hover {
+            transform: scale(1.01);
+            filter: grayscale(100%); /* Escala de grises al hacer hover */
+        }
+        
+        /* Section Title (Estilo moderno) */
+        .section-title {
+            text-align: left;
+            margin-bottom: 2rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--color-primary-light); 
+            font-size: 1.7rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        
+        /* --- Contenedor Flotante de Datos --- */
+        .data-card {
+            background: var(--color-surface);
+            border-radius: var(--radius-md);
+            box-shadow: 0 6px 12px var(--color-shadow);
+            padding: var(--space-lg);
+            border: 1px solid var(--color-border);
+            transition: var(--transition);
+        }
+        
+        .data-card:hover {
+            box-shadow: 0 10px 20px var(--color-shadow);
+        }
+
+        /* --- DETALLES EN LISTA (Datos Esenciales) --- */
+        .details-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .detail-item {
+            display: grid;
+            /* Por defecto en Desktop: 1fr para label, 2fr para value */
+            grid-template-columns: 1fr 2fr; 
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px dashed var(--color-primary-light); 
+        }
+        
+        .detail-item:last-child {
+            border-bottom: none;
+        }
+
+        .detail-label {
+            font-family: var(--font-sans);
+            font-size: 0.95rem; 
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--color-text-light);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .detail-value {
+            font-size: 1.15rem; 
+            font-weight: 600; 
+            color: var(--color-text);
+            font-family: var(--font-serif); 
+        }
+        
+        /* --- HABILIDADES EN TAGS MODERNOS --- */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+        
+        @media (min-width: 600px) {
+            .skills-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        
+        .skill-category h4 {
+            font-family: var(--font-sans); 
+            font-weight: 700;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            color: var(--color-primary);
+            margin-bottom: 1rem;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .skill-tag {
+            background: var(--color-primary-light); 
+            color: var(--color-text);
+            padding: 0.4rem 0.8rem;
+            border-radius: var(--radius-sm); 
+            font-size: 0.9rem;
+            font-weight: 500;
+            border: 1px solid var(--color-primary-light);
+            transition: var(--transition);
+        }
+
+        .skill-tag:hover {
+            background: var(--color-primary);
+            color: var(--color-surface);
+        }
+
+        /* --- CONTACTO (Franja de Acción) --- */
+        .contact-section {
+            background: var(--color-primary);
+            color: var(--color-surface);
+            padding: 4rem 0;
+            text-align: center;
+        }
+        
+        .contact-methods {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .contact-link {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1.5rem;
+            background: var(--color-surface);
+            color: var(--color-primary);
+            border-radius: var(--radius-sm);
+            font-family: var(--font-serif);
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: var(--transition);
+        }
+        
+        .contact-link:hover {
+            background: var(--color-primary-light);
+            color: var(--color-primary);
             transform: translateY(-2px);
-            box-shadow: 0 4px 20px var(--shadow-color);
-            background: var(--bg-tertiary);
+            box-shadow: 0 4px 8px var(--color-shadow);
         }
 
-        .theme-toggle:active {
-            transform: translateY(0);
+        .contact-link i {
+            font-size: 1.3rem;
+            color: var(--color-primary);
+        }
+        
+        /* --- Material de Trabajo (Botones) --- */
+        .material-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            padding: 1rem 0;
+        }
+        
+        .action-button {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.2rem 1.5rem;
+            background: var(--color-surface);
+            border: 2px solid var(--color-primary);
+            color: var(--color-primary);
+            font-family: var(--font-serif);
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-align: left;
+            transition: var(--transition);
+            border-radius: var(--radius-sm);
+            width: 100%;
+            box-sizing: border-box;
         }
 
-        .theme-icon {
-            width: 24px;
-            height: 24px;
-            color: var(--text-primary);
-            transition: all 0.3s ease;
-            position: absolute;
+        .action-button:hover {
+            background: var(--color-primary);
+            color: var(--color-surface);
+        }
+        
+        .action-button:hover i {
+            color: var(--color-surface);
         }
 
-        .sun-icon {
-            opacity: 1;
-            transform: rotate(0deg);
+        .action-button i {
+            font-size: 1.5rem;
+            color: var(--color-primary);
+            transition: var(--transition);
+        }
+        
+        /* Footer Style */
+        .footer {
+            background: var(--color-bg); 
+            padding: 2rem 0;
+            text-align: center;
+            border-top: 1px solid var(--color-border);
         }
 
-        .moon-icon {
-            opacity: 0;
-            transform: rotate(-90deg);
+        .copyright {
+            color: var(--color-text-light);
+            font-size: 0.9rem;
+            margin: 0;
+            font-family: var(--font-sans);
         }
 
-        /* Tema oscuro activo */
-        [data-theme="dark"] .sun-icon {
-            opacity: 0;
-            transform: rotate(90deg);
+        /* Nuevo estilo para la atribución, en línea con el copyright */
+        .attribution {
+            display: block;
+            margin-top: 0.5rem;
+            font-size: 0.8rem;
+            color: var(--color-text-light);
         }
-
-        [data-theme="dark"] .moon-icon {
-            opacity: 1;
-            transform: rotate(0deg);
+        .attribution a {
+            color: var(--color-primary); /* Para que el enlace resalte */
+            font-weight: 500;
         }
-
-        [data-theme="dark"] .theme-toggle {
-            background: var(--bg-secondary);
-            border-color: var(--border-color);
-        }
-
-        [data-theme="dark"] .back-btn {
-            background: var(--text-primary);
-            color: var(--bg-primary);
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
-        }
-
-        [data-theme="dark"] .back-btn:hover {
-            background: var(--text-secondary);
-            color: var(--bg-primary);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
-        }
-
-        /* Colores específicos en modo oscuro */
-        [data-theme="dark"] .ficha-tabs .skill-description {
-            color: var(--text-primary);
-        }
-
-        .back-btn { display: none; }
-
-        .back-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-            background: var(--text-secondary);
-            color: var(--bg-primary);
-        }
-
-        /* Responsive */
-        @media (max-width: 1280px) {
-            .ficha-content {
-                grid-template-columns: 1fr;
-                gap: var(--spacing-xl);
-            }
-
-            .photo-container {
-                max-width: 350px;
-                margin: 0 auto;
-                max-height: 40vh; /* Limitar altura en pantallas medianas para evitar scroll global */
-            }
-        }
-
-        /* ===== MEDIA QUERY CONSOLIDADO PARA MÓVIL (≤768px) ===== */
-        @media (max-width: 768px) {
-            /* Variables responsivas */
-            :root { 
-                --nav-height: 60px; 
-            }
-            
-            /* Layout base móvil */
+        
+        /* --- Responsive Media Queries (Mejoras para Móviles) --- */
+        
+        /* Pantallas pequeñas (max-width: 767px) */
+        @media (max-width: 767px) {
             html, body {
-                height: 100vh;
-                overflow: hidden;
-            }
-
-            .container {
-                display: flex;
-                flex-direction: column;
-                height: 100vh;
-                padding: var(--spacing-md);
-                padding-top: var(--nav-height);
-                padding-bottom: 0;
-            }
-
-            .ficha-content {
-                display: flex;
-                flex-direction: column;
-                height: calc(100vh - var(--nav-height) - var(--spacing-md));
-                gap: var(--spacing-md);
-            }
-
-            /* Sección de foto */
-            .photo-section {
-                flex: 0 0 auto;
-                text-align: center;
-                padding: 0;
-            }
-
-            .photo-container {
                 width: 100%;
-                max-width: 250px;
-                height: auto;
-                margin: 0 auto;
-                border-radius: 0;
-                overflow: hidden;
-                border: 2px solid var(--border-color);
-            }
-
-            .actor-photo {
-                width: 100%;
-                height: auto;
-                display: block;
-            }
-
-            /* Sección de información */
-            .info-section {
-                flex: 1;
-                min-height: 0;
-                overflow: hidden;
-                display: flex;
-                flex-direction: column;
-            }
-
-            /* Sistema de tabs móvil */
-            .ficha-tabs {
-                height: 100%;
-                display: flex;
-                flex-direction: column;
-                overflow: hidden;
-            }
-
-            .ficha-tabs .tabs-header { 
-                display: none; 
-            }
-
-            .mobile-scroll-tabs {
-                flex: 0 0 auto;
-                display: flex !important;
-                overflow-x: auto;
-                overflow-y: hidden;
-                white-space: nowrap;
-                padding: var(--spacing-sm);
-                border-bottom: 1px solid var(--border-color);
-                background: var(--nav-bg);
-                backdrop-filter: blur(12px);
-                gap: var(--spacing-sm);
-                width: 100%;
-                /* Mejoras específicas para móvil */
-                scroll-snap-type: x mandatory;
-                -webkit-overflow-scrolling: touch;
-                /* Asegurar que se mantenga visible */
-                position: sticky;
-                top: var(--nav-height);
-                z-index: 999;
-            }
-
-            .mobile-accordion { 
-                display: none; 
-            }
-
-            /* Contenido de tabs */
-            .ficha-tabs .tabs-content {
-                flex: 1;
-                min-height: 0;
-                overflow: hidden;
-            }
-
-            .ficha-tabs .tab-panel {
-                height: 100%;
-                display: none;
-            }
-
-            .ficha-tabs .tab-panel.active {
-                display: block;
-            }
-
-            .ficha-tabs .tab-content {
-                height: 100%;
-                overflow-y: auto;
                 overflow-x: hidden;
-                -webkit-overflow-scrolling: touch;
-                padding: var(--spacing-md);
-                background: var(--bg-secondary);
-                border: 1px solid var(--border-color);
-                /* Mejoras para scroll interno en móvil */
-                scroll-behavior: smooth;
-                /* Optimizaciones de rendimiento */
-                will-change: scroll-position;
-                contain: layout style;
-                /* Asegurar que el scroll funcione correctamente */
-                min-height: 0;
-                flex: 1;
-            }
-
-            /* Grid responsivo para items */
-            .ficha-tabs .tab-item,
-            .ficha-tabs .tab-project,
-            .ficha-tabs .tab-location {
-                grid-template-columns: minmax(120px, 40%) 1fr;
-                min-width: 0;
-                padding: var(--spacing-sm);
-            }
-            
-            .ficha-tabs .tab-skill { 
-                grid-template-columns: 32px 1fr; 
-                padding: var(--spacing-sm);
-            }
-
-            /* Tipografía responsiva */
-            .ficha-tabs .tab-content h4 {
-                font-size: min(3.2svh, 1.1em);
-                margin-bottom: var(--spacing-lg);
-            }
-
-            .ficha-tabs .tab-list {
-                gap: var(--spacing-sm);
-            }
-
-            /* Controles */
-            .theme-toggle {
-                width: 44px;
-                height: 44px;
-                bottom: calc(1rem + env(safe-area-inset-bottom));
-                right: 1rem;
-            }
-
-            .floating-controls {
-                top: calc(0.75rem + env(safe-area-inset-top));
-                right: 0.75rem;
-                gap: var(--spacing-sm);
-            }
-
-            /* Mejoras específicas para tabs móviles */
-            .tab-chip {
-                padding: var(--spacing-sm) var(--spacing-md);
-                font-size: min(2.4svh, 0.75em);
-                min-width: auto;
-                flex-shrink: 0;
-            }
-
-            /* Asegurar que el scroll interno funcione correctamente */
-            .ficha-tabs .tabs-content {
-                flex: 1;
-                min-height: 0;
-                overflow: hidden;
-                display: flex;
-                flex-direction: column;
-            }
-
-            .ficha-tabs .tab-panel {
-                height: 100%;
-                display: none;
-                flex: 1;
-                min-height: 0;
-            }
-
-            .ficha-tabs .tab-panel.active {
-                display: flex;
-                flex-direction: column;
-            }
-        }
-
-        /* ===== SISTEMA RESPONSIVO COMPLETO ===== */
-        
-        /* Breakpoint 480px - Móviles pequeños */
-        @media (max-width: 480px) {
-            .ficha-tabs .tabs-header {
-                gap: var(--spacing-xs);
-                flex-wrap: wrap;
-                margin-bottom: var(--spacing-md);
-            }
-
-            .ficha-tabs .tab-btn {
-                padding: var(--spacing-sm) var(--spacing-md);
-                font-size: min(2.2svh, 0.7em);
-                min-width: auto;
-            }
-
-            .ficha-tabs .tab-btn i {
-                width: 12px;
-                height: 12px;
-            }
-
-            .ficha-tabs .tab-content {
-                padding: var(--spacing-sm);
-            }
-
-            .ficha-tabs .tab-content h4 {
-                font-size: min(3.0svh, 1.0em);
-                margin-bottom: var(--spacing-md);
-            }
-
-            .ficha-tabs .tab-item,
-            .ficha-tabs .tab-project,
-            .ficha-tabs .tab-location {
-                padding: var(--spacing-sm);
-                grid-template-columns: 1fr;
-                align-items: start;
-                min-width: 0;
-            }
-            
-            .ficha-tabs .tab-skill { 
-                grid-template-columns: auto 1fr; 
-                align-items: center; 
-            }
-
-            .ficha-tabs .tab-label,
-            .ficha-tabs .project-type,
-            .ficha-tabs .skill-type,
-            .ficha-tabs .location-type {
-                font-size: min(2.6svh, 0.8em);
-                margin-bottom: var(--spacing-xs);
-            }
-
-            .ficha-tabs .tab-value,
-            .ficha-tabs .project-title,
-            .ficha-tabs .skill-description,
-            .ficha-tabs .location-value {
-                font-size: min(2.8svh, 0.9em);
-            }
-
-            /* Ajustes específicos para móviles pequeños */
-            .photo-container {
-                max-width: 250px;
-                max-height: 25vh;
-            }
-
-            .mobile-scroll-tabs {
-                padding: var(--spacing-xs);
-            }
-        }
-
-
-
-        @media print {
-            .back-btn {
-                display: none;
-            }
-            
-            body {
-                background: white;
             }
             
             .container {
-                max-width: none;
-                padding: 1rem;
+                padding: 0 15px;
             }
             
-            .ficha-tabs .tab-content {
+            .section {
+                padding: 2rem 0;
+            }
+            
+            .data-card {
+                padding: 1.5rem;
+                margin: 0 -15px;
+                border-radius: 0;
                 box-shadow: none;
-                border: 1px solid #ccc;
-                page-break-inside: avoid;
-                margin-bottom: 1rem;
+                border-left: none;
+                border-right: none;
+            }
+            
+            .detail-item {
+                grid-template-columns: 1fr;
+                gap: 0.25rem;
+                padding: 0.5rem 0;
+            }
+            
+            .contact-methods {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 0 15px;
+            }
+            
+            .contact-link {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .material-actions {
+                padding: 0.5rem 0;
+            }
+            
+            .action-button {
+                padding: 1rem;
+                font-size: 1rem;
             }
         }
-
-        /* ===== OPTIMIZACIONES DE ACCESIBILIDAD ===== */
         
-        /* Alto contraste para mejor legibilidad */
-        @media (prefers-contrast: high) {
-            .ficha-tabs .tab-content h4 {
-                color: var(--accent-primary);
-                border-bottom-color: var(--accent-primary);
-            }
-            
-            .ficha-tabs .tab-btn {
-                border-color: var(--accent-primary);
-            }
-            
-            .ficha-tabs .tab-btn.active {
-                background: var(--accent-primary);
-                color: var(--bg-primary);
-            }
-        }
-
-        /* Reducción de movimiento */
-        @media (prefers-reduced-motion: reduce) {
-            * {
-                animation: none !important;
-                transition: none !important;
-            }
-            
-            .ficha-tabs .tab-btn {
-                transition: none !important;
-            }
-            
-            .theme-toggle {
-                transition: none !important;
-            }
-        }
-
-
-
-        /* ===== SISTEMA DE GRID RESPONSIVO ===== */
-        
-        /* Desktop: 4 columnas */
-        @media (min-width: 1200px) {
-            .ficha-tabs .tabs-header {
-                grid-template-columns: repeat(4, minmax(0, 1fr));
-            }
-        }
-
-        /* Desktop pequeño: 3 columnas */
-        @media (max-width: 1199px) and (min-width: 769px) {
-            .ficha-tabs .tabs-header {
-                grid-template-columns: repeat(3, minmax(0, 1fr));
-            }
-        }
-
-        /* Tablet: 2 columnas */
-        @media (max-width: 768px) and (min-width: 481px) {
-            .ficha-tabs .tabs-header {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-                gap: var(--spacing-md);
-            }
-            .ficha-tabs .tab-btn {
-                padding: var(--spacing-md);
-                font-size: min(2.4svh, 0.8em);
-            }
-            .ficha-tabs .tab-btn i { width: 18px; height: 18px; }
-        }
-
-        /* Mobile: 1 columna */
-        @media (max-width: 480px) {
-            .ficha-tabs .tabs-header {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
+        /* Pantallas medianas (768px - 991px) */
+        @media (min-width: 768px) and (max-width: 991px) {
+            .container {
                 max-width: 100%;
-                gap: var(--spacing-sm);
-            }
-            .ficha-tabs .tab-btn {
-                padding: var(--spacing-sm) var(--spacing-md);
-                font-size: min(2.2svh, 0.7em);
+                padding: 0 20px;
             }
         }
+            .container {
+                padding: 0 var(--space-sm); /* Reducir padding horizontal */
+            }
 
-        @media (max-width: 360px) {
-            .ficha-tabs .tabs-header {
-                grid-template-columns: 1fr; /* una por fila en pantallas muy estrechas */
+            .section {
+                padding: 3rem 0; /* Reducir padding vertical de secciones */
+            }
+
+            /* 1. Ajuste de Tipografía Principal */
+            .main-content h1.hero-title { 
+                font-size: 2.2rem !important; /* Título principal más pequeño */
+                line-height: 1.2;
+            }
+            .main-content p.hero-subtitle {
+                font-size: 1rem !important; /* Subtítulo más pequeño */
+                letter-spacing: 2px;
+            }
+
+            /* 2. Ajuste de Lista de Detalles para apilado */
+            .detail-item {
+                /* Cambiar de 2 columnas a 1 columna (apilado) en móviles */
+                grid-template-columns: 1fr; 
+                gap: 0.5rem; 
+                align-items: flex-start;
+                padding: 1rem 0; 
+            }
+
+            .detail-label {
+                font-size: 0.85rem; /* Etiqueta más pequeña */
+            }
+            
+            .detail-value {
+                font-size: 1rem; /* Valor más pequeño */
+                padding-left: 0;
+                font-weight: 500;
+            }
+
+            /* 3. Ajuste de Contacto y Botones */
+            .contact-section {
+                padding: 3rem 0;
+            }
+            
+            .contact-methods {
+                flex-direction: column; /* Apilar enlaces de contacto */
+                gap: 1rem;
+            }
+            
+            .contact-link {
+                width: 100%;
+                justify-content: center;
+                font-size: 1rem;
+            }
+
+            .action-button {
+                padding: 1rem 1.2rem; /* Botones de acción ligeramente más pequeños */
+                font-size: 1rem;
+            }
+            
+            .section-title {
+                font-size: 1.5rem; /* Títulos de sección más pequeños */
+            }
+
+            /* Ajuste del footer en móvil */
+            .footer {
+                padding: 1.5rem 0;
             }
         }
-
-        /* ===== OPTIMIZACIONES DE RENDIMIENTO PARA MÓVIL ===== */
         
-        /* Efectos táctiles optimizados */
-        @media (hover: none) and (pointer: coarse) {
-            .ficha-tabs .tab-btn {
-                transition: transform var(--transition-fast) ease;
+        /* Pantallas medianas (entre 600px y 768px) */
+        @media (min-width: 601px) and (max-width: 960px) {
+            .container {
+                max-width: 720px; /* Ancho máximo intermedio */
             }
             
-            .ficha-tabs .tab-btn:active {
-                transform: translateY(-2px);
-                box-shadow: rgba(0, 0, 0, 0.15) 0 8px 16px -2px;
+            .main-content h1.hero-title { 
+                font-size: 3rem !important; 
             }
-            
-            .home-btn:active {
-                transform: translateY(-1px);
-                background: var(--bg-tertiary);
-                transition: background var(--transition-fast) ease;
+            .main-content p.hero-subtitle {
+                font-size: 1.1rem !important; 
             }
-            
-            .theme-toggle:active {
-                transform: translateY(-1px);
-                background: var(--bg-tertiary);
-                transition: background var(--transition-fast) ease;
+
+            /* Mantener el layout de 2 columnas en detalles */
+            .detail-item {
+                grid-template-columns: 1fr 2fr;
             }
         }
-
-        /* Propiedades will-change optimizadas */
-        @media (hover: hover) and (pointer: fine) {
-            .ficha-tabs .tab-btn {
-                will-change: transform, box-shadow;
-                contain: layout style paint;
-            }
-        }
-
-        @media (hover: none) and (pointer: coarse) {
-            .ficha-tabs .tab-btn {
-                will-change: transform;
-                contain: layout style;
-            }
-        }
-
-        /* ===== SISTEMA DE TIPOGRAFÍA RESPONSIVO COMPLETO ===== */
         
-        /* Desktop: Tamaños base */
-        @media (min-width: 769px) {
-            .nav-title { font-size: min(4.5svh, 1.6em); }
-            .ficha-tabs .tab-btn { font-size: min(2.8svh, 0.9em); }
-            .ficha-tabs .tab-content h4 { font-size: min(3.8svh, 1.2em); }
-            .ficha-tabs .tab-label { font-size: min(2.8svh, 0.85em); }
-            .ficha-tabs .tab-value { font-size: min(3.2svh, 0.95em); }
-        }
-
-        /* Tablet: Reducción moderada */
-        @media (max-width: 768px) and (min-width: 481px) {
-            .nav-title { font-size: min(3.8svh, 1.4em); }
-            .ficha-tabs .tab-btn { font-size: min(2.4svh, 0.8em); }
-            .ficha-tabs .tab-content h4 { font-size: min(3.2svh, 1.1em); }
-            .ficha-tabs .tab-label { font-size: min(2.4svh, 0.8em); }
-            .ficha-tabs .tab-value { font-size: min(2.8svh, 0.9em); }
-        }
-
-        /* Mobile: Reducción significativa */
-        @media (max-width: 480px) and (min-width: 376px) {
-            .nav-title { font-size: min(3.5svh, 1.2em); }
-            .ficha-tabs .tab-btn { font-size: min(2.2svh, 0.7em); }
-            .ficha-tabs .tab-content h4 { font-size: min(3.0svh, 1.0em); }
-            .ficha-tabs .tab-label { font-size: min(2.6svh, 0.8em); }
-            .ficha-tabs .tab-value { font-size: min(2.8svh, 0.9em); }
-        }
-
-        /* Mobile pequeño: Máxima reducción */
-        @media (max-width: 375px) {
-            .nav-title { font-size: min(3.2svh, 1.1em); }
-            .ficha-tabs .tab-btn { font-size: min(2.0svh, 0.65em); }
-            .ficha-tabs .tab-content h4 { font-size: min(2.8svh, 0.9em); }
-            .ficha-tabs .tab-label { font-size: min(2.4svh, 0.75em); }
-            .ficha-tabs .tab-value { font-size: min(2.6svh, 0.85em); }
-
-            /* Ajustes específicos para móviles muy estrechos */
-            .photo-container {
-                max-width: 220px;
-                max-height: 22vh;
-            }
-
-            .mobile-scroll-tabs {
-                padding: var(--spacing-xs);
-                gap: var(--spacing-xs);
-            }
-
-            .ficha-tabs .tab-content {
-                padding: var(--spacing-sm);
-            }
-
-            .ficha-tabs .tab-item,
-            .ficha-tabs .tab-project,
-            .ficha-tabs .tab-location {
-                padding: var(--spacing-xs);
-            }
-
-            /* Optimizaciones adicionales para pantallas muy estrechas */
-            .tab-chip {
-                padding: var(--spacing-xs) var(--spacing-sm);
-                font-size: min(2.0svh, 0.65em);
-                min-width: auto;
-            }
-
-            /* Asegurar que el scroll horizontal funcione correctamente */
-            .mobile-scroll-tabs {
-                scroll-snap-type: x mandatory;
-                -webkit-overflow-scrolling: touch;
+        /* Responsive para Header (ya existente) */
+        @media (max-width: 768px) {
+            body {
+                padding-top: 55px;
             }
         }
-
-        /* Ajustes extra para móviles muy estrechos */
+        
         @media (max-width: 480px) {
-            .photo-container { 
-                max-width: 280px; 
-                max-height: 25vh;
+            .logo {
+                font-size: 1rem;
             }
-            
-            /* Optimizaciones para tabs móviles en pantallas pequeñas */
-            .mobile-scroll-tabs {
-                padding: var(--spacing-xs);
-                gap: var(--spacing-xs);
-            }
-            
-            .tab-chip {
-                padding: var(--spacing-xs) var(--spacing-sm);
-                font-size: min(2.2svh, 0.7em);
-            }
-            
-            .ficha-tabs .tab-content {
-                padding: var(--spacing-sm);
+            body {
+                padding-top: 50px;
             }
         }
+        /* --- Fin de Media Queries --- */
+
     </style>
 </head>
 <body>
-    <!-- Navegación coherente con index -->
-    <nav class="nav-magazine">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <span class="logo-text">NC</span>
-            </div>
-            <div class="nav-title">Ficha Técnica</div>
-            <div class="nav-actions">
-                <a href="index.html" class="home-btn" aria-label="Volver al sitio principal">
-                    <i data-lucide="home"></i>
-                </a>
-                <button class="theme-toggle" id="themeToggle" aria-label="Cambiar tema">
-                    <i data-lucide="sun" class="theme-icon sun-icon"></i>
-                    <i data-lucide="moon" class="theme-icon moon-icon"></i>
+    <!-- Header Fijo (SOLO CONTIENE LOGO y BOTÓN DE TEMA) -->
+    <header class="header">
+        <div class="container">
+            <div class="header-top">
+                <!-- LOGO/TITULO PRINCIPAL -->
+                <a href="#" class="logo">FICHA TÉCNICA</a> 
+                
+                <!-- BOTÓN DE TEMA -->
+                <button class="theme-toggle" id="themeToggle" aria-label="Alternar tema">
+                    <i class="fas fa-moon"></i>
                 </button>
             </div>
-        </div>
-    </nav>
-
-    <div class="container" style="padding-top: var(--nav-height);">
-
-        <div class="ficha-content">
-            <!-- Foto Principal -->
-            <div class="photo-section">
-                <div class="photo-container">
-                    <img src="assets/fotos/newfront.jpg" alt="Nicolás Capetillo - Foto Principal" class="actor-photo">
-                </div>
-            </div>
-
-            <!-- Información Técnica con Tabs -->
-            <div class="info-section">
-            <!-- Tabs móviles: barra scrollable -->
-            <div class="mobile-scroll-tabs" id="mobileScrollTabs" aria-label="Navegación móvil de secciones">
-                <button class="tab-chip active" data-tab="datos">Datos</button>
-                <button class="tab-chip" data-tab="fisico">Físico</button>
-                <button class="tab-chip" data-tab="idiomas">Idiomas</button>
-                <button class="tab-chip" data-tab="habilidades">Habilidades</button>
-                <button class="tab-chip" data-tab="formacion">Formación</button>
-                <button class="tab-chip" data-tab="experiencia">Experiencia</button>
-                <button class="tab-chip" data-tab="contacto">Contacto</button>
-                <button class="tab-chip" data-tab="material">Material</button>
-            </div>
-            <!-- Acordeón móvil (modo lectura alternativo, ahora oculto por defecto) -->
-            <div class="mobile-accordion" id="mobileAccordion" hidden></div>
-            <div class="ficha-tabs">
-                <div class="tabs-header">
-                    <button class="tab-btn active" data-tab="datos">
-                        <i data-lucide="user"></i>
-                        Datos
-                    </button>
-                    <button class="tab-btn" data-tab="fisico">
-                        <i data-lucide="ruler"></i>
-                        Físico
-                    </button>
-                    <button class="tab-btn" data-tab="idiomas">
-                        <i data-lucide="globe"></i>
-                        Idiomas
-                    </button>
-                    <button class="tab-btn" data-tab="habilidades">
-                        <i data-lucide="star"></i>
-                        Habilidades
-                    </button>
-                    <button class="tab-btn" data-tab="formacion">
-                        <i data-lucide="graduation-cap"></i>
-                        Formación
-                    </button>
-                    <button class="tab-btn" data-tab="experiencia">
-                        <i data-lucide="tv"></i>
-                        Experiencia
-                    </button>
-                    <button class="tab-btn" data-tab="contacto">
-                        <i data-lucide="briefcase"></i>
-                        Contacto
-                    </button>
-                    <button class="tab-btn" data-tab="material">
-                        <i data-lucide="download"></i>
-                        Material
-                    </button>
-                </div>
-
-                <div class="tabs-content">
-                    <!-- Tab Datos Personales -->
-                    <div class="tab-panel active" id="datos">
-                        <div class="tab-content">
-                            <h4>Datos Personales</h4>
-                            <div class="tab-list">
-                                <div class="tab-item">
-                                    <span class="tab-label">Nombre completo:</span>
-                                    <span class="tab-value">Nicolás Capetillo Potter</span>
-                                </div>
-                                <div class="tab-item">
-                                    <span class="tab-label">Nombre artístico:</span>
-                                    <span class="tab-value">Nicolás Capetillo</span>
-                                </div>
-                                <div class="tab-item">
-                                    <span class="tab-label">Fecha de nacimiento:</span>
-                                    <span class="tab-value">13 de enero de 1978</span>
-                                </div>
-                                <div class="tab-item">
-                                    <span class="tab-label">Edad:</span>
-                                    <span class="tab-value">47 años</span>
-                                </div>
-                                <div class="tab-item">
-                                    <span class="tab-label">Nacionalidad:</span>
-                                    <span class="tab-value">Estadounidense / Mexicano</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Tab Características Físicas -->
-                    <div class="tab-panel" id="fisico">
-                        <div class="tab-content">
-                            <h4>Características Físicas</h4>
-                            <div class="tab-list">
-                                <div class="tab-item">
-                                    <span class="tab-label">Estatura:</span>
-                                    <span class="tab-value">1.78 m</span>
-                                </div>
-                                <div class="tab-item">
-                                    <span class="tab-label">Peso:</span>
-                                    <span class="tab-value">80 kg</span>
-                                </div>
-                                <div class="tab-item">
-                                    <span class="tab-label">Color de cabello:</span>
-                                    <span class="tab-value">Oscuro</span>
-                                </div>
-                                <div class="tab-item">
-                                    <span class="tab-label">Color de ojos:</span>
-                                    <span class="tab-value">Azules</span>
-                                </div>
-                                <div class="tab-item">
-                                    <span class="tab-label">Complexión:</span>
-                                    <span class="tab-value">Delgada</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Tab Idiomas -->
-                    <div class="tab-panel" id="idiomas">
-                        <div class="tab-content">
-                            <h4>Idiomas</h4>
-                            <div class="tab-list">
-                                <div class="tab-item">
-                                    <span class="tab-label">Español:</span>
-                                    <span class="tab-value">Nativo</span>
-                                </div>
-                                <div class="tab-item">
-                                    <span class="tab-label">Inglés:</span>
-                                    <span class="tab-value">Nativo</span>
-                                </div>
-                                <div class="tab-item">
-                                    <span class="tab-label">Alemán:</span>
-                                    <span class="tab-value">Nativo</span>
-                                </div>
-                                <div class="tab-item">
-                                    <span class="tab-label">Japonés:</span>
-                                    <span class="tab-value">Conversacional</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Tab Habilidades Especiales -->
-                    <div class="tab-panel" id="habilidades">
-                        <div class="tab-content">
-                            <h4>Habilidades y Talentos Especiales</h4>
-                            <div class="tab-list">
-                                <div class="tab-skill">
-                                    <span class="skill-icon"><i data-lucide="music"></i></span>
-                                    <span class="skill-description">Canto</span>
-                                </div>
-                                <div class="tab-skill">
-                                    <span class="skill-icon"><i data-lucide="piano"></i></span>
-                                    <span class="skill-description">Piano</span>
-                                </div>
-                                <div class="tab-skill">
-                                    <span class="skill-icon"><i data-lucide="guitar"></i></span>
-                                    <span class="skill-description">Guitarra</span>
-                                </div>
-                                <div class="tab-skill">
-                                    <span class="skill-icon"><i data-lucide="mountain"></i></span>
-                                    <span class="skill-description">Hiking (práctica frecuente)</span>
-                                </div>
-                                <div class="tab-skill">
-                                    <span class="skill-icon"><i data-lucide="bird"></i></span>
-                                    <span class="skill-description">Habilidades avanzadas en trabajo directo con fauna salvaje, destacando el manejo de águilas en su ecosistema natural</span>
-                                </div>
-                                
-                                <div class="tab-skill">
-                                    <span class="skill-icon"><i data-lucide="dumbbell"></i></span>
-                                    <span class="skill-description">Boxeo</span>
-                                </div>
-                                <div class="tab-skill">
-                                    <span class="skill-icon"><i data-lucide="sword"></i></span>
-                                    <span class="skill-description">Jiujitsu</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Tab Formación Profesional -->
-                    <div class="tab-panel" id="formacion">
-                        <div class="tab-content">
-                            <h4>Formación y Experiencia Profesional</h4>
-                            <div class="tab-list">
-                                <div class="tab-project">
-                                    <span class="project-type">1985-1990:</span>
-                                    <span class="project-title">Formación Artística Inicial</span>
-                                    <span class="project-details">Modelaje infantil y juvenil para fotografía comercial de ropa, formación en piano y guitarra</span>
-                                </div>
-                                <div class="tab-project">
-                                    <span class="project-type">1990-1996:</span>
-                                    <span class="project-title">Secundaria y Preparatoria Bicultural</span>
-                                    <span class="project-details">American School Foundation de Guadalajara</span>
-                                </div>
-                                <div class="tab-project">
-                                    <span class="project-type">1996-2000:</span>
-                                    <span class="project-title">Cornell University</span>
-                                    <span class="project-details">B.A. (Bachelor of Arts) in Germanic Studies, concentration in International Relations</span>
-                                </div>
-                                <div class="tab-project">
-                                    <span class="project-type">2003-2005:</span>
-                                    <span class="project-title">Centro de Artes Audiovisuales CAAV</span>
-                                    <span class="project-details">Carrera Técnica en Medios Audiovisuales</span>
-                                </div>
-                                <div class="tab-project">
-                                    <span class="project-type">2021-Presente:</span>
-                                    <span class="project-title">Formación Actoral Avanzada</span>
-                                    <span class="project-details">Con la Maestra Marisol Padilla Sánchez, actriz internacional conocida por "Traffic" (2000) y "L.A. Confidential" (1997)</span>
-                                </div>
-                                <div class="tab-project">
-                                    <span class="project-type">2024:</span>
-                                    <span class="project-title">Taller de Actuación de Método</span>
-                                    <span class="project-details">Con Patricia Barbosa, actriz y directora de casting, conocida por "La vida es una danza" (2024) y "No Translation Required" (2021)</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Tab Experiencia Cinematográfica -->
-                    <div class="tab-panel" id="experiencia">
-                        <div class="tab-content">
-                            <h4>Experiencia Cinematográfica</h4>
-                            <div class="tab-list">
-                                <div class="tab-project">
-                                    <span class="project-type">Debut Profesional:</span>
-                                    <span class="project-title">"El Centauro del Norte"</span>
-                                    <span class="project-details">Papel de Embajador Americano</span>
-                                </div>
-                                <div class="tab-project">
-                                    <span class="project-type">Proyectos Cinematográficos:</span>
-                                    <span class="project-title">"Campeón Gabacho"</span>
-                                    <span class="project-details">Doblaje para cine ADR (dir. Jonás Cuarón)</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Tab Contacto Profesional -->
-                    <div class="tab-panel" id="contacto">
-                        <div class="tab-content">
-                            <h4>Contacto Profesional</h4>
-                            <div class="tab-list">
-                                <div class="tab-item">
-                                    <span class="tab-label">Manager:</span>
-                                    <span class="tab-value">Mimi Carrillo</span>
-                                </div>
-                                <div class="tab-item">
-                                    <span class="tab-label">Agencia:</span>
-                                    <span class="tab-value">Mimi Carrillo Agency</span>
-                                </div>
-                                <div class="tab-item">
-                                    <span class="tab-label">Sitio web:</span>
-                                    <span class="tab-value"><a href="https://mimicarrillo.com/" target="_blank">https://mimicarrillo.com/</a></span>
-                                </div>
-                                <div class="tab-item">
-                                    <span class="tab-label">Email:</span>
-                                    <span class="tab-value"><a href="mailto:contacto@mimicarrillo.com">contacto@mimicarrillo.com</a></span>
-                                </div>
-                                <div class="tab-item">
-                                    <span class="tab-label">Teléfono:</span>
-                                    <span class="tab-value"><a href="tel:+525587435405">+52 55 87 43 54 05</a></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Tab Material Adicional -->
-                    <div class="tab-panel" id="material">
-                        <div class="tab-content">
-                            <h4>Material Adicional</h4>
-                            <div class="tab-list">
-                                <div class="tab-item">
-                                    <span class="tab-label">Fotos profesionales:</span>
-                                        <span class="tab-value"><a id="photosDownloadFicha" href="https://1drv.ms/u/c/240b98da269be9b3/ETN3GiJhAzdJubm_okKxuPMB5V6cZ4Q6WZxW81VyTldKtg?e=VUhe1Z" target="_self">Descargar ZIP (alta calidad)</a></span>
-                                </div>
-                                <div class="tab-item">
-                                    <span class="tab-label">Press kit completo:</span>
-                                    <span class="tab-value"><a href="https://press-kit-nicol-s-capetillo.vercel.app/" target="_blank">https://press-kit-nicol-s-capetillo.vercel.app/</a></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            
+            <!-- Bloque de Nombre y Título (AHORA OCULTO) -->
+            <div class="header-info-block">
+                <!-- Estos elementos están ocultos por CSS: display: none; -->
+                <h1 class="hero-title">Nicolás Capetillo</h1>
+                <p class="hero-subtitle">ACTOR | ARTISTA DE VOZ | PERFORMER</p>
             </div>
         </div>
-    </div>
+    </header>
 
-    <!-- Controles superiores: Regresar + Tema (el header ya los incluye) -->
+    <!-- Hero Section (Solo Imagen Cuadrada) -->
+    <section class="hero">
+        <div class="container">
+            <!-- Contenedor para la imagen con marco ajustado -->
+            <div class="profile-image-container">
+                <img src="assets/fotos/5.jpg" alt="Fotografía principal de Nicolás Capetillo" class="profile-image">
+            </div>
+        </div>
+    </section>
+    
+    <main class="main-content container">
+        
+        <!-- Nombre y Subtítulo Principal (Ahora visible al inicio del contenido) -->
+        <section class="section" style="padding-bottom: 0;">
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <!-- Se usan !important en el CSS inline para asegurar que la media query sobrescriba el estilo -->
+                <h1 class="hero-title" style="font-size: 3.5rem; margin-bottom: 0.5rem; font-family: var(--font-serif);">Nicolás Capetillo</h1>
+                <p class="hero-subtitle" style="font-size: 1.2rem; letter-spacing: 3px; font-weight: 500; color: var(--color-text-light);">ACTOR | ARTISTA DE VOZ | PERFORMER</p>
+            </div>
+        </section>
 
-    <!-- JavaScript del Tema -->
+
+        <!-- 1. Datos Esenciales (Físicos y de Idioma) -->
+        <section class="section">
+            <h2 class="section-title">Datos Esenciales</h2>
+            <div class="data-card">
+                <div class="details-list">
+                    
+                    <!-- Físicos -->
+                    <div class="detail-item">
+                        <span class="detail-label"><i class="fas fa-ruler-vertical"></i> Estatura</span>
+                        <span class="detail-value">1.78 m</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label"><i class="fas fa-weight"></i> Peso</span>
+                        <span class="detail-value">80 kg</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label"><i class="fas fa-eye"></i> Apariencia</span>
+                        <span class="detail-value">Ojos Azules, Cabello Oscuro</span>
+                    </div>
+                    
+                    <!-- Idiomas -->
+                    <div class="detail-item">
+                        <span class="detail-label"><i class="fas fa-language"></i> Idiomas Nativos</span>
+                        <span class="detail-value">Español, Inglés, Alemán</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label"><i class="fas fa-globe"></i> Otros Idiomas</span>
+                        <span class="detail-value">Japonés (Conversacional)</span>
+                    </div>
+                    
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. Habilidades Adicionales -->
+        <section class="section">
+            <h2 class="section-title">Habilidades Adicionales</h2>
+            <div class="data-card">
+                <div class="skills-grid">
+                    
+                    <div class="skill-category">
+                        <h4>Artes y Música</h4>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Canto</span>
+                            <span class="skill-tag">Piano</span>
+                            <span class="skill-tag">Guitarra</span>
+                            <span class="skill-tag">Composición</span>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-category">
+                        <h4>Físicas y Técnicas</h4>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Boxeo</span>
+                            <span class="skill-tag">Jiujitsu</span>
+                            <span class="skill-tag">Hiking (Frecuente)</span>
+                            <span class="skill-tag">Manejo de Fauna (Aves Rapaces)</span>
+                            <span class="skill-tag">Conducción 4x4</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Material de Trabajo (Botones) -->
+        <section class="section">
+            <h2 class="section-title">Material de Prensa</h2>
+            <div class="material-actions">
+                <a href="https://1drv.ms/u/c/240b98da269be9b3/ETN3GiJhAzdJubm_okKxuPMB5V6cZ4Q6WZxW81VyTldKtg?e=VUhe1Z" target="_blank" rel="noopener noreferrer" class="action-button">
+                    <span>Descargar Fotos de Press Kit (Alta Resolución)</span>
+                    <i class="fas fa-download"></i>
+                </a>
+                <a href="https://press-kit-nicol-s-capetillo.vercel.app/" target="_blank" rel="noopener noreferrer" class="action-button">
+                    <span>Ver Demo Reels y Audioclips (Plataforma Externa)</span>
+                    <i class="fas fa-external-link-alt"></i>
+                </a>
+            </div>
+        </section>
+        
+    </main>
+
+    <!-- 4. Contacto (Franja de Acción Global) -->
+    <section class="contact-section">
+        <div class="container">
+            <div class="contact-methods">
+                <a href="mailto:contacto@mimicarrillo.com" class="contact-link">
+                    <i class="fas fa-envelope"></i>
+                    Email
+                </a>
+                <a href="tel:+525587435405" class="contact-link">
+                    <i class="fas fa-phone"></i>
+                    Llamar
+                </a>
+                <a href="https://mimicarrillo.com/" target="_blank" rel="noopener noreferrer" class="contact-link">
+                    <i class="fas fa-briefcase"></i>
+                    Mimi Carrillo Agency
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer (Ajustado para el nuevo texto) -->
+    <footer class="footer">
+        <div class="container">
+            <!-- Texto de Copyright -->
+            <p class="copyright">
+                © 2025 Nicolás Capetillo. Todos los derechos reservados.
+            </p>
+            <!-- Enlace de Atribución -->
+            <span class="attribution">
+                Designed by <a href="https://mvgn.vercel.app" target="_blank" rel="noopener noreferrer">MVGN Labs</a>
+            </span>
+        </div>
+    </footer>
+
     <script>
-        // ===== SISTEMA DE TEMA OSCURO =====
-        function initThemeSystem() {
-            const themeToggle = document.getElementById('themeToggle');
-            const html = document.documentElement;
-            
-            // Obtener tema guardado o usar tema claro por defecto
-            const savedTheme = localStorage.getItem('theme');
-            
-            // Aplicar tema inicial
-            if (savedTheme) {
-                html.setAttribute('data-theme', savedTheme);
-            } else {
-                html.setAttribute('data-theme', 'light');
-            }
-            
-            // Función para cambiar tema
-            function toggleTheme() {
-                const currentTheme = html.getAttribute('data-theme');
-                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-                
-                console.log('Cambiando tema de', currentTheme, 'a', newTheme);
-                
-                html.setAttribute('data-theme', newTheme);
-                localStorage.setItem('theme', newTheme);
-                
-                // Animación suave del cambio
-                document.body.style.transition = 'all 0.3s ease';
-                setTimeout(() => {
-                    document.body.style.transition = '';
-                }, 300);
-                
-                console.log('Tema cambiado a:', newTheme);
-            }
-            
-            // Event listener para el botón
-            if (themeToggle) {
-                themeToggle.addEventListener('click', toggleTheme);
-                console.log('Sistema de tema inicializado correctamente');
-            } else {
-                console.error('No se encontró el botón de tema');
-            }
-        }
-
-        // ===== ALTURA DINÁMICA PARA EVITAR SCROLL GLOBAL =====
-        function setDynamicContentHeight() {
-            const root = document.documentElement;
-            const header = document.querySelector('.header');
-            const containerPadding = 32; // 1.5rem aprox a cada lado; margen seguro
-            const headerHeight = header ? header.getBoundingClientRect().height : 0;
-            const viewportHeight = window.innerHeight;
-            const offset = 40; // margen de seguridad para que siempre se vea el borde inferior
-            const available = Math.max(320, viewportHeight - headerHeight - containerPadding - offset);
-            root.style.setProperty('--content-height', available + 'px');
-        }
-
-        function initDynamicHeight() {
-            setDynamicContentHeight();
-            window.addEventListener('resize', setDynamicContentHeight);
-        }
-
-        // Inicializar cuando el DOM esté listo
         document.addEventListener('DOMContentLoaded', function() {
-            initThemeSystem();
-            initTabsSystem();
-            initFichaDownloads();
-            initDynamicHeight();
-            hydrateMobileAccordion();
+            // --- Funciones para la UI (Mantiene el alternador de tema) ---
+            
+            /**
+             * Alternar tema oscuro/claro
+             */
+            const themeToggle = document.getElementById('themeToggle');
+            const themeIcon = themeToggle.querySelector('i');
+            const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+
+            function updateTheme(theme) {
+                document.documentElement.setAttribute('data-theme', theme);
+                themeIcon.className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+            }
+
+            // Cargar tema guardado o preferencia del sistema
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme) {
+                updateTheme(savedTheme);
+            } else if (prefersDarkScheme.matches) {
+                updateTheme('dark');
+            } else {
+                updateTheme('light');
+            }
+
+            // Listener para alternar tema
+            themeToggle.addEventListener('click', () => {
+                const currentTheme = document.documentElement.getAttribute('data-theme');
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                updateTheme(newTheme);
+                localStorage.setItem('theme', newTheme);
+            });
+
+            // Listener para preferencia del sistema (solo si no hay tema guardado)
+            prefersDarkScheme.addEventListener('change', (e) => {
+                if (!localStorage.getItem('theme')) {
+                    updateTheme(e.matches ? 'dark' : 'light');
+                }
+            });
         });
-
-        // ===== SISTEMA DE TABS =====
-        function initTabsSystem() {
-            const tabButtons = document.querySelectorAll('.tab-btn');
-            const tabPanels = document.querySelectorAll('.tab-panel');
-            const mobileAccordion = document.getElementById('mobileAccordion');
-            const mobileScrollTabs = document.getElementById('mobileScrollTabs');
-            
-            if (!tabButtons.length || !tabPanels.length) return;
-            
-            function switchTab(tabId) {
-                tabPanels.forEach(panel => { panel.classList.remove('active'); });
-                tabButtons.forEach(btn => { btn.classList.remove('active'); });
-                document.getElementById(tabId)?.classList.add('active');
-                document.querySelector(`[data-tab="${tabId}"]`)?.classList.add('active');
-
-                // Sincronizar acordeón móvil: abrir el item correspondiente
-                if (mobileAccordion) {
-                    const items = mobileAccordion.querySelectorAll('.acc-item');
-                    items.forEach((item) => {
-                        if (item.getAttribute('data-tab') === tabId) {
-                            item.setAttribute('open', '');
-                        } else {
-                            item.removeAttribute('open');
-                        }
-                    });
-                }
-
-                // Sincronizar chips móviles
-                if (mobileScrollTabs) {
-                    mobileScrollTabs.querySelectorAll('.tab-chip').forEach(chip => {
-                        chip.classList.toggle('active', chip.getAttribute('data-tab') === tabId);
-                        if (chip.classList.contains('active')) {
-                            chip.scrollIntoView({ inline: 'center', behavior: 'smooth', block: 'nearest' });
-                        }
-                    });
-                }
-            }
-            
-            tabButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    switchTab(this.getAttribute('data-tab'));
-                });
-            });
-            
-            // Interacción desde acordeón móvil
-            if (mobileAccordion) {
-                mobileAccordion.querySelectorAll('.acc-item').forEach((item) => {
-                    item.addEventListener('toggle', function() {
-                        if (this.open) {
-                            const tabId = this.getAttribute('data-tab');
-                            switchTab(tabId);
-                        }
-                    });
-                });
-            }
-
-            // Interacción desde chips móviles (barra scrollable)
-            if (mobileScrollTabs) {
-                mobileScrollTabs.querySelectorAll('.tab-chip').forEach(chip => {
-                    chip.addEventListener('click', function() {
-                        const tabId = this.getAttribute('data-tab');
-                        switchTab(tabId);
-                    });
-                });
-            }
-
-            const firstTab = tabButtons[0];
-            if (firstTab) {
-                switchTab(firstTab.getAttribute('data-tab'));
-            }
-        }
-
-        // ===== HIDRATAR ACORDEÓN MÓVIL CON EL CONTENIDO EXISTENTE =====
-        function hydrateMobileAccordion() {
-            const mobileAccordion = document.getElementById('mobileAccordion');
-            if (!mobileAccordion) return;
-
-            // Mapea cada details con su panel correspondiente y copia el HTML
-            mobileAccordion.querySelectorAll('.acc-item').forEach((item) => {
-                const tabId = item.getAttribute('data-tab');
-                const panel = document.getElementById(tabId);
-                const target = item.querySelector('.acc-content');
-                if (panel && target) {
-                    target.innerHTML = panel.querySelector('.tab-content')?.innerHTML || '';
-                }
-            });
-        }
-
-        // ===== DESCARGAS DIRECTAS (FICHA) =====
-        function initFichaDownloads() {
-            const photosLink = document.getElementById('photosDownloadFicha');
-            if (!photosLink) return;
-
-            photosLink.addEventListener('click', function(e) {
-                e.preventDefault();
-                const href = this.getAttribute('href');
-                const downloadUrl = href + '&download=1';
-                const tempLink = document.createElement('a');
-                tempLink.href = downloadUrl;
-                tempLink.download = 'Nicolas_Capetillo_Fotos_Alta_Resolucion.zip';
-                tempLink.style.display = 'none';
-                document.body.appendChild(tempLink);
-                tempLink.click();
-                document.body.removeChild(tempLink);
-            });
-        }
-    </script>
-
-    <!-- Initialize Lucide Icons -->
-    <script>
-        lucide.createIcons();
     </script>
 </body>
 </html>

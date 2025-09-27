@@ -1,0 +1,101 @@
+{
+  "personal": {
+    "nombreCompleto": "Nicolás Capetillo Potter",
+    "nombreArtistico": "Nicolás Capetillo",
+    "subtitulo": "Actor & Creador",
+    "fotoUrl": "assets/fotos/newfront.jpg"
+  },
+  "contacto": {
+    "email": "contacto@mimicarrillo.com",
+    "telefono": "+52 55 87 43 54 05",
+    "manager": "Mimi Carrillo",
+    "agencia": "Mimi Carrillo Agency",
+    "agenciaUrl": "https://mimicarrillo.com/"
+  },
+  "redes": [
+    { "nombre": "Instagram", "url": "#", "icono": "instagram" },
+    { "nombre": "IMDb", "url": "#", "icono": "clapperboard" }
+  ],
+  "secciones": {
+    "datos": {
+      "titulo": "Datos Personales",
+      "items": [
+        { "label": "Nombre completo", "value": "Nicolás Capetillo Potter" },
+        { "label": "Nacionalidad", "value": "Estadounidense / Mexicano" },
+        { "label": "Fecha de nacimiento", "value": "13 de enero de 1978" },
+        { "label": "Edad", "value": "47 años" }
+      ]
+    },
+    "fisico": {
+      "titulo": "Características Físicas",
+      "items": [
+        { "label": "Estatura", "value": "1.78 m" },
+        { "label": "Peso", "value": "80 kg" },
+        { "label": "Cabello", "value": "Oscuro" },
+        { "label": "Ojos", "value": "Azules" }
+      ]
+    },
+    "formacion": {
+      "titulo": "Formación Profesional",
+      "items": [
+        {
+          "periodo": "2021-Presente",
+          "titulo": "Formación Actoral Avanzada",
+          "detalle": "Con la Maestra Marisol Padilla Sánchez, actriz internacional conocida por \"Traffic\" (2000) y \"L.A. Confidential\" (1997)."
+        },
+        {
+          "periodo": "2024",
+          "titulo": "Taller de Actuación de Método",
+          "detalle": "Con Patricia Barbosa, actriz y directora de casting."
+        },
+        {
+          "periodo": "1996-2000",
+          "titulo": "Cornell University",
+          "detalle": "B.A. in Germanic Studies, concentration in International Relations."
+        }
+      ]
+    },
+    "experiencia": {
+      "titulo": "Experiencia Cinematográfica",
+      "items": [
+        {
+          "periodo": "2023",
+          "titulo": "El Centauro del Norte",
+          "detalle": "Papel de Embajador Americano."
+        },
+        {
+          "periodo": "2022",
+          "titulo": "Campeón Gabacho",
+          "detalle": "Doblaje para cine ADR (dir. Jonás Cuarón)."
+        }
+      ]
+    },
+    "habilidades": {
+      "titulo": "Habilidades e Idiomas",
+      "items": [
+        { "label": "Español", "value": "Nativo" },
+        { "label": "Inglés", "value": "Nativo" },
+        { "label": "Alemán", "value": "Nativo" },
+        { "label": "Japonés", "value": "Conversacional" },
+        { "label": "Canto, Piano, Guitarra", "value": "Instrumentos y voz" },
+        { "label": "Boxeo y Jiujitsu", "value": "Artes marciales" },
+        { "label": "Manejo de fauna", "value": "Aves rapaces" }
+      ]
+    },
+    "material": {
+      "titulo": "Material de Trabajo",
+      "links": [
+        {
+          "label": "Descargar Fotos",
+          "url": "https://1drv.ms/u/c/240b98da269be9b3/ETN3GiJhAzdJubm_okKxuPMB5V6cZ4Q6WZxW81VyTldKtg?e=VUhe1Z",
+          "icono": "camera"
+        },
+        {
+          "label": "Ver Press Kit Completo",
+          "url": "https://press-kit-nicol-s-capetillo.vercel.app/",
+          "icono": "file-text"
+        }
+      ]
+    }
+  }
+}
