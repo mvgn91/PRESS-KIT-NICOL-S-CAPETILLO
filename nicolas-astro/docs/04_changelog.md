@@ -11,6 +11,12 @@
 - Navegación del carrusel oculta en desktop
 - Posicionamiento de botones flotantes usa CSS calc() con custom property
 
+### Proyecto sellado
+- Finalization Protocol ejecutado
+- Documentación de cierre generada (07-11)
+- Proyecto sellado como: `press-kit-nicols-capetillo_v1.1.0_PRODUCTION`
+- Estado: COMPLETED
+
 ## v1.0.0 — 2026-06-24
 
 ### Added
