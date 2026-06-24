@@ -1,0 +1,43 @@
+{
+  "timestamp": "2026-06-21T11:00:00",
+  "system": "MVGN Starter Kit v2.1",
+  "root": "C:\\Projects\\my-mvgn-project",
+  "state": "INIT",
+  "mode": "FAST",
+  "active_layer": "rules",
+  "integrity": "OK",
+  "task": "",
+  "progress": "0/0",
+  "blockers": "",
+  "contract": "loaded",
+  "contract_file": ".mvgn/session-contract.md",
+  "authority": "loaded",
+  "authority_file": ".mvgn/authority-map.md",
+  "authority_priority": "Contract > Kernel > Recovery > Rules > Engine",
+  "last_action": "",
+  "next_action": "Define your idea in docs/00_idea.md, then create PRD",
+  "layers": {
+    "rules": "loaded",
+    "engine": "loaded",
+    "recovery": "loaded",
+    "kernel": "loaded",
+    "contract": "loaded",
+    "authority": "loaded"
+  },
+  "policy": {
+    "states_count": 9,
+    "states": ["INIT","PRD_REQUIRED","PRD_APPROVED","ARCHITECTURE_REQUIRED","ARCHITECTURE_APPROVED","READY_TO_BUILD","IN_PROGRESS","COMPLETED","BLOCKED"],
+    "gates_count": 5,
+    "gates": ["PRD","Architecture","Tasks","State","Scope"]
+  },
+  "runtime": {
+    "modes": ["FAST","DEBUG","FULL"],
+    "modes_count": 3
+  },
+  "integrity_check": {
+    "state_report_exists": false,
+    "layers_complete": true,
+    "contract_loaded": true,
+    "authority_loaded": true
+  }
+}

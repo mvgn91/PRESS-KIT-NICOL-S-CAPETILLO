@@ -1,0 +1,184 @@
+{
+  "personal": {
+    "fullName": "Nicolás Capetillo Potter",
+    "artistName": "Nicolás Capetillo",
+    "title": "Actor de Cine y Televisión",
+    "subtitle": "Actor | Artista de Voz | Performer",
+    "description": "Versátil actor con experiencia en cine y televisión, destacando por su capacidad de transformación y profundidad interpretativa.",
+    "bio": "Nacido el 13 de enero de 1978 en Lexington, Kentucky, Nicolás desarrolla una carrera que fusiona su herencia multicultural con su pasión por las artes dramáticas. Con base en Guadalajara, México, mantiene disponibilidad completa para proyectos nacionales e internacionales, aportando versatilidad única en cada interpretación.",
+    "heroPhoto": "/assets/fotos/newfront.jpg",
+    "bioPhoto": "/assets/fotos/4.jpg",
+    "fichaPhoto": "/assets/fotos/5.jpg"
+  },
+  "physical": {
+    "height": "1.78 m",
+    "weight": "80 kg",
+    "hair": "Oscuro",
+    "eyes": "Azules",
+    "nationality": "Estadounidense / Mexicano",
+    "birthDate": "13 de enero de 1978",
+    "age": "47 años"
+  },
+  "languages": [
+    { "language": "Español", "level": "Nativo" },
+    { "language": "Inglés", "level": "Nativo" },
+    { "language": "Alemán", "level": "Nativo" },
+    { "language": "Japonés", "level": "Conversacional" }
+  ],
+  "skills": {
+    "arts": ["Canto", "Piano", "Guitarra", "Composición"],
+    "physical": ["Boxeo", "Jiujitsu", "Hiking (Frecuente)", "Manejo de Fauna (Aves Rapaces)", "Conducción 4x4"]
+  },
+  "timeline": [
+    {
+      "period": "1985-1990",
+      "title": "Formación Artística Inicial",
+      "description": "Nicolás comenzó su formación artística con modelaje infantil y juvenil para fotografía comercial de ropa, además de aprender piano y guitarra, desarrollando desde temprana edad sus habilidades expresivas y musicales."
+    },
+    {
+      "period": "1990-1996",
+      "title": "Secundaria y Preparatoria Bicultural",
+      "description": "American School Foundation de Guadalajara"
+    },
+    {
+      "period": "1996-2000",
+      "title": "Cornell University",
+      "description": "B.A. (Bachelor of Arts) in Germanic Studies, concentration in International Relations.",
+      "link": { "url": "https://www.cornell.edu/", "text": "Cornell University" }
+    },
+    {
+      "period": "2003-2005",
+      "title": "Centro de Artes Audiovisuales CAAV",
+      "description": "Carrera Técnica en Medios Audiovisuales"
+    },
+    {
+      "period": "2023",
+      "title": "Debut Profesional",
+      "description": "Su debut profesional llegó con \"El Centauro del Norte\" (2023), donde interpretó al Embajador Americano, papel que le valió reconocimiento crítico."
+    },
+    {
+      "period": "2025",
+      "title": "Proyectos Cinematográficos",
+      "description": "Ha trabajado en doblaje para cine ADR, incluyendo \"Campeón Gabacho\" dirigida por Jonás Cuarón, una película que explora temas de identidad y pertenencia en la frontera México-Estados Unidos."
+    },
+    {
+      "period": "2021-Presente",
+      "title": "Formación Actoral Avanzada",
+      "description": "Continúa su formación actoral avanzada con la Maestra Marisol Padilla Sánchez, actriz internacional conocida por \"Traffic\" (2000) y \"L.A. Confidential\" (1997), profundizando en técnicas interpretativas contemporáneas.",
+      "link": { "url": "https://www.imdb.com/es-es/name/nm0655694/", "text": "Maestra Marisol Padilla Sánchez" }
+    },
+    {
+      "period": "2024",
+      "title": "Taller de Actuación de Método",
+      "description": "Participó en el Taller de Actuación de Método con Patricia Barbosa, actriz y directora de casting, conocida por \"La vida es una danza\" (2024) y \"No Translation Required\" (2021), expandiendo su repertorio técnico.",
+      "link": { "url": "https://www.imdb.com/es/name/nm6427676/", "text": "Patricia Barbosa" }
+    },
+    {
+      "period": "Presente",
+      "title": "Presente y Futuro",
+      "description": "Actualmente explora nuevos desafíos actoral en cine y televisión, buscando contar historias auténticas y conmovedoras."
+    }
+  ],
+  "filmography": [
+    {
+      "title": "El Centauro del Norte",
+      "role": "Embajador Americano",
+      "year": "2023",
+      "platform": "Netflix",
+      "episodes": "Episodio 6 • 44 min",
+      "rating": "7.2/10 IMDb",
+      "photo": "/assets/fotos/captura.jpg",
+      "imdbUrl": "https://www.imdb.com/es-es/title/tt15657464/",
+      "description": "Serie de drama histórico donde interpreta al Embajador Americano en el episodio 6, un personaje clave en la narrativa de la Revolución Mexicana.",
+      "status": "released"
+    },
+    {
+      "title": "Campeón Gabacho",
+      "role": "Doblaje ADR",
+      "year": "2025",
+      "platform": "En Post-Producción",
+      "photo": "/assets/fotos/scene 2.jpg",
+      "description": "Película dirigida por Jonás Cuarón, basada en la novela de Aura Xilonen, que narra la historia de un migrante mexicano que se convierte en boxeador. Participa en el doblaje ADR de esta producción.",
+      "status": "post-production"
+    },
+    {
+      "title": "Sabor y Salud",
+      "role": "Presentador y Chef",
+      "year": "2024 - Presente",
+      "platform": "YouTube",
+      "photo": "/assets/fotos/Salud y Sabor MINIATURA.png",
+      "videoUrl": "https://www.youtube.com/watch?v=uuiEVx517W0&list=PL0DNgxYp1eVqOmJCZ-Dqt_PeCcOqn1CDt",
+      "description": "Programa de cocina saludable donde Nicolás prepara propuestas saludables a platillos usuales o populares, compartiendo su pasión por la nutrición y la gastronomía.",
+      "status": "active"
+    }
+  ],
+  "demoReel": {
+    "mainVideo": "https://www.youtube.com/embed/GqD4yzR0Q_M",
+    "mainTitle": "Demo Reel 2025",
+    "verticalVideos": [
+      { "src": "/assets/videos/video1.mp4", "caption": "ACTING LAB MARISOL PADILLA SANCHEZ 2025" },
+      { "src": "/assets/videos/video2.mp4", "caption": "ACTING LAB MARISOL PADILLA SANCHEZ 2025" }
+    ]
+  },
+  "gallery": [
+    { "src": "/assets/fotos/1.jpg", "alt": "Nicolás Capetillo - Retrato Profesional" },
+    { "src": "/assets/fotos/2.jpg", "alt": "Nicolás Capetillo - Headshot" },
+    { "src": "/assets/fotos/3.jpg", "alt": "Nicolás Capetillo - Foto Editorial" },
+    { "src": "/assets/fotos/4.jpg", "alt": "Nicolás Capetillo - Retrato Artístico" },
+    { "src": "/assets/fotos/5.jpg", "alt": "Nicolás Capetillo - Foto de Casting" },
+    { "src": "/assets/fotos/6.jpg", "alt": "Nicolás Capetillo - Retrato Dramático" },
+    { "src": "/assets/fotos/7.jpg", "alt": "Nicolás Capetillo - Foto Profesional" },
+    { "src": "/assets/fotos/8.jpg", "alt": "Nicolás Capetillo - Headshot Editorial" },
+    { "src": "/assets/fotos/_P5A7048.jpg", "alt": "Nicolás Capetillo - Escena 1" },
+    { "src": "/assets/fotos/_P5A7051.jpg", "alt": "Nicolás Capetillo - Escena 2" },
+    { "src": "/assets/fotos/_P5A7061.jpg", "alt": "Nicolás Capetillo - Escena 3" },
+    { "src": "/assets/fotos/_P5A7068.jpg", "alt": "Nicolás Capetillo - Escena 4" },
+    { "src": "/assets/fotos/_P5A7071.jpg", "alt": "Nicolás Capetillo - Escena 5" },
+    { "src": "/assets/fotos/_P5A7079.jpg", "alt": "Nicolás Capetillo - Escena 6" },
+    { "src": "/assets/fotos/_P5A7080.jpg", "alt": "Nicolás Capetillo - Escena 7" },
+    { "src": "/assets/fotos/_P5A7081.jpg", "alt": "Nicolás Capetillo - Escena 8" },
+    { "src": "/assets/fotos/_P5A7082.jpg", "alt": "Nicolás Capetillo - Escena 9" },
+    { "src": "/assets/fotos/_P5A7085.jpg", "alt": "Nicolás Capetillo - Escena 10" },
+    { "src": "/assets/fotos/_P5A7085_1.jpg", "alt": "Nicolás Capetillo - Escena 11" },
+    { "src": "/assets/fotos/_P5A7097.jpg", "alt": "Nicolás Capetillo - Escena 12" },
+    { "src": "/assets/fotos/_P5A7104.jpg", "alt": "Nicolás Capetillo - Escena 13" },
+    { "src": "/assets/fotos/_P5A7105.jpg", "alt": "Nicolás Capetillo - Escena 14" },
+    { "src": "/assets/fotos/_P5A7107.jpg", "alt": "Nicolás Capetillo - Escena 15" },
+    { "src": "/assets/fotos/_P5A7111.jpg", "alt": "Nicolás Capetillo - Escena 16" },
+    { "src": "/assets/fotos/_P5A7112.jpg", "alt": "Nicolás Capetillo - Escena 17" },
+    { "src": "/assets/fotos/_P5A7121.jpg", "alt": "Nicolás Capetillo - Escena 18" },
+    { "src": "/assets/fotos/_P5A7122.jpg", "alt": "Nicolás Capetillo - Escena 19" },
+    { "src": "/assets/fotos/_P5A7131.jpg", "alt": "Nicolás Capetillo - Escena 20" },
+    { "src": "/assets/fotos/_P5A7138.jpg", "alt": "Nicolás Capetillo - Escena 21" },
+    { "src": "/assets/fotos/_P5A7145.jpg", "alt": "Nicolás Capetillo - Escena 22" },
+    { "src": "/assets/fotos/_P5A7146.jpg", "alt": "Nicolás Capetillo - Escena 23" },
+    { "src": "/assets/fotos/_P5A7147.jpg", "alt": "Nicolás Capetillo - Escena 24" },
+    { "src": "/assets/fotos/_P5A7148.jpg", "alt": "Nicolás Capetillo - Escena 25" },
+    { "src": "/assets/fotos/_P5A7152.jpg", "alt": "Nicolás Capetillo - Escena 26" }
+  ],
+  "downloads": {
+    "fichaTecnica": { "label": "Ficha Técnica", "description": "Información técnica y medidas para casting" },
+    "photos": {
+      "label": "Fotos en Alta Resolución",
+      "description": "Pack completo de imágenes profesionales",
+      "url": "https://1drv.ms/u/c/240b98da269be9b3/ETN3GiJhAzdJubm_okKxuPMB5V6cZ4Q6WZxW81VyTldKtg?e=VUhe1Z"
+    }
+  },
+  "contact": {
+    "manager": {
+      "name": "Mimi Carrillo",
+      "email": "contacto@mimicarrillo.com",
+      "phone": "+52 55 87 43 54 05",
+      "agency": "Mimi Carrillo Agency",
+      "agencyUrl": "https://mimicarrillo.com/"
+    },
+    "direct": {
+      "email": "ncapetillo@hotmail.com",
+      "phone": "+52 1 33 3105 0996"
+    },
+    "social": [
+      { "name": "Instagram", "url": "https://www.instagram.com/nicolas.capetillo/", "icon": "instagram" },
+      { "name": "WhatsApp", "url": "https://wa.me/523331050996?text=Hola%20Nicolás,%20vi%20tu%20press%20kit%20y%20me%20interesa%20contactarte%20para%20un%20proyecto.%20¿Podrías%20darme%20más%20información?", "icon": "message-circle" }
+    ]
+  }
+}

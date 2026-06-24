@@ -1,0 +1,292 @@
+<!--
+  FluidBackground - theme-aware atmospheric backdrop
+  Fixed mesh wash + subtle canvas movement for glass surfaces.
+-->
+<div class="fluid-bg" aria-hidden="true">
+  <div class="fluid-bg__wash"></div>
+  <canvas id="fluidBg" class="fluid-bg__canvas"></canvas>
+  <div class="fluid-bg__texture"></div>
+</div>
+
+<style>
+  .fluid-bg {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+    background:
+      linear-gradient(150deg, var(--ambient-field-4), transparent 42%),
+      var(--bg-gradient);
+    transition: background 0.8s var(--ease);
+  }
+
+  .fluid-bg__wash,
+  .fluid-bg__texture,
+  .fluid-bg__canvas {
+    position: absolute;
+    inset: 0;
+  }
+
+  .fluid-bg__wash {
+    background:
+      radial-gradient(120% 80% at 10% 4%, var(--ambient-field-1), transparent 58%),
+      radial-gradient(90% 78% at 92% 18%, var(--ambient-field-2), transparent 62%),
+      radial-gradient(90% 88% at 48% 100%, var(--ambient-field-3), transparent 64%),
+      linear-gradient(180deg, transparent 0%, var(--ambient-vignette) 118%);
+    filter: blur(34px);
+    transform: scale(1.08);
+    transition: background 0.8s var(--ease), opacity 0.8s var(--ease);
+  }
+
+  .fluid-bg__canvas {
+    width: 100vw;
+    height: 100vh;
+    opacity: var(--ambient-canvas-opacity);
+    mix-blend-mode: normal;
+    transition: opacity 0.8s var(--ease);
+  }
+
+  .fluid-bg__texture {
+    opacity: 0.34;
+    background-image:
+      linear-gradient(var(--ambient-ink) 1px, transparent 1px),
+      linear-gradient(90deg, var(--ambient-ink) 1px, transparent 1px),
+      repeating-linear-gradient(105deg, transparent 0 9px, var(--ambient-grain) 10px 11px);
+    background-size: 72px 72px, 72px 72px, 180px 180px;
+    mask-image: linear-gradient(180deg, rgba(0,0,0,0.62), rgba(0,0,0,0.18));
+    transition: background-image 0.8s var(--ease), opacity 0.8s var(--ease);
+  }
+
+  @media (max-width: 768px) {
+    .fluid-bg__wash {
+      filter: blur(24px);
+      transform: scale(1.04);
+    }
+
+    .fluid-bg__texture {
+      background-size: 54px 54px, 54px 54px, 150px 150px;
+    }
+
+    .fluid-bg__canvas {
+      display: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .fluid-bg__canvas {
+      display: none;
+    }
+  }
+</style>
+
+<script is:inline>
+  (function() {
+    'use strict';
+
+    if (window.innerWidth < 768) return;
+    var canvas = document.getElementById('fluidBg');
+    if (!canvas) return;
+
+    var ctx = canvas.getContext('2d', { alpha: true });
+    if (!ctx) return;
+
+    var W = 0;
+    var H = 0;
+    var dpr = 1;
+    var raf = null;
+    var time = 0;
+    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    var mouse = { x: 0.5, y: 0.5, tx: 0.5, ty: 0.5 };
+
+    var fields = [
+      { x: 0.12, y: 0.14, r: 0.86, sx: 0.0009, sy: 0.0007, px: 0.2, py: 1.3, color: 'field1' },
+      { x: 0.88, y: 0.2, r: 0.72, sx: 0.00072, sy: 0.00104, px: 2.4, py: 0.7, color: 'field2' },
+      { x: 0.5, y: 0.9, r: 0.76, sx: 0.00104, sy: 0.0006, px: 4.1, py: 2.8, color: 'field3' },
+      { x: 0.3, y: 0.62, r: 0.58, sx: 0.00056, sy: 0.00096, px: 1.7, py: 5.1, color: 'field4' }
+    ];
+
+    var palette = readPalette();
+    var targetPalette = readPalette();
+
+    function clamp(v, min, max) {
+      return Math.min(max, Math.max(min, v));
+    }
+
+    function lerp(a, b, t) {
+      return a + (b - a) * t;
+    }
+
+    function parseColor(value) {
+      value = String(value || '').trim();
+
+      if (value.charAt(0) === '#') {
+        var hex = value.slice(1);
+        if (hex.length === 3) {
+          hex = hex.split('').map(function(char) { return char + char; }).join('');
+        }
+        return {
+          r: parseInt(hex.slice(0, 2), 16) || 0,
+          g: parseInt(hex.slice(2, 4), 16) || 0,
+          b: parseInt(hex.slice(4, 6), 16) || 0,
+          a: 1
+        };
+      }
+
+      var parts = value.match(/[\d.]+/g) || [];
+      return {
+        r: Number(parts[0] || 0),
+        g: Number(parts[1] || 0),
+        b: Number(parts[2] || 0),
+        a: parts.length > 3 ? Number(parts[3]) : 1
+      };
+    }
+
+    function readVar(name) {
+      return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+    }
+
+    function readPalette() {
+      return {
+        base: parseColor(readVar('--ambient-base')),
+        field1: parseColor(readVar('--ambient-field-1')),
+        field2: parseColor(readVar('--ambient-field-2')),
+        field3: parseColor(readVar('--ambient-field-3')),
+        field4: parseColor(readVar('--ambient-field-4'))
+      };
+    }
+
+    function mixPalette() {
+      Object.keys(targetPalette).forEach(function(key) {
+        palette[key].r = lerp(palette[key].r, targetPalette[key].r, 0.05);
+        palette[key].g = lerp(palette[key].g, targetPalette[key].g, 0.05);
+        palette[key].b = lerp(palette[key].b, targetPalette[key].b, 0.05);
+        palette[key].a = lerp(palette[key].a, targetPalette[key].a, 0.05);
+      });
+    }
+
+    function rgba(c, alphaScale) {
+      return 'rgba(' +
+        Math.round(c.r) + ',' +
+        Math.round(c.g) + ',' +
+        Math.round(c.b) + ',' +
+        clamp(c.a * alphaScale, 0, 1).toFixed(4) +
+      ')';
+    }
+
+    function resize() {
+      dpr = Math.min(window.devicePixelRatio || 1, 1.6);
+      W = window.innerWidth;
+      H = window.innerHeight;
+      canvas.width = Math.max(1, Math.floor(W * dpr));
+      canvas.height = Math.max(1, Math.floor(H * dpr));
+      canvas.style.width = W + 'px';
+      canvas.style.height = H + 'px';
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      draw();
+    }
+
+    function drawField(field, index) {
+      var driftX = Math.sin(time * field.sx + field.px) * 0.16;
+      var driftY = Math.cos(time * field.sy + field.py) * 0.14;
+      var mousePullX = (mouse.x - 0.5) * (index % 2 === 0 ? 0.12 : -0.1);
+      var mousePullY = (mouse.y - 0.5) * (index % 2 === 0 ? -0.1 : 0.12);
+      var cx = (field.x + driftX + mousePullX) * W;
+      var cy = (field.y + driftY + mousePullY) * H;
+      var radius = field.r * Math.max(W, H) * (0.88 + Math.sin(time * 0.0006 + field.py) * 0.1);
+      var c = palette[field.color];
+      var grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, radius);
+
+      grad.addColorStop(0, rgba(c, 0.65));
+      grad.addColorStop(0.36, rgba(c, 0.38));
+      grad.addColorStop(0.72, rgba(c, 0.12));
+      grad.addColorStop(1, rgba(c, 0));
+
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, W, H);
+    }
+
+    function draw() {
+      if (!W || !H) return;
+
+      ctx.clearRect(0, 0, W, H);
+      ctx.globalCompositeOperation = 'source-over';
+      ctx.fillStyle = rgba(palette.base, 0.45);
+      ctx.fillRect(0, 0, W, H);
+
+      ctx.globalCompositeOperation = 'lighter';
+      fields.forEach(drawField);
+
+      ctx.globalCompositeOperation = 'source-over';
+      var vignette = ctx.createRadialGradient(W * 0.5, H * 0.48, 0, W * 0.5, H * 0.5, Math.max(W, H) * 0.76);
+      vignette.addColorStop(0, rgba({ r: 0, g: 0, b: 0, a: 0 }, 0));
+      vignette.addColorStop(1, rgba({ r: 0, g: 0, b: 0, a: 255 }, 0.56 * palette.base.r / 255));
+      ctx.fillStyle = vignette;
+      ctx.fillRect(0, 0, W, H);
+    }
+
+    function animate(timestamp) {
+      time = timestamp || 0;
+      mouse.x = lerp(mouse.x, mouse.tx, 0.1);
+      mouse.y = lerp(mouse.y, mouse.ty, 0.1);
+      mixPalette();
+      draw();
+      raf = requestAnimationFrame(animate);
+    }
+
+    function startAnimation() {
+      if (!raf && !reduceMotion.matches) {
+        raf = requestAnimationFrame(animate);
+      }
+    }
+
+    function stopAnimation() {
+      if (raf) {
+        cancelAnimationFrame(raf);
+        raf = null;
+      }
+      draw();
+    }
+
+    function updateMotion() {
+      if (reduceMotion.matches) {
+        stopAnimation();
+      } else {
+        startAnimation();
+      }
+    }
+
+    function setPointer(clientX, clientY) {
+      mouse.tx = clamp(clientX / Math.max(W, 1), 0, 1);
+      mouse.ty = clamp(clientY / Math.max(H, 1), 0, 1);
+    }
+
+    window.addEventListener('resize', resize, { passive: true });
+    document.addEventListener('mousemove', function(event) {
+      setPointer(event.clientX, event.clientY);
+    }, { passive: true });
+    document.addEventListener('mouseleave', function() {
+      mouse.tx = 0.5;
+      mouse.ty = 0.5;
+    }, { passive: true });
+    document.addEventListener('touchmove', function(event) {
+      if (event.touches && event.touches[0]) {
+        setPointer(event.touches[0].clientX, event.touches[0].clientY);
+      }
+    }, { passive: true });
+
+    new MutationObserver(function() {
+      targetPalette = readPalette();
+    }).observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['data-theme']
+    });
+
+    if (reduceMotion.addEventListener) {
+      reduceMotion.addEventListener('change', updateMotion);
+    }
+
+    resize();
+    updateMotion();
+  })();
+</script>

@@ -1,0 +1,454 @@
+---
+---
+
+<nav class="nav" id="mainNav">
+  <div class="nav-inner container">
+    <a href="#" class="nav-logo">NC</a>
+    <div class="nav-links" id="navLinks">
+      <a href="#biografia" class="nav-link">Biografía</a>
+      <a href="#filmografia" class="nav-link">Filmografía</a>
+      <a href="#demo-reel" class="nav-link">Demo Reel</a>
+      <a href="#galeria" class="nav-link">Galería</a>
+      <a href="#ficha-tecnica" class="nav-link">Ficha</a>
+      <a href="#contacto" class="nav-link">Contacto</a>
+    </div>
+    <div class="nav-actions">
+      <button class="nav-hamburger" id="navHamburger" aria-label="Menú" aria-expanded="false">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+      <button class="theme-toggle" id="themeToggle" aria-label="Cambiar tema">
+        <svg class="theme-icon icon-sun" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="5" fill="currentColor" opacity="0.12"/>
+          <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+        </svg>
+        <svg class="theme-icon icon-moon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" fill="currentColor" opacity="0.12"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile menu overlay -->
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-menu-inner">
+    <a href="#biografia" class="mobile-menu-link">Biografía</a>
+    <a href="#filmografia" class="mobile-menu-link">Filmografía</a>
+    <a href="#demo-reel" class="mobile-menu-link">Demo Reel</a>
+    <a href="#galeria" class="mobile-menu-link">Galería</a>
+    <a href="#ficha-tecnica" class="mobile-menu-link">Ficha</a>
+    <a href="#contacto" class="mobile-menu-link">Contacto</a>
+  </div>
+</div>
+
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<nav class="bottom-nav" id="bottomNav">
+  <a href="#hero" class="bottom-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>Inicio</span></a>
+  <a href="#biografia" class="bottom-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>Bio</span></a>
+  <a href="#filmografia" class="bottom-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="2" y1="7" x2="7" y2="7"/><line x1="2" y1="17" x2="7" y2="17"/><line x1="17" y1="7" x2="22" y2="7"/><line x1="17" y1="17" x2="22" y2="17"/></svg><span>Films</span></a>
+  <a href="#demo-reel" class="bottom-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg><span>Demo</span></a>
+  <a href="#galeria" class="bottom-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>Fotos</span></a>
+  <a href="#ficha-tecnica" class="bottom-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg><span>Ficha</span></a>
+  <a href="#contacto" class="bottom-nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg><span>Contacto</span></a>
+</nav>
+
+<style>
+  .nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: var(--nav-bg);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border-bottom: 1px solid var(--border);
+    transition: var(--transition);
+  }
+
+  .nav.scrolled {
+    box-shadow: 0 1px 24px var(--shadow-strong);
+  }
+
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: var(--nav-height);
+  }
+
+  .nav-logo {
+    font-family: var(--font-heading);
+    font-size: 1.3rem;
+    font-weight: 900;
+    color: var(--text);
+    letter-spacing: 1px;
+    text-decoration: none;
+  }
+
+  .nav-links { display: flex; gap: 0.25rem; align-items: center; }
+
+  .nav-link {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    padding: 0.5rem 0.85rem;
+    border-radius: 999px;
+    transition: all 0.35s var(--ease);
+    text-decoration: none;
+    position: relative;
+  }
+
+  .nav-link:hover {
+    color: var(--text);
+    background: var(--glass-bg);
+  }
+
+  .nav-link.active {
+    color: var(--bg);
+    font-weight: 700;
+    background: var(--text);
+    border: 1px solid var(--text);
+  }
+
+  .nav-actions { display: flex; align-items: center; gap: 0.75rem; }
+
+  .theme-toggle {
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--border);
+    background: var(--bg);
+    color: var(--text);
+    cursor: pointer;
+    transition: all 0.3s var(--ease);
+    position: relative;
+    border-radius: 50%;
+    overflow: hidden;
+  }
+
+  .theme-toggle:hover {
+    border-color: var(--text);
+    background: var(--bg-alt);
+    transform: scale(1.12);
+    box-shadow: 0 0 24px var(--shadow);
+  }
+
+  .theme-toggle:active {
+    transform: scale(0.92);
+  }
+
+  .theme-icon {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    transition: opacity 0.35s, transform 0.5s var(--ease-spring);
+  }
+
+  .scroll-progress {
+    position: fixed;
+    top: var(--nav-height);
+    left: 0;
+    height: 2px;
+    background: var(--text);
+    z-index: 999;
+    width: 0%;
+    transition: width 0.1s linear;
+  }
+
+  .nav-hamburger {
+    display: none;
+    width: 42px;
+    height: 42px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    border: 1px solid var(--border);
+    background: var(--bg);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s var(--ease);
+  }
+
+  .nav-hamburger:hover {
+    border-color: var(--text);
+    background: var(--bg-alt);
+  }
+
+  .hamburger-line {
+    display: block;
+    width: 18px;
+    height: 2px;
+    background: var(--text);
+    border-radius: 2px;
+    transition: all 0.3s var(--ease);
+    transform-origin: center;
+  }
+
+  .nav-hamburger.open .hamburger-line:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+
+  .nav-hamburger.open .hamburger-line:nth-child(2) {
+    opacity: 0;
+  }
+
+  .nav-hamburger.open .hamburger-line:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  .mobile-menu {
+    position: fixed;
+    inset: 0;
+    z-index: 999;
+    background: rgba(0,0,0,0.5);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s var(--ease);
+  }
+
+  .mobile-menu.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .mobile-menu-inner {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: min(320px, 80vw);
+    background: var(--bg);
+    border-left: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    padding: calc(var(--nav-height) + var(--sp-lg)) var(--sp-lg) var(--sp-lg);
+    gap: var(--sp-sm);
+    transform: translateX(100%);
+    transition: transform 0.35s var(--ease);
+    overflow-y: auto;
+  }
+
+  .mobile-menu.open .mobile-menu-inner {
+    transform: translateX(0);
+  }
+
+  .mobile-menu-link {
+    display: block;
+    padding: var(--sp-md) var(--sp-lg);
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    text-decoration: none;
+    border-radius: var(--radius-xs);
+    transition: all 0.2s var(--ease);
+  }
+
+  .mobile-menu-link:hover {
+    color: var(--text);
+    background: var(--glass-bg);
+  }
+
+  .bottom-nav {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: var(--nav-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-top: 1px solid var(--border);
+    padding: 0.4rem 0 calc(0.4rem + env(safe-area-inset-bottom));
+    justify-content: space-around;
+  }
+
+  .bottom-nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    font-size: 0.65rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 0.2rem 0.5rem;
+    text-decoration: none;
+    transition: all 0.2s var(--ease);
+  }
+
+  .bottom-nav-item svg { width: 18px; height: 18px; transition: all 0.2s; }
+  .bottom-nav-item.active {
+    color: var(--text);
+    background: var(--glass-bg);
+    border-radius: var(--radius);
+  }
+  .bottom-nav-item.active svg { stroke-width: 2.5; }
+  .bottom-nav-item:hover { color: var(--text); }
+
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .nav-hamburger { display: flex; }
+    .bottom-nav { display: flex; }
+    body { padding-bottom: 68px; }
+  }
+
+  @media (max-width: 640px) {
+    .bottom-nav-item {
+      gap: 0;
+      padding: 0.3rem 0.5rem;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .bottom-nav-item span {
+      display: none;
+    }
+
+    .bottom-nav-item svg {
+      width: 22px;
+      height: 22px;
+    }
+
+    .bottom-nav-item.active {
+      background: var(--glass-bg);
+      border-radius: var(--radius);
+    }
+  }
+
+  @media (max-width: 400px) {
+    .bottom-nav {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      justify-content: flex-start;
+      gap: 0;
+      padding-left: var(--sp-sm);
+      padding-right: var(--sp-sm);
+      scrollbar-width: none;
+    }
+
+    .bottom-nav::-webkit-scrollbar {
+      display: none;
+    }
+
+    .bottom-nav-item {
+      flex: none;
+      padding: 0.3rem 0.6rem;
+    }
+  }
+
+  @media (min-width: 769px) and (max-width: 1024px) {
+    .nav-links { gap: 0; }
+    .nav-link { font-size: 0.75rem; padding: 0.4rem 0.6rem; }
+  }
+</style>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', function() {
+    /* Theme Toggle — inline SVGs so no Lucide re-render needed */
+    document.getElementById('themeToggle')?.addEventListener('click', function() {
+      var current = document.documentElement.getAttribute('data-theme');
+      var next = current === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    });
+
+    /* Scroll spy + progress + nav style */
+    var nav = document.getElementById('mainNav');
+    var progress = document.getElementById('scrollProgress');
+    var navLinks = document.querySelectorAll('.nav-link');
+    var bottomItems = document.querySelectorAll('.bottom-nav-item');
+    // Only track these specific section IDs that match nav links
+    var sectionIds = ['hero', 'biografia', 'filmografia', 'demo-reel', 'galeria', 'ficha-tecnica', 'contacto', 'footer'];
+
+    window.addEventListener('scroll', function() {
+      var scrollY = window.scrollY;
+      var i;
+
+      // Nav style
+      if (nav) nav.classList.toggle('scrolled', scrollY > 50);
+
+      // Reading progress
+      if (progress) {
+        var pct = (scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+        progress.style.width = pct + '%';
+      }
+
+      // Scroll spy — iterate through known section ids; the last one with top <= offset wins
+      var currentId = '';
+      for (i = 0; i < sectionIds.length; i++) {
+        var el = document.getElementById(sectionIds[i]);
+        if (el && el.getBoundingClientRect().top <= 150) {
+          currentId = sectionIds[i];
+        }
+      }
+
+      // Default to 'hero' if at the very top
+      if (currentId === '' && document.getElementById('hero') && document.getElementById('hero').getBoundingClientRect().top <= 200) {
+        currentId = 'hero';
+      }
+
+      // Update nav links
+      for (i = 0; i < navLinks.length; i++) {
+        var link = navLinks[i];
+        link.classList.toggle('active', link.getAttribute('href') === '#' + currentId);
+      }
+
+      // Update bottom nav
+      for (i = 0; i < bottomItems.length; i++) {
+        var item = bottomItems[i];
+        item.classList.toggle('active', item.getAttribute('href') === '#' + currentId);
+      }
+    });
+
+    /* Hamburger menu */
+    var hamburger = document.getElementById('navHamburger');
+    var mobileMenu = document.getElementById('mobileMenu');
+    var mobileLinks = document.querySelectorAll('.mobile-menu-link');
+
+    function openMenu() {
+      hamburger.classList.add('open');
+      hamburger.setAttribute('aria-expanded', 'true');
+      mobileMenu.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeMenu() {
+      hamburger.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
+      mobileMenu.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    hamburger?.addEventListener('click', function() {
+      if (mobileMenu.classList.contains('open')) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
+    });
+
+    mobileMenu?.addEventListener('click', function(e) {
+      if (e.target === mobileMenu) closeMenu();
+    });
+
+    mobileLinks.forEach(function(link) {
+      link.addEventListener('click', closeMenu);
+    });
+  });
+</script>

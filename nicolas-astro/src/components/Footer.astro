@@ -1,0 +1,244 @@
+---
+import data from '../data/nicolas.json';
+const { personal } = data;
+const year = new Date().getFullYear();
+---
+
+<footer class="footer" id="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-left">
+        <span class="footer-logo">NC</span>
+        <div class="footer-artist">
+          <span class="footer-name">{personal.artistName}</span>
+          <span class="footer-role">{personal.subtitle}</span>
+        </div>
+      </div>
+
+      <div class="footer-center">
+        <p class="footer-copy">&copy; {year} {personal.artistName}. Todos los derechos reservados.</p>
+      </div>
+
+      <div class="footer-right">
+        <span class="footer-credit-label">Diseñado por</span>
+        <a href="https://mvgn.vercel.app" target="_blank" rel="noopener noreferrer" class="footer-mvgn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7,2V13H10V22L17,10H13L17,2H7Z"/></svg>
+          <span>MVGN Labs</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border-top: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
+    padding: var(--sp-lg) 0;
+    transition: background 0.6s var(--ease);
+  }
+
+  .footer-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--sp-sm);
+  }
+
+  /* ---- Left: Nicolás ---- */
+  .footer-left {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-sm);
+  }
+
+  .footer-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background: var(--text);
+    color: var(--bg);
+    font-family: var(--font-heading);
+    font-size: 0.8rem;
+    font-weight: 900;
+    flex-shrink: 0;
+  }
+
+  .footer-artist {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .footer-name {
+    font-family: var(--font-heading);
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: var(--text);
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
+
+  .footer-role {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--text-muted);
+  }
+
+  /* ---- Center: Copyright ---- */
+  .footer-center {
+    order: 2;
+  }
+
+  .footer-copy {
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin: 0;
+  }
+
+  /* ---- Right: MVGN Labs ---- */
+  .footer-right {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+
+  .footer-credit-label {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .footer-mvgn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    text-decoration: none;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    padding: 0.3rem 0.6rem;
+    color: var(--text);
+    background: transparent;
+    border: 1.5px solid var(--text);
+    transition: all 0.35s var(--ease);
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Red-to-white gradient overlay */
+  .footer-mvgn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #cc0000 0%, #ff3333 60%, #ff5555 100%);
+    opacity: 0;
+    transition: opacity 0.4s var(--ease);
+    z-index: 0;
+  }
+
+  .footer-mvgn:hover::before {
+    opacity: 1;
+  }
+
+  .footer-mvgn:hover {
+    color: #ffffff;
+    border-color: #cc0000;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(204, 0, 0, 0.3);
+  }
+
+  .footer-mvgn svg,
+  .footer-mvgn span {
+    position: relative;
+    z-index: 1;
+  }
+
+  .footer-mvgn svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  @media (max-width: 640px) {
+    .footer {
+      padding: var(--sp-xl) 0 calc(var(--sp-xl) + 68px);
+    }
+
+    .footer-inner {
+      flex-direction: column;
+      text-align: center;
+      gap: var(--sp-lg);
+    }
+
+    .footer-left {
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--sp-sm);
+    }
+
+    .footer-artist {
+      align-items: center;
+    }
+
+    .footer-right {
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--sp-sm);
+    }
+
+    .footer-center {
+      order: 3;
+      padding-top: var(--sp-sm);
+      border-top: 1px solid var(--border);
+    }
+
+    .footer-copy {
+      font-size: 0.7rem;
+    }
+  }
+
+  @media (hover: none) and (pointer: coarse) {
+    .footer-mvgn:hover::before {
+      opacity: 0;
+    }
+    .footer-mvgn:hover {
+      color: var(--text);
+      border-color: var(--text);
+      transform: none;
+      box-shadow: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .footer-mvgn {
+      transition: none;
+    }
+    .footer-mvgn::before {
+      transition: none;
+    }
+    .footer-mvgn:hover {
+      color: var(--text);
+      border-color: var(--text);
+      transform: none;
+      box-shadow: none;
+    }
+    .footer-mvgn:hover::before {
+      opacity: 0;
+    }
+  }
+</style>

@@ -1,0 +1,714 @@
+---
+import data from '../data/nicolas.json';
+const { personal, physical, languages, timeline } = data;
+---
+
+<section class="bio section" id="biografia">
+  <!-- ===== SECTION HEADER ===== -->
+  <div class="bio-header-wrap">
+    <div class="container">
+      <div class="bio-header">
+        <span class="bio-kicker">01. Perfil</span>
+        <h2 class="bio-title">Biografía</h2>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== BIO LAYOUT: Portrait + Text ===== -->
+  <div class="bio-content">
+    <div class="container">
+      <div class="bio-grid">
+        <!-- Left: Portrait -->
+        <figure class="bio-portrait">
+          <div class="bio-portrait-frame">
+            <img src={personal.bioPhoto} alt={personal.artistName} loading="eager" />
+            <div class="bio-portrait-overlay" aria-hidden="true">
+              <span class="bio-portrait-badge">{personal.artistName}</span>
+              <span class="bio-portrait-title">{physical.nationality}</span>
+            </div>
+          </div>
+          <!-- Quick stats below photo -->
+          <div class="bio-quick-stats">
+            <div class="bio-qs-item">
+              <span class="bio-qs-label">Edad</span>
+              <span class="bio-qs-value">{physical.age}</span>
+            </div>
+            <div class="bio-qs-item">
+              <span class="bio-qs-label">Estatura</span>
+              <span class="bio-qs-value">{physical.height}</span>
+            </div>
+            <div class="bio-qs-item">
+              <span class="bio-qs-label">Base</span>
+              <span class="bio-qs-value">GDL, MX</span>
+            </div>
+          </div>
+        </figure>
+
+        <!-- Right: Bio Text -->
+        <div class="bio-text-col">
+          <span class="bio-badge">Trayectoria</span>
+          <h3 class="bio-name">{personal.fullName}</h3>
+          <p class="bio-role">{personal.subtitle}</p>
+          <div class="bio-rule"></div>
+
+          <div class="bio-text-wrap">
+            <span class="bio-cap">N</span>
+            <p class="bio-text">{personal.bio.slice(1)}</p>
+          </div>
+
+          <div class="bio-meta">
+            <div class="bio-meta-item">
+              <span class="bio-meta-label">Idiomas</span>
+              <span class="bio-meta-value">{languages.map(l => `${l.language} (${l.level})`).join(' · ')}</span>
+            </div>
+            <div class="bio-meta-item">
+              <span class="bio-meta-label">Nacimiento</span>
+              <span class="bio-meta-value">{physical.birthDate}</span>
+            </div>
+          </div>
+
+          <a href="#filmografia" class="bio-cta">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            <span>Ver filmografía</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== TIMELINE ===== -->
+  <div class="bio-tl">
+    <div class="container">
+      <div class="bio-tl-head">
+        <span class="bio-tl-label">Trayectoria</span>
+        <span class="bio-tl-sub">Formación y carrera</span>
+      </div>
+
+      <div class="bio-tl-grid">
+        {timeline.map((item, i) => (
+          <div class="bio-tl-card" style={`--i: ${i}`}>
+            <span class="bio-tl-year">{item.period}</span>
+            <div class="bio-tl-body">
+              <h4 class="bio-tl-title">{item.title}</h4>
+              <p class="bio-tl-desc">{item.description}</p>
+              {item.link && (
+                <a href={item.link.url} target="_blank" rel="noopener noreferrer" class="bio-tl-link">
+                  {item.link.text}
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </a>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* ==================================================================
+     BIOGRAPHY — Editorial Portrait Layout
+     Side-by-side portrait + text · integrated quick stats · timeline
+     ================================================================== */
+
+  .bio {
+    /* padding handled by .section class */
+  }
+
+  /* ===== HEADER ===== */
+  .bio-header-wrap {
+    padding: 0 0 var(--sp-2xl);
+  }
+
+  .bio-header {
+    display: flex;
+    align-items: baseline;
+    gap: var(--sp-lg);
+    padding-bottom: var(--sp-lg);
+    border-bottom: 2px solid var(--border);
+  }
+
+  .bio-kicker {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .bio-title {
+    font-family: var(--font-heading);
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 800;
+    color: var(--text);
+    margin: 0;
+    letter-spacing: -0.03em;
+  }
+
+  /* ===== GRID LAYOUT ===== */
+  .bio-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.3fr;
+    gap: var(--sp-2xl);
+    align-items: start;
+  }
+
+  /* ===== PORTRAIT ===== */
+  .bio-portrait {
+    margin: 0;
+    position: sticky;
+    top: calc(var(--nav-height) + var(--sp-lg));
+  }
+
+  .bio-portrait-frame {
+    position: relative;
+    overflow: hidden;
+    border: 2px solid var(--text);
+    transition: border-color 0.4s var(--ease);
+  }
+
+  .bio-portrait-frame:hover {
+    border-color: var(--text);
+  }
+
+  .bio-portrait-frame img {
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+    object-position: center 30%;
+    display: block;
+    transition: transform 0.8s var(--ease), filter 0.8s var(--ease);
+    filter: grayscale(0.2) contrast(1.04);
+  }
+
+  .bio-portrait-frame:hover img {
+    transform: scale(1.06);
+    filter: grayscale(0.8) contrast(1.1);
+  }
+
+  .bio-portrait-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 1.5rem 1rem 1rem;
+    background: linear-gradient(transparent 30%, rgba(0,0,0,0.7) 100%);
+    transition: padding 0.4s var(--ease);
+  }
+
+  .bio-portrait-frame:hover .bio-portrait-overlay {
+    padding-bottom: 1.5rem;
+  }
+
+  .bio-portrait-badge {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #fff;
+    opacity: 0.9;
+  }
+
+  .bio-portrait-title {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.6);
+  }
+
+  /* ===== QUICK STATS (below photo) ===== */
+  .bio-quick-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-top: var(--sp-lg);
+  }
+
+  .bio-qs-item {
+    background: var(--bg);
+    padding: var(--sp-md) var(--sp-sm);
+    text-align: center;
+    transition: background 0.3s var(--ease);
+  }
+
+  .bio-qs-item:hover {
+    background: var(--bg-alt);
+  }
+
+  .bio-qs-label {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+    margin-bottom: 0.2rem;
+  }
+
+  .bio-qs-value {
+    display: block;
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: var(--text);
+    line-height: 1.1;
+  }
+
+  /* ===== TEXT COLUMN ===== */
+  .bio-text-col {
+    padding-top: var(--sp-sm);
+  }
+
+  .bio-badge {
+    display: inline-block;
+    padding: 0.25rem 0.9rem;
+    margin-bottom: var(--sp-md);
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--bg);
+    background: var(--text);
+  }
+
+  .bio-name {
+    font-family: var(--font-heading);
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    font-weight: 800;
+    color: var(--text);
+    margin: 0 0 0.2rem;
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+  }
+
+  .bio-role {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--text-muted);
+    margin-bottom: var(--sp-lg);
+  }
+
+  .bio-rule {
+    width: 56px;
+    height: 3px;
+    background: var(--text);
+    margin-bottom: var(--sp-lg);
+  }
+
+  .bio-text-wrap {
+    display: flow-root;
+    margin-bottom: var(--sp-lg);
+  }
+
+  .bio-cap {
+    float: left;
+    font-family: var(--font-heading);
+    font-size: 4.8rem;
+    font-weight: 900;
+    line-height: 0.75;
+    padding: 0.15rem 0.45rem 0 0;
+    color: var(--text);
+  }
+
+  .bio-text {
+    font-size: clamp(1.15rem, 1.6vw, 1.35rem);
+    line-height: 2;
+    color: var(--text);
+    margin: 0;
+  }
+
+  /* ===== META ROW (languages + birth) ===== */
+  .bio-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--sp-lg);
+    margin-bottom: var(--sp-lg);
+    padding: var(--sp-md) var(--sp-lg);
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+  }
+
+  .bio-meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+
+  .bio-meta-label {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+  }
+
+  .bio-meta-value {
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  /* ===== CTA ===== */
+  .bio-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.85rem 1.8rem;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--bg);
+    background: linear-gradient(135deg, var(--text) 30%, #666 100%);
+    transition: background 0.3s, transform 0.25s;
+  }
+
+  .bio-cta:hover {
+    background: linear-gradient(135deg, #666 0%, var(--text) 70%);
+    transform: translateY(-2px);
+  }
+
+  .bio-cta svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  /* ===== TIMELINE ===== */
+  .bio-tl {
+    padding-top: var(--sp-3xl);
+  }
+
+  .bio-tl-head {
+    margin-bottom: var(--sp-2xl);
+    padding-bottom: var(--sp-sm);
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+  }
+
+  .bio-tl-label {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--text-muted);
+  }
+
+  .bio-tl-sub {
+    font-family: var(--font-heading);
+    font-size: 0.95rem;
+    font-style: italic;
+    color: var(--text-muted);
+    opacity: 0.6;
+  }
+
+  .bio-tl-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: var(--sp-md);
+  }
+
+  .bio-tl-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 1px solid var(--glass-border);
+    padding: var(--sp-xl);
+    transition: background 0.4s var(--ease), border-color 0.4s var(--ease), box-shadow 0.4s var(--ease);
+    display: flex;
+    flex-direction: column;
+    animation: tlIn 0.6s ease both;
+    animation-delay: calc(var(--i, 0) * 0.07s);
+  }
+
+  @keyframes tlIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .bio-tl-card:hover {
+    background: var(--glass-bg-hover);
+    border-color: var(--glass-border-hover);
+    box-shadow: var(--glass-shadow);
+    z-index: 1;
+  }
+
+  .bio-tl-year {
+    display: inline-flex;
+    align-self: flex-start;
+    padding: 0.3rem 0.8rem;
+    margin-bottom: var(--sp-md);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: var(--bg);
+    background: var(--text);
+    overflow-wrap: break-word;
+    max-width: 100%;
+  }
+
+  .bio-tl-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .bio-tl-title {
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0 0 0.5rem;
+    line-height: 1.3;
+  }
+
+  .bio-tl-desc {
+    font-size: 1rem;
+    line-height: 1.75;
+    color: var(--text);
+    opacity: 0.8;
+    flex: 1;
+  }
+
+  .bio-tl-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    margin-top: 0.75rem;
+    padding: 0.35rem 0;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text);
+    border-bottom: 1px solid var(--text);
+    text-decoration: none;
+    transition: gap 0.2s;
+    align-self: flex-start;
+  }
+
+  .bio-tl-link:hover {
+    gap: 0.6rem;
+  }
+
+  .bio-tl-link svg {
+    width: 11px;
+    height: 11px;
+    transition: transform 0.2s;
+  }
+
+  .bio-tl-link:hover svg {
+    transform: translateX(2px);
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 1024px) {
+    .bio-grid {
+      grid-template-columns: 1fr;
+      gap: var(--sp-xl);
+    }
+
+    .bio-portrait {
+      position: static;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    .bio-quick-stats {
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .bio-text-col {
+      padding-top: 0;
+    }
+
+    .bio-tl-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .bio-header-wrap {
+      padding: 0 0 var(--sp-xl);
+    }
+
+    .bio-portrait {
+      max-width: 320px;
+    }
+
+    .bio-tl {
+      padding-top: var(--sp-2xl);
+    }
+
+    .bio-tl-head {
+      flex-direction: column;
+      gap: var(--sp-xs);
+    }
+
+    .bio-tl-card {
+      padding: var(--sp-lg);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .bio-grid {
+      gap: var(--sp-lg);
+    }
+
+    .bio-portrait {
+      max-width: 280px;
+    }
+
+    .bio-text {
+      font-size: 1rem;
+      line-height: 1.75;
+    }
+
+    .bio-cap {
+      font-size: 3rem;
+    }
+
+    .bio-header-wrap {
+      padding: 0 0 var(--sp-lg);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .bio-header {
+      flex-direction: column;
+      gap: var(--sp-xs);
+      padding-bottom: var(--sp-md);
+    }
+
+    .bio-header-wrap {
+      padding: 0 0 var(--sp-md);
+    }
+
+    .bio-kicker {
+      font-size: 0.7rem;
+      white-space: normal;
+    }
+
+    .bio-portrait {
+      max-width: 240px;
+    }
+
+    .bio-quick-stats {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .bio-qs-item {
+      padding: var(--sp-sm) 0.2rem;
+    }
+
+    .bio-qs-value {
+      font-size: 0.9rem;
+    }
+
+    .bio-cap {
+      font-size: 2.6rem;
+      padding: 0.1rem 0.3rem 0 0;
+    }
+
+    .bio-text {
+      font-size: 0.95rem;
+      line-height: 1.65;
+    }
+
+    .bio-meta {
+      flex-direction: column;
+      gap: var(--sp-sm);
+      padding: var(--sp-md);
+    }
+
+    .bio-cta {
+      width: 100%;
+      justify-content: center;
+    }
+
+    .bio-tl-card {
+      padding: var(--sp-md) var(--sp-lg);
+    }
+
+    .bio-tl-title {
+      font-size: 1.05rem;
+    }
+
+    .bio-tl-desc {
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    .bio-tl-year {
+      font-size: 0.65rem;
+      padding: 0.2rem 0.6rem;
+    }
+
+    .bio-name {
+      font-size: clamp(1.5rem, 6vw, 1.8rem);
+    }
+
+    .bio-role {
+      font-size: 0.72rem;
+      margin-bottom: var(--sp-md);
+    }
+
+    .bio-rule {
+      width: 40px;
+      margin-bottom: var(--sp-md);
+    }
+
+    .bio-tl-head {
+      flex-direction: column;
+      gap: var(--sp-xs);
+    }
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .bio-tl-card { animation: none; }
+    .bio-cta { transition: none; }
+    .bio-portrait-frame img { transition: none !important; }
+  }
+
+  /* Touch devices */
+  @media (hover: none) and (pointer: coarse) {
+    .bio-tl-card:hover {
+      background: var(--glass-bg);
+      border-color: var(--glass-border);
+      box-shadow: none;
+    }
+    .bio-cta:hover {
+      background: linear-gradient(135deg, var(--text) 30%, #666 100%);
+      transform: none;
+    }
+    .bio-portrait-frame:hover img {
+      transform: none;
+      filter: grayscale(0.2) contrast(1.04);
+    }
+  }
+</style>

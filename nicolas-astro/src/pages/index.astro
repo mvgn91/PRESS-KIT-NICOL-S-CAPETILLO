@@ -1,0 +1,202 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navigation from '../components/Navigation.astro';
+import Hero from '../components/Hero.astro';
+import Biography from '../components/Biography.astro';
+import Filmography from '../components/Filmography.astro';
+import DemoReel from '../components/DemoReel.astro';
+import Gallery from '../components/Gallery.astro';
+import Downloads from '../components/Downloads.astro';
+import Footer from '../components/Footer.astro';
+import data from '../data/nicolas.json';
+---
+
+<Layout title={`${data.personal.artistName} | Portafolio`}>
+  <Navigation />
+  <Hero />
+  <Biography />
+  <Filmography />
+  <DemoReel />
+  <Gallery />
+  <Downloads />
+  <Footer />
+
+  <!-- ===== SCROLL TO TOP ===== -->
+  <button class="float-top" id="floatTop" aria-label="Volver al inicio">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+      <line x1="12" y1="19" x2="12" y2="5"/>
+      <polyline points="5 12 12 5 19 12"/>
+    </svg>
+  </button>
+
+  <!-- ===== FLOATING MAIL CTA ===== -->
+  <a href="#contacto" class="float-mail" id="floatMail" aria-label="Contáctame">
+    <svg class="float-mail-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+      <rect x="2" y="4" width="20" height="16" rx="2"/>
+      <path d="M22 6l-10 7L2 6"/>
+    </svg>
+  </a>
+</Layout>
+
+<script>
+  // Scroll reveal observer
+  const revealObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    },
+    { threshold: 0.08, rootMargin: '0px 0px -40px 0px' }
+  );
+
+  document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach((el) => {
+    revealObserver.observe(el);
+  });
+
+  // Floating buttons
+  const floatMail = document.getElementById('floatMail');
+  const floatTop = document.getElementById('floatTop');
+  const bottomNav = document.getElementById('bottomNav');
+  let heroPassed = false;
+
+  function updateFloatPositions() {
+    var bottomH = bottomNav ? bottomNav.offsetHeight : 0;
+    document.documentElement.style.setProperty('--bottom-nav-h', bottomH + 'px');
+  }
+
+  updateFloatPositions();
+  window.addEventListener('resize', updateFloatPositions);
+
+  window.addEventListener('scroll', function() {
+    const scrollY = window.scrollY;
+    const heroEl = document.querySelector('#hero');
+    const heroBottom = heroEl ? heroEl.offsetTop + heroEl.offsetHeight : window.innerHeight;
+
+    // Show mail CTA after hero section
+    if (scrollY > heroBottom - 100) {
+      if (!heroPassed) {
+        heroPassed = true;
+        floatMail?.classList.add('visible');
+      }
+    } else {
+      if (heroPassed) {
+        heroPassed = false;
+        floatMail?.classList.remove('visible');
+      }
+    }
+
+    // Show scroll-to-top after scrolling 600px
+    floatTop?.classList.toggle('visible', scrollY > 600);
+  });
+
+  // Scroll to top click
+  floatTop?.addEventListener('click', function() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+</script>
+
+<style>
+  /* ===== SCROLL TO TOP ===== */
+  .float-top {
+    position: fixed;
+    right: var(--sp-lg);
+    bottom: calc(var(--bottom-nav-h, 0px) + 8px + env(safe-area-inset-bottom, 0px));
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--text);
+    color: var(--bg);
+    border: none;
+    cursor: pointer;
+    z-index: 999;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    transition: transform 0.4s var(--ease-spring), opacity 0.4s var(--ease), background 0.3s var(--ease);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(20px);
+  }
+
+  .float-top.visible {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+
+  .float-top:hover {
+    background: var(--bg);
+    color: var(--text);
+    outline: 1.5px solid var(--text);
+  }
+
+  .float-top svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  @media (max-width: 768px) {
+    .float-top {
+      right: var(--sp-md);
+      width: 40px;
+      height: 40px;
+    }
+  }
+
+  /* ===== FLOATING MAIL CTA ===== */
+  .float-mail {
+    position: fixed;
+    right: var(--sp-lg);
+    bottom: calc(var(--bottom-nav-h, 0px) + 8px + env(safe-area-inset-bottom, 0px) + 44px + 8px);
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--text);
+    color: var(--bg);
+    text-decoration: none;
+    z-index: 999;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s var(--ease), background 0.3s var(--ease), transform 0.3s var(--ease);
+  }
+
+  .float-mail.visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .float-mail:hover {
+    background: var(--bg);
+    color: var(--text);
+    outline: 1.5px solid var(--text);
+  }
+
+  .float-mail-icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  @media (max-width: 768px) {
+    .float-mail {
+      right: var(--sp-md);
+      width: 40px;
+      height: 40px;
+    }
+    .float-mail-icon {
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .float-mail,
+    .float-top {
+      transition: none;
+    }
+  }
+</style>
