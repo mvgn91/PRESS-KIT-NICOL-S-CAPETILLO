@@ -12,18 +12,14 @@ const { demoReel } = data;
 
     <!-- ===== REEL HERO ===== -->
     <div class="reel-hero reveal">
-      <div class="reel-frame">
+      <a href="https://www.youtube.com/watch?v=GqD4yzR0Q_M" target="_blank" rel="noopener noreferrer" class="reel-frame">
         <div class="reel-screen">
-          <iframe
-            src={demoReel.mainVideo}
-            title={`Nicolás Capetillo - ${demoReel.mainTitle}`}
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            referrerpolicy="no-referrer"
-            allowfullscreen
-          ></iframe>
+          <img src="https://img.youtube.com/vi/GqD4yzR0Q_M/maxresdefault.jpg" alt="Demo Reel 2025 - Abrir en YouTube" class="reel-thumb" loading="lazy" />
+          <div class="reel-play">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16" fill="currentColor" stroke="none"/></svg>
+          </div>
         </div>
-
-      </div>
+      </a>
 
       <div class="reel-credit">
         <span class="reel-credit-tag">2025</span>
@@ -72,6 +68,7 @@ const { demoReel } = data;
 
   .reel-frame {
     position: relative;
+    display: block;
     border: 2px solid var(--text);
     background: var(--glass-bg);
     backdrop-filter: blur(var(--glass-blur));
@@ -79,6 +76,8 @@ const { demoReel } = data;
     box-shadow: var(--glass-shadow);
     padding: clamp(0.75rem, 1.5vw, 1.5rem);
     transition: background 0.4s var(--ease), box-shadow 0.4s var(--ease);
+    text-decoration: none;
+    cursor: pointer;
   }
 
   .reel-frame:hover {
@@ -99,6 +98,37 @@ const { demoReel } = data;
     width: 100%;
     height: 100%;
     border: none;
+  }
+
+  .reel-thumb {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .reel-play {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,0.25);
+    transition: background 0.3s var(--ease);
+  }
+
+  .reel-play svg {
+    color: #fff;
+    filter: drop-shadow(0 2px 8px rgba(0,0,0,0.4));
+    transition: transform 0.3s var(--ease);
+  }
+
+  .reel-frame:hover .reel-play {
+    background: rgba(0,0,0,0.1);
+  }
+
+  .reel-frame:hover .reel-play svg {
+    transform: scale(1.1);
   }
 
 
