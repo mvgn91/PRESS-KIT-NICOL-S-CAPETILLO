@@ -1,43 +1,25 @@
-# Astro Starter Kit: Minimal
+# Nicolás Capetillo — Press Kit Digital
 
-```sh
-npm create astro@latest -- --template minimal
-```
+Press kit / portfolio personal del actor mexicano Nicolás Capetillo. Sitio estático construido con Astro, desplegado en Vercel.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Comandos
 
-## 🚀 Project Structure
+| Comando | Acción |
+|---------|--------|
+| `npm install` | Instalar dependencias |
+| `npm run dev` | Servidor local (`localhost:4321`) |
+| `npm run build` | Build producción a `dist/` |
+| `npm run preview` | Preview del build |
+| `npx astro check` | Verificar tipos |
 
-Inside of your Astro project, you'll see the following folders and files:
+## Contenido
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+Todo el contenido del sitio se encuentra en `src/data/nicolas.json`. Las imágenes van en `public/assets/`.
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## Despliegue
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+Automático vía GitHub + Vercel. Cada push a `main` dispara build y deploy.
 
-Any static assets, like images, can be placed in the `public/` directory.
+---
 
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+**MVGN Labs**
