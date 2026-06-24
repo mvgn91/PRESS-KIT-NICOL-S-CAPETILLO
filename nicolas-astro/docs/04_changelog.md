@@ -1,5 +1,16 @@
 # 04 — Changelog
 
+## v1.1.0 — 2026-06-24
+
+### Added
+- Galería en carrusel horizontal con scroll snap en móvil (< 640px)
+- Botones de navegación (prev/next) y dots indicadores para carrusel móvil
+
+### Fixed
+- Botones flotantes (scroll-to-top + mail) apilados correctamente sin superposición
+- Navegación del carrusel oculta en desktop
+- Posicionamiento de botones flotantes usa CSS calc() con custom property
+
 ## v1.0.0 — 2026-06-24
 
 ### Added

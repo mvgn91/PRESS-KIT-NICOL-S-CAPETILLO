@@ -8,9 +8,9 @@
 |-------|-------|
 | **Estado** | COMPLETED |
 | **Tarea activa** | — |
-| **Progreso** | 12 / 12 completadas |
-| **Última acción** | T-012 completada — Footer mobile + menú hamburguesa implementados |
-| **Siguiente acción** | — |
+| **Progreso** | 13 / 13 completadas |
+| **Última acción** | T-013 completada — Galería carrusel móvil + botones flotantes |
+| **Siguiente acción** | Finalización MVGN |
 | **Modo** | FAST |
 | **Bloqueos activos** | — |
 
@@ -27,3 +27,4 @@ Proyecto existente ya se encuentra construido, desplegado en Vercel y funcional.
 ---
 **Historial de cambios:**
 - 2026-06-24: State report inicial — estado COMPLETED
+- 2026-06-24: Actualizado a 13/13 tareas — T-013 completada, fase de finalización iniciada

@@ -1,7 +1,7 @@
 # 03 — Tasks
 
 > Proyecto: Press Kit Digital — Nicols Capetillo
-> Estado general: **COMPLETED** (10/10 tareas completadas)
+> Estado general: **COMPLETED** (13/13 tareas completadas)
 
 ---
 
@@ -122,18 +122,30 @@
 - **Archivos:** `src/components/Footer.astro`, `src/components/Navigation.astro`
 - **Criterios:** Build exitoso. Footer legible en mobile sin elementos pegados. Menú hamburguesa funcional con animación smooth.
 
+## T-013: Galería carrusel móvil + botones flotantes
+
+- [x] Convertir gallery grid a carrusel horizontal con scroll snap en móvil (< 640px)
+- [x] Agregar botones de navegación (prev/next) y dots indicadores para el carrusel móvil
+- [x] Ocultar navegación del carrusel en desktop
+- [x] Reemplazar posicionamiento inline de botones flotantes por CSS calc() con custom property `--bottom-nav-h`
+- [x] Apilar botón scroll-to-top abajo y mail CTA arriba con gap de 8px
+- **Archivos:** `src/components/Gallery.astro`, `src/pages/index.astro`
+- **Criterios:** Build exitoso. Galería en carrusel navegable en móvil con botones y dots. Botones flotantes apilados correctamente sin superposición.
+
 ---
 
 ## Resumen
 
 | Estado | Conteo |
 |--------|--------|
-| Completadas | 12 |
+| Completadas | 13 |
 | Pendientes | 0 |
 | En progreso | 0 |
 | Bloqueadas | 0 |
-| **Total** | **12** |
+| **Total** | **13** |
 
 ---
+
 **Historial de cambios:**
 - 2026-06-24: Documento creado con tareas del proyecto existente
+- 2026-06-24: Añadida T-013 — Galería carrusel móvil + botones flotantes
