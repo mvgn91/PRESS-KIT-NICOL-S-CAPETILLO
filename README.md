@@ -2,7 +2,7 @@
 
 Sitio web tipo press kit / portfolio para el actor mexicano **Nicolás Capetillo**, construido con [Astro](https://astro.build). Una sola página con secciones modulares para que directores de casting, productores y agentes conozcan su perfil profesional.
 
-**Producción:** https://nicolascapetillo.vercel.app
+**Producción:** https://ncapetillo.vercel.app
 
 ---
 

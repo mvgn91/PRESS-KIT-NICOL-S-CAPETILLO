@@ -2,7 +2,7 @@
 import { defineConfig } from 'astro/config';
 
 export default defineConfig({
-  site: 'https://press-kit-nicol-s-capetillo.vercel.app/',
+  site: 'https://ncapetillo.vercel.app/',
   build: {
     format: 'file'
   }
