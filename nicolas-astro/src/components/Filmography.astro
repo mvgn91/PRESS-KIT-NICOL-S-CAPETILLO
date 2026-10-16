@@ -1,18 +1,26 @@
 ---
 import data from '../data/nicolas.json';
+import { opt } from '../lib/img';
 const { filmography } = data;
+// Fondos a 1200px WebP (van al 10-30% de opacidad: no necesitan más).
+const films = await Promise.all(
+  filmography.map(async (film) => ({
+    ...film,
+    bg: await opt(film.photo, 1200, 70),
+  }))
+);
 ---
 
 <section class="films section" id="filmografia">
   <div class="container">
-    <div class="section-header reveal">
-      <span class="section-number">02</span>
+    <div class="section-header">
+      <span class="section-number" aria-hidden="true">02</span>
       <h2 class="section-title">Filmografía</h2>
     </div>
   </div>
 
   <div class="films-stage">
-    {filmography.map((film, i) => (
+    {films.map((film, i) => (
       <article
         class="film"
         style={`--i: ${i}`}
@@ -24,7 +32,7 @@ const { filmography } = data;
       >
         <!-- Backdrop image (slow zoom) -->
         <div class="film-bg" aria-hidden="true">
-          <img src={film.photo} alt="" loading="lazy" />
+          <img src={film.bg} alt="" loading="lazy" />
         </div>
         <!-- Dark overlay for readability -->
         <div class="film-overlay" aria-hidden="true"></div>
@@ -34,7 +42,7 @@ const { filmography } = data;
           <div class="film-layout">
             <!-- Left: year number (graphic) -->
             <div class="film-year-col" aria-hidden="true">
-              <span class="film-year-num">{film.year}</span>
+              <span class={film.year.length > 4 ? 'film-year-num film-year-num--long' : 'film-year-num'}>{film.year}</span>
             </div>
 
             <!-- Center: main content -->
@@ -78,7 +86,7 @@ const { filmography } = data;
         </div>
 
         <!-- Divider between films -->
-        {i < filmography.length - 1 && <div class="film-divider" aria-hidden="true"></div>}
+        {i < films.length - 1 && <div class="film-divider" aria-hidden="true"></div>}
       </article>
     ))}
   </div>
@@ -93,21 +101,18 @@ const { filmography } = data;
      ================================================================== */
 
   .films {
+    /* F3: fuera los destellos radiales (orbes). Tinta plana. */
     background: #050505;
-    background-image:
-      radial-gradient(ellipse 60% 40% at 20% 30%, rgba(255,255,255,0.03) 0%, transparent 60%),
-      radial-gradient(ellipse 50% 50% at 80% 70%, rgba(255,255,255,0.02) 0%, transparent 60%);
-    padding-bottom: var(--sp-3xl);
+    /* F3: el ritmo vertical lo fija .section (--section-pad). */
   }
 
-  /* Section header overrides for dark bg */
+  /* Sección siempre oscura: la regla se invierte (misma estructura, tinta clara) */
   .films .section-header {
-    border-bottom-color: rgba(255, 255, 255, 0.08);
+    border-bottom-color: rgba(255, 255, 255, 0.18);
   }
 
   .films .section-number {
-    color: #fff;
-    opacity: 0.08;
+    color: rgba(255, 255, 255, 0.55);
   }
 
   .films .section-title {
@@ -116,7 +121,7 @@ const { filmography } = data;
 
   /* Override container spacing */
   .films .container:first-child {
-    padding-bottom: var(--sp-2xl);
+    padding-bottom: var(--sp-xl);
   }
 
   .films-stage {
@@ -127,7 +132,8 @@ const { filmography } = data;
   /* ===== INDIVIDUAL FILM ROW ===== */
   .film {
     position: relative;
-    min-height: clamp(400px, 48vh, 500px);
+    /* F3-B: 48vh/500px dejaba las tres tiras en 1310px. */
+    min-height: clamp(360px, 44vh, 460px);
     display: flex;
     align-items: center;
     overflow: hidden;
@@ -154,7 +160,8 @@ const { filmography } = data;
     border-bottom: 1px solid rgba(255, 255, 255, 0.06);
   }
 
-  /* ===== BACKDROP IMAGE (slow zoom) ===== */
+  /* ===== BACKDROP IMAGE =====
+     F3: sin slow-zoom. La respuesta al puntero es opacidad y contraste. */
   .film-bg {
     position: absolute;
     inset: 0;
@@ -170,12 +177,6 @@ const { filmography } = data;
     opacity: 0.1;
     filter: grayscale(1) contrast(1.2);
     transition: opacity 0.8s var(--ease), filter 0.8s var(--ease);
-    animation: slowZoom 20s ease-in-out infinite;
-  }
-
-  @keyframes slowZoom {
-    0%, 100% { transform: scale(1.08); }
-    50% { transform: scale(1.2); }
   }
 
   .film:hover .film-bg img,
@@ -196,17 +197,12 @@ const { filmography } = data;
     filter: grayscale(0) brightness(1.4) contrast(1.0);
   }
 
-  /* ===== DARK OVERLAY (readability) ===== */
+  /* ===== DARK OVERLAY (readability) — F3: velo plano, sin degradado ===== */
   .film-overlay {
     position: absolute;
     inset: 0;
     z-index: 1;
-    background: linear-gradient(
-      135deg,
-      rgba(0, 0, 0, 0.75) 0%,
-      rgba(0, 0, 0, 0.45) 50%,
-      rgba(0, 0, 0, 0.7) 100%
-    );
+    background: rgba(0, 0, 0, 0.62);
     pointer-events: none;
     transition: opacity 0.6s var(--ease);
   }
@@ -225,9 +221,9 @@ const { filmography } = data;
   .film-layout {
     display: grid;
     grid-template-columns: 100px 1fr;
-    gap: var(--sp-2xl);
+    gap: var(--sp-xl);
     align-items: start;
-    padding: var(--sp-2xl) 0;
+    padding: var(--sp-xl) 0;
   }
 
   /* ===== YEAR GRAPHIC ===== */
@@ -253,6 +249,20 @@ const { filmography } = data;
     opacity: 0.2;
   }
 
+  /* Año largo ("2024 - Presente"): tamaño menor, sin colisión */
+  .film-year-num--long {
+    font-size: clamp(1.4rem, 2.6vw, 2rem);
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+
+  /* Táctil: fondo siempre visible (no hay hover) */
+  @media (hover: none) {
+    .film-bg img {
+      opacity: 0.28;
+    }
+  }
+
   /* ===== MAIN CONTENT ===== */
   .film-main {
     max-width: 720px;
@@ -270,9 +280,9 @@ const { filmography } = data;
     display: inline-block;
     padding: 0.25rem 0.75rem;
     font-family: var(--font-mono);
-    font-size: 0.65rem;
+    font-size: var(--fs-micro);
     font-weight: 700;
-    letter-spacing: 1.5px;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
     color: #0a0a0a;
     background: rgba(255, 255, 255, 0.9);
@@ -281,16 +291,16 @@ const { filmography } = data;
 
   .film-platform {
     font-family: var(--font-mono);
-    font-size: 0.7rem;
+    font-size: var(--fs-micro);
     font-weight: 600;
-    letter-spacing: 1px;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
     color: rgba(255, 255, 255, 0.6);
   }
 
   .film-title {
     font-family: var(--font-heading);
-    font-size: clamp(2rem, 4.5vw, 3.2rem);
+    font-size: var(--fs-h2);
     font-weight: 900;
     line-height: 0.95;
     letter-spacing: -0.03em;
@@ -301,17 +311,17 @@ const { filmography } = data;
 
   .film-role {
     font-family: var(--font-mono);
-    font-size: 0.85rem;
+    font-size: var(--fs-small);
     font-weight: 600;
-    letter-spacing: 1.5px;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
     color: rgba(255, 255, 255, 0.7);
-    margin-bottom: var(--sp-lg);
+    margin-bottom: var(--sp-md);
   }
 
   .film-desc {
-    font-size: clamp(0.95rem, 1.1vw, 1.05rem);
-    line-height: 1.8;
+    font-size: var(--fs-body);
+    line-height: 1.7;
     color: rgba(255, 255, 255, 0.8);
     max-width: 600px;
     margin-bottom: var(--sp-md);
@@ -321,9 +331,9 @@ const { filmography } = data;
     display: inline-block;
     padding: 0.2rem 0.7rem;
     font-family: var(--font-mono);
-    font-size: 0.65rem;
+    font-size: var(--fs-micro);
     font-weight: 600;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.06em;
     color: rgba(255, 255, 255, 0.6);
     border: 1px solid rgba(255, 255, 255, 0.2);
     margin-bottom: var(--sp-md);
@@ -340,9 +350,9 @@ const { filmography } = data;
 
   .film-rating {
     font-family: var(--font-mono);
-    font-size: 0.78rem;
+    font-size: var(--fs-micro);
     font-weight: 600;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.06em;
     color: rgba(255, 255, 255, 0.7);
     padding: 0.3rem 0.8rem;
     border: 1px solid rgba(255, 255, 255, 0.2);
@@ -354,14 +364,14 @@ const { filmography } = data;
     gap: 0.45rem;
     padding: 0.65rem 1.4rem;
     font-family: var(--font-mono);
-    font-size: 0.78rem;
+    font-size: var(--fs-micro);
     font-weight: 700;
-    letter-spacing: 1px;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
     text-decoration: none;
     color: #0a0a0a;
     background: rgba(255, 255, 255, 0.9);
-    border: 2px solid rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.9);
     transition: all 0.3s var(--ease);
     pointer-events: auto;
   }
@@ -444,10 +454,6 @@ const { filmography } = data;
       display: none;
     }
 
-    .film-title {
-      font-size: clamp(1.6rem, 7vw, 2.2rem);
-    }
-
     .film-header {
       flex-wrap: wrap;
       gap: var(--sp-sm);
@@ -462,29 +468,12 @@ const { filmography } = data;
       width: 100%;
       justify-content: center;
       padding: 0.8rem;
-      font-size: 0.75rem;
     }
   }
 
   @media (max-width: 480px) {
     .film-layout {
       padding: var(--sp-lg) 0;
-    }
-
-    .film-tag {
-      font-size: 0.6rem;
-    }
-
-    .film-platform {
-      font-size: 0.65rem;
-    }
-
-    .film-role {
-      font-size: 0.75rem;
-    }
-
-    .film-desc {
-      font-size: 0.9rem;
     }
   }
 
@@ -508,7 +497,7 @@ const { filmography } = data;
   @media (prefers-reduced-motion: reduce) {
     .film { animation: none; }
 
-    .film-bg img { animation: none; transition: none; }
+    .film-bg img { transition: none; }
     .film-btn svg { transition: none; }
     .film-btn:hover svg { transform: none; }
     .film-overlay { transition: none; }

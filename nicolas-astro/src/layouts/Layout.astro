@@ -1,6 +1,6 @@
 ---
 import '../styles/global.css';
-import FluidBackground from '../components/FluidBackground.astro';
+import data from '../data/nicolas.json';
 
 interface Props {
   title: string;
@@ -8,6 +8,22 @@ interface Props {
 }
 
 const { title, description = "Actor de Cine y Televisión - Portafolio y Press Kit" } = Astro.props;
+const siteUrl = (Astro.site ?? 'https://press-kit-nicol-s-capetillo.vercel.app/').toString();
+const personLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: data.personal.artistName,
+  alternateName: data.personal.fullName,
+  jobTitle: data.personal.title,
+  description: data.personal.description,
+  url: siteUrl,
+  image: new URL('/og-image.jpg', siteUrl).toString(),
+  homeLocation: { '@type': 'Place', name: `${data.personal.bases?.[0] ?? 'Guadalajara'}, ${data.personal.baseCountry ?? 'MX'}` },
+  workLocation: (data.personal.bases ?? []).map((city) => ({ '@type': 'Place', name: `${city}, ${data.personal.baseCountry ?? 'MX'}` })),
+  nationality: ['Estadounidense', 'Mexicano'],
+  knowsLanguage: ['es', 'en', 'de', 'ja'],
+  sameAs: data.contact.social.map((s) => s.url),
+};
 ---
 
 <!DOCTYPE html>
@@ -17,11 +33,30 @@ const { title, description = "Actor de Cine y Televisión - Portafolio y Press K
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>{title}</title>
   <meta name="description" content={description}>
+  <link rel="canonical" href={Astro.site?.toString() ?? '/'}>
+  <meta name="theme-color" content="#0d0d0d">
 
-  <!-- Fonts -->
+  <!-- Open Graph / Twitter (F2-T06) -->
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_MX">
+  <meta property="og:site_name" content="Nicolás Capetillo | Press Kit">
+  <meta property="og:title" content={title}>
+  <meta property="og:description" content={description}>
+  <meta property="og:image" content={new URL('/og-image.jpg', Astro.site ?? 'https://press-kit-nicol-s-capetillo.vercel.app/').toString()}>
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content={title}>
+  <meta name="twitter:description" content={description}>
+  <meta name="twitter:image" content={new URL('/og-image.jpg', Astro.site ?? 'https://press-kit-nicol-s-capetillo.vercel.app/').toString()}>
+
+  <!-- Fonts — 2 familias (F3: Space Grotesk retirada, no se usaba) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@100;200;300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- JSON-LD Person (F2-T15) -->
+  <script type="application/ld+json" set:html={JSON.stringify(personLd)} />
 
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
@@ -34,24 +69,12 @@ const { title, description = "Actor de Cine y Televisión - Portafolio y Press K
     document.documentElement.setAttribute('data-theme', saved || (prefersDark ? 'dark' : 'light'));
   </script>
 
-  <!-- Lucide Icons (loaded inline so it's available globally) -->
-  <script is:inline src="https://cdn.jsdelivr.net/npm/lucide@0.263.1/dist/umd/lucide.min.js"></script>
 </head>
 <body>
-  <!-- Canvas particle network background -->
-  <FluidBackground />
-
   <!-- Page content wrapper -->
   <main class="page-content">
     <slot />
   </main>
 
-  <script is:inline>
-    document.addEventListener('DOMContentLoaded', function() {
-      if (typeof lucide !== 'undefined') {
-        lucide.createIcons();
-      }
-    });
-  </script>
 </body>
 </html>

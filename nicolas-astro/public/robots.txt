@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://press-kit-nicol-s-capetillo.vercel.app/sitemap.xml

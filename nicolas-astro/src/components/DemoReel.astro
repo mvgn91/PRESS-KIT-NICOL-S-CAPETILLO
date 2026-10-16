@@ -1,313 +1,539 @@
 ---
 import data from '../data/nicolas.json';
+import { opt } from '../lib/img';
 const { demoReel } = data;
+// Posters: YouTube hqdefault + frames extraídos de los clips (ffmpeg).
+const ytId = 'GqD4yzR0Q_M';
+const ytUrl = `https://www.youtube.com/watch?v=${ytId}`;
+const ytThumb = `https://img.youtube.com/vi/${ytId}/hqdefault.jpg`;
+const posters = await Promise.all(
+  demoReel.verticalVideos.map((_, i) => opt(`/assets/img/clips/poster-${i + 1}.jpg`, 640))
+);
+const items = [
+  { kind: 'yt', title: demoReel.mainTitle, src: ytThumb, year: '2026' },
+  ...demoReel.verticalVideos.map((v, i) => ({
+    kind: 'clip',
+    title: `Clip ${String(i + 1).padStart(2, '0')}`,
+    src: posters[i],
+    video: v.src,
+    sub: 'Acting Lab',
+  })),
+];
+const total = items.length;
 ---
 
 <section class="reel section" id="demo-reel">
   <div class="container">
-    <div class="section-header reveal">
-      <span class="section-number">03</span>
+    <div class="section-header">
+      <span class="section-number" aria-hidden="true">03</span>
       <h2 class="section-title">Demo Reel</h2>
     </div>
 
-    <!-- ===== REEL HERO ===== -->
-    <div class="reel-hero reveal">
-      <a href="https://www.youtube.com/watch?v=GqD4yzR0Q_M" target="_blank" rel="noopener noreferrer" class="reel-frame">
-        <div class="reel-screen">
-          <img src="https://img.youtube.com/vi/GqD4yzR0Q_M/maxresdefault.jpg" alt="Demo Reel 2025 - Abrir en YouTube" class="reel-thumb" loading="lazy" />
-          <div class="reel-play">
-            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16" fill="currentColor" stroke="none"/></svg>
-          </div>
-        </div>
-      </a>
-
-      <div class="reel-credit">
-        <span class="reel-credit-tag">2025</span>
-        <h3 class="reel-credit-title">{demoReel.mainTitle}</h3>
-      </div>
-    </div>
-
-    <!-- ===== DIVIDER ===== -->
-    <hr class="reel-divider" aria-hidden="true" />
-
-    <!-- ===== CLIPS ===== -->
-    <div class="reel-clips">
-      {demoReel.verticalVideos.map((video, i) => (
-        <article class="reel-clip" style={`--i: ${i}`}>
-          <div class="reel-clip-visual">
-            <video controls playsinline preload="metadata" loading="lazy">
-              <source src={video.src} type="video/mp4" />
-            </video>
-          </div>
-          <div class="reel-clip-info">
-            <span class="reel-clip-number">0{i + 1}</span>
-            <div>
-              <span class="reel-clip-source">Acting Lab</span>
-              <p class="reel-clip-caption">{video.caption}</p>
+    <!-- ===== 3 TARJETAS FIJAS: voltean y reproducen in situ ===== -->
+    <div class="rgrid" data-rgrid>
+      {items.map((item, i) => (
+        <article
+          class="rcard"
+          data-rcard={i}
+          tabindex="0"
+          role="button"
+          aria-pressed="false"
+          aria-label={`${item.title}: activar para voltear`}
+        >
+          <div class="rtilt">
+            <div class="rflip">
+              <div class="rface rfront" aria-hidden="false">
+                <img src={item.src} alt="" loading="lazy" draggable="false" />
+                <span class="rplay" aria-hidden="true">
+                  <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16" fill="currentColor" stroke="none"/></svg>
+                </span>
+                <span class="rcap" aria-hidden="true">
+                  <span class="rcap-text">{item.title}</span>
+                  <span class="rcap-index">{String(i + 1).padStart(2, '0')}</span>
+                </span>
+              </div>
+              <div class="rface rback ryt-back" aria-hidden="true">
+                {item.kind === 'yt' ? (
+                  <>
+                    <button type="button" class="ryt-big" data-yt-open aria-label="Reproducir Demo Reel en grande">
+                      <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16" fill="currentColor" stroke="none"/></svg>
+                      <span>Ver en grande</span>
+                    </button>
+                    <a class="ryt-open" href={ytUrl} target="_blank" rel="noopener noreferrer">Abrir en YouTube</a>
+                  </>
+                ) : (
+                  <video src={item.video} poster={item.src} playsinline preload="none" controls></video>
+                )}
+              </div>
             </div>
           </div>
         </article>
       ))}
     </div>
+    <p class="rhint">Toca una tarjeta para voltearla</p>
   </div>
 </section>
 
+<!-- ===== REEL GRANDE: YouTube al centro, buen tamaño ===== -->
+<div class="ytview" id="ytView" role="dialog" aria-modal="true" aria-label="Demo Reel en grande">
+  <div class="ytv-box">
+    <div class="ytv-bar">
+      <span class="ytv-title">Demo Reel 2026</span>
+      <div class="ytv-actions">
+        <a class="ytv-link" href={ytUrl} target="_blank" rel="noopener noreferrer">Abrir en YouTube</a>
+        <button type="button" class="ytv-close" id="ytvClose" aria-label="Cerrar reproductor">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+    <div class="ytv-stage" data-yt-holder>
+      <img src={ytThumb} alt="" loading="lazy" draggable="false" />
+      <button type="button" class="ytv-play" data-ytv-play aria-label="Reproducir Demo Reel">
+        <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16" fill="currentColor" stroke="none"/></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+
 <style>
   /* ==================================================================
-     DEMO REEL — Vertical Cinema
-     Full-width hero · credit below · clip cards with air
+     DEMO REEL — 3 tarjetas fijas: voltean y reproducen in situ
+     Tilt al puntero + flip al clic. Una sola unidad.
      ================================================================== */
-
-
-
-  /* ===== HERO ===== */
-  .reel-hero {
-    max-width: 960px;
-    margin: 0 auto var(--sp-2xl);
+  .rgrid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--sp-md);
+    margin-top: var(--sp-xl);
+    perspective: 1400px;
   }
 
-  .reel-frame {
-    position: relative;
-    display: block;
-    border: 2px solid var(--text);
-    background: var(--glass-bg);
-    backdrop-filter: blur(var(--glass-blur));
-    -webkit-backdrop-filter: blur(var(--glass-blur));
-    box-shadow: var(--glass-shadow);
-    padding: clamp(0.75rem, 1.5vw, 1.5rem);
-    transition: background 0.4s var(--ease), box-shadow 0.4s var(--ease);
-    text-decoration: none;
+  .rcard {
+    aspect-ratio: 3 / 4;
     cursor: pointer;
   }
 
-  .reel-frame:hover {
-    background: var(--glass-bg-hover);
-    box-shadow: 0 16px 56px var(--shadow-strong), inset 0 1px 0 rgba(255,255,255,0.15);
+  .rcard:focus-visible {
+    outline: 2px solid var(--text);
+    outline-offset: 3px;
   }
 
-  .reel-screen {
+  .rtilt {
+    height: 100%;
+    transform: rotateX(var(--tx, 0deg)) rotateY(var(--ty, 0deg));
+    transition: transform 0.18s ease-out;
+    transform-style: preserve-3d;
+  }
+
+  .rflip {
     position: relative;
-    width: 100%;
-    aspect-ratio: 16 / 9;
-    overflow: hidden;
-    background: var(--near-black);
-    border-radius: var(--radius-xs);
+    height: 100%;
+    transform-style: preserve-3d;
+    transform: rotateY(var(--flip, 0deg));
+    transition: transform 0.6s var(--ease);
   }
 
-  .reel-screen iframe {
+  .rcard.is-flipped .rflip {
+    --flip: 180deg;
+  }
+
+  .rface {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    background: #000;
+    border: 1px solid var(--line);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    transition: border-color 0.3s var(--ease);
+  }
+
+  .rcard:hover .rface,
+  .rcard.is-flipped .rface {
+    border-color: var(--text);
+  }
+
+  .rface img {
     width: 100%;
     height: 100%;
-    border: none;
+    object-fit: cover;
+    display: block;
+    filter: grayscale(0.15) contrast(1.04);
   }
 
-  .reel-thumb {
+  .rplay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.22);
+    filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.4));
+    pointer-events: none;
+  }
+
+  .rcap {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--sp-md);
+    padding: 0.6rem 0.9rem;
+    background: var(--ink);
+    color: var(--paper);
+    pointer-events: none;
+  }
+
+  .rcap-text {
+    font-size: var(--fs-micro);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .rcap-index {
+    font-size: var(--fs-micro);
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    opacity: 0.72;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .rback {
+    transform: rotateY(180deg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .rback video {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background: #000;
+  }
+
+  /* Puerta al visor grande (solo YouTube; los clips juegan in situ) */
+  .ryt-back {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--sp-md);
+    background: #000;
+  }
+
+  .ryt-big {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: var(--fs-micro);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.5));
+    transition: transform 0.25s var(--ease);
+  }
+
+  .ryt-big:hover {
+    transform: scale(1.06);
+  }
+
+  .ryt-open {
+    padding: 0.35rem 0.7rem;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    font-size: var(--fs-micro);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+  }
+
+  /* ===== VISOR GRANDE al centro ===== */
+  .ytview {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    background: rgba(0, 0, 0, 0.92);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    opacity: 0;
+    transition: opacity 0.3s var(--ease);
+  }
+
+  .ytview.active {
+    display: flex;
+    opacity: 1;
+  }
+
+  .ytv-box {
+    width: min(960px, 94vw);
+  }
+
+  .ytv-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--sp-md);
+    margin-bottom: 0.6rem;
+    color: #fff;
+  }
+
+  .ytv-title {
+    font-size: var(--fs-micro);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .ytv-close {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: #fff;
+    cursor: pointer;
+  }
+
+  .ytv-stage {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    background: #000;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    overflow: hidden;
+  }
+
+  .ytv-stage img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
   }
 
-  .reel-play {
+  .ytv-play {
     position: absolute;
     inset: 0;
+    margin: auto;
+    width: 88px;
+    height: 88px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(0,0,0,0.25);
-    transition: background 0.3s var(--ease);
-  }
-
-  .reel-play svg {
-    color: #fff;
-    filter: drop-shadow(0 2px 8px rgba(0,0,0,0.4));
-    transition: transform 0.3s var(--ease);
-  }
-
-  .reel-frame:hover .reel-play {
-    background: rgba(0,0,0,0.1);
-  }
-
-  .reel-frame:hover .reel-play svg {
-    transform: scale(1.1);
-  }
-
-
-
-  /* ===== CREDIT ===== */
-  .reel-credit {
-    display: flex;
-    align-items: baseline;
-    gap: var(--sp-lg);
-    margin-top: var(--sp-lg);
-    margin-bottom: var(--sp-sm);
-  }
-
-  .reel-credit-tag {
-    font-family: var(--font-mono);
-    font-size: clamp(0.75rem, 1vw, 0.9rem);
-    font-weight: 700;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    white-space: nowrap;
-  }
-
-  .reel-credit-title {
-    font-family: var(--font-heading);
-    font-size: clamp(1.6rem, 4vw, 3rem);
-    font-weight: 900;
-    line-height: 1;
-    letter-spacing: -0.02em;
-    color: var(--text);
-    margin: 0;
-  }
-
-  /* ===== DIVIDER ===== */
-  .reel-divider {
+    background: none;
     border: none;
-    height: 2px;
-    background: var(--border);
-    max-width: 960px;
-    margin: var(--sp-2xl) auto;
+    color: #fff;
+    cursor: pointer;
+    filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.6));
+    transition: transform 0.25s var(--ease);
   }
 
-  /* ===== CLIPS ===== */
-  .reel-clips {
-    max-width: 960px;
-    margin: 0 auto;
+  .ytv-play:hover {
+    transform: scale(1.08);
+  }
+
+  .ytv-actions {
     display: flex;
-    flex-direction: column;
-    gap: var(--sp-2xl);
-  }
-
-  .reel-clip {
-    display: grid;
-    grid-template-columns: 240px 1fr;
-    gap: var(--sp-xl);
     align-items: center;
-    padding: var(--sp-lg) var(--sp-xl);
-    background: var(--glass-bg);
-    backdrop-filter: blur(var(--glass-blur));
-    -webkit-backdrop-filter: blur(var(--glass-blur));
-    border: 1px solid var(--glass-border);
-    box-shadow: var(--glass-shadow);
-    transition: background 0.4s var(--ease), border-color 0.4s var(--ease), box-shadow 0.4s var(--ease);
-    animation: clipIn 0.7s var(--ease) both;
-    animation-delay: calc(var(--i, 0) * 0.15s + 0.3s);
+    gap: 0.9rem;
   }
 
-  .reel-clip:hover {
-    background: var(--glass-bg-hover);
-    border-color: var(--glass-border-hover);
-    box-shadow: 0 12px 40px var(--shadow-strong), inset 0 1px 0 rgba(255,255,255,0.1);
+  .ytv-link {
+    color: rgba(255, 255, 255, 0.72);
+    font-size: var(--fs-micro);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: color 0.2s var(--ease), border-color 0.2s var(--ease);
   }
 
-  @keyframes clipIn {
-    from { opacity: 0; transform: translateY(16px); }
-    to   { opacity: 1; transform: translateY(0); }
+  .ytv-link:hover {
+    color: #fff;
+    border-bottom-color: #fff;
   }
 
-  .reel-clip-visual {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 9 / 16;
-    max-height: 480px;
-    overflow: hidden;
-    border-radius: var(--radius-xs);
-    background: var(--near-black);
-    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.06);
-  }
-
-  .reel-clip-visual video {
+  /* El iframe nace por JS (sin el atributo de scoping de Astro): :global lo alcanza. */
+  :global(.ytv-frame) {
+    position: absolute;
+    inset: 0;
     width: 100%;
     height: 100%;
-    object-fit: contain;
-    background: var(--near-black);
+    border: none;
   }
 
-  .reel-clip-info {
-    display: flex;
-    align-items: flex-start;
-    gap: var(--sp-lg);
-  }
-
-  .reel-clip-number {
-    font-family: var(--font-heading);
-    font-size: clamp(2.5rem, 5vw, 4rem);
-    font-weight: 900;
-    line-height: 0.85;
-    color: var(--text);
-    opacity: 0.1;
-    letter-spacing: -0.04em;
-    user-select: none;
-    flex-shrink: 0;
-  }
-
-  .reel-clip-source {
-    display: block;
-    font-family: var(--font-mono);
-    font-size: clamp(0.65rem, 0.8vw, 0.75rem);
+  .rhint {
+    margin-top: var(--sp-md);
+    text-align: center;
+    font-size: var(--fs-micro);
     font-weight: 600;
-    letter-spacing: 0.5px;
-    color: var(--text-muted);
-    margin-bottom: 0.2rem;
-  }
-
-  .reel-clip-caption {
-    font-family: var(--font-mono);
-    font-size: clamp(0.85rem, 1.2vw, 1.05rem);
-    font-weight: 600;
-    letter-spacing: 1.5px;
     text-transform: uppercase;
-    color: var(--text);
-    margin: 0;
-    line-height: 1.4;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
   }
 
   /* ===== RESPONSIVE ===== */
-  @media (max-width: 768px) {
-    .reel-clip {
-      grid-template-columns: 140px 1fr;
-      gap: var(--sp-lg);
+  @media (max-width: 640px) {
+    .rgrid {
+      display: flex;
+      gap: var(--sp-md);
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+      padding-bottom: var(--sp-sm);
+      margin-left: calc(-1 * var(--container));
+      margin-right: calc(-1 * var(--container));
+      padding-left: var(--container);
+      padding-right: var(--container);
     }
 
-    .reel-clip-number {
+    .rgrid::-webkit-scrollbar {
       display: none;
     }
 
-    .reel-credit {
-      flex-direction: column;
-      gap: var(--sp-sm);
-    }
-  }
-
-  @media (max-width: 480px) {
-    .reel-clip {
-      grid-template-columns: 1fr;
-      gap: var(--sp-md);
-    }
-
-    .reel-clip-visual {
-      max-width: 280px;
-      margin: 0 auto;
-    }
-
-    .reel-clip-info {
-      gap: var(--sp-sm);
-    }
-  }
-
-  @media (hover: none) and (pointer: coarse) {
-    .reel-clip:hover {
-      background: var(--glass-bg);
-      border-color: var(--glass-border);
-      box-shadow: var(--glass-shadow);
+    .rcard {
+      flex: 0 0 240px;
+      scroll-snap-align: start;
     }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .reel-clip { animation: none; }
-    .reel-frame { transition: none; }
-    .reel-clip-visual { transition: none; }
+    .rtilt,
+    .rflip {
+      transition: none;
+    }
   }
+
 </style>
+
+<script define:vars={{ ytId }}>
+  // 3 tarjetas fijas: tilt al puntero + flip al clic/tap/Enter.
+  // Al voltear, el clip se reproduce in situ; solo uno a la vez.
+  (() => {
+    const cards = [...document.querySelectorAll('[data-rcard]')];
+    if (!cards.length) return;
+    const fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const MAX = 8;
+
+    function setFlip(card, on) {
+      cards.forEach((c) => {
+        if (c !== card && c.classList.contains('is-flipped')) {
+          c.classList.remove('is-flipped');
+          c.setAttribute('aria-pressed', 'false');
+          const vv = c.querySelector('video');
+          if (vv) vv.pause();
+          const ff = c.querySelectorAll('.rface');
+          if (ff[0]) ff[0].setAttribute('aria-hidden', 'false');
+          if (ff[1]) ff[1].setAttribute('aria-hidden', 'true');
+        }
+      });
+      card.classList.toggle('is-flipped', on);
+      card.setAttribute('aria-pressed', on ? 'true' : 'false');
+      const faces = card.querySelectorAll('.rface');
+      if (faces[0]) faces[0].setAttribute('aria-hidden', on ? 'true' : 'false');
+      if (faces[1]) faces[1].setAttribute('aria-hidden', on ? 'false' : 'true');
+      const v = card.querySelector('video');
+      if (v) {
+        if (on) v.play().catch(() => {});
+        else v.pause();
+      }
+    }
+
+    // Visor grande: fachada al centro, iframe pesado solo al play.
+    const ytView = document.getElementById('ytView');
+    const ytHolder = ytView?.querySelector('[data-yt-holder]');
+    let ytLastFocused = null;
+
+    function ytPlay() {
+      if (!ytHolder || ytHolder.querySelector('iframe')) return;
+      const f = document.createElement('iframe');
+      f.className = 'ytv-frame';
+      f.src = `https://www.youtube-nocookie.com/embed/${ytId}?autoplay=1&rel=0`;
+      f.title = 'Demo Reel 2026';
+      f.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+      f.allowFullscreen = true;
+      ytHolder.prepend(f);
+      const pb = ytHolder.querySelector('[data-ytv-play]');
+      if (pb) pb.style.display = 'none';
+    }
+
+    // Abrir = reproducir en grande al centro (el gesto del clic habilita el autoplay).
+    function ytOpen() {
+      ytLastFocused = document.activeElement;
+      ytView.classList.add('active');
+      document.body.style.overflow = 'hidden';
+      ytPlay();
+      document.getElementById('ytvClose')?.focus();
+    }
+
+    function ytClose() {
+      const fr = ytHolder?.querySelector('iframe');
+      if (fr) fr.remove();
+      const pb = ytHolder?.querySelector('[data-ytv-play]');
+      if (pb) pb.style.display = '';
+      ytView.classList.remove('active');
+      document.body.style.overflow = '';
+      if (ytLastFocused && ytLastFocused.focus) ytLastFocused.focus();
+    }
+
+    document.querySelectorAll('[data-yt-open]').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        ytOpen();
+      });
+    });
+
+    ytHolder?.querySelector('[data-ytv-play]')?.addEventListener('click', ytPlay);
+
+    document.getElementById('ytvClose')?.addEventListener('click', ytClose);
+    ytView?.addEventListener('click', (e) => { if (e.target === ytView) ytClose(); });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && ytView?.classList.contains('active')) ytClose();
+    });
+
+    cards.forEach((card) => {
+      const tilt = card.querySelector('.rtilt');
+      const toggle = () => setFlip(card, !card.classList.contains('is-flipped'));
+      card.addEventListener('click', (e) => {
+        if (e.target.closest('a, video, button, iframe')) return;
+        toggle();
+      });
+      card.addEventListener('keydown', (e) => {
+        if (e.target.closest('a, video, button')) return;
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
+      });
+      if (!fine || reduce || !tilt) return;
+      card.addEventListener('pointermove', (e) => {
+        const r = card.getBoundingClientRect();
+        const px = (e.clientX - r.left) / r.width - 0.5;
+        const py = (e.clientY - r.top) / r.height - 0.5;
+        tilt.style.setProperty('--ty', (px * MAX * 2).toFixed(2) + 'deg');
+        tilt.style.setProperty('--tx', (-py * MAX * 2).toFixed(2) + 'deg');
+      });
+      card.addEventListener('pointerleave', () => {
+        tilt.style.setProperty('--tx', '0deg');
+        tilt.style.setProperty('--ty', '0deg');
+      });
+    });
+  })();
+</script>
+

@@ -25,3 +25,6 @@ pnpm-debug.log*
 
 .vercel
 .env*
+
+# zip de fotos (se genera con `npm run zip` / prebuild)
+public/descargas/

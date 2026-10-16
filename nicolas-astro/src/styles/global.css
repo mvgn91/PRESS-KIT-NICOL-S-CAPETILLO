@@ -1,7 +1,8 @@
 /* ============================================================
-   NICOLÁS CAPETILLO | PRESS KIT CINEMATOGRÁFICO
-   Astro · Glass Editorial Design · B&W
-   Tipografía: Archivo · Inter · Space Grotesk
+   NICOLÁS CAPETILLO | PRESS KIT
+   Sistema de diseño — F3 (rediseño desktop)
+   Papel e tinta · reglas de 1px · 7 pasos de escala
+   Tipografía: Archivo (display) · Inter (texto)
    ============================================================ */
 
 /* ===== RESET & BASE ===== */
@@ -11,7 +12,7 @@ html { scroll-behavior: smooth; scroll-padding-top: 80px; }
 
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  font-size: 16px;
+  font-size: var(--fs-body);
   line-height: 1.7;
   color: var(--text);
   background: var(--bg);
@@ -19,7 +20,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   min-height: 100vh;
-  transition: background 0.8s var(--ease), color 0.6s var(--ease);
+  transition: background 0.6s var(--ease), color 0.6s var(--ease);
 }
 
 img { max-width: 100%; display: block; }
@@ -47,13 +48,14 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   --off-white: #f7f7f7;
   --white: #fff;
 
-  /* Theme - Light */
-  --bg: #f7f8f5;
-  --bg-gradient:
-    linear-gradient(140deg, rgba(255, 255, 255, 0.64) 0%, rgba(239, 242, 239, 0.26) 42%, rgba(229, 233, 230, 0.4) 100%),
-    #f7f8f5;
+  /* ---- Theme: papel (claro) ---- */
+  --paper: #f6f6f4;
+  --ink: #0d0d0d;
 
-  --ambient-base: #f7f8f5;
+  --bg: var(--paper);
+  --bg-gradient: var(--paper);
+
+  --ambient-base: #f6f6f4;
   --ambient-field-1: rgba(208, 220, 214, 0.7);
   --ambient-field-2: rgba(198, 207, 216, 0.52);
   --ambient-field-3: rgba(214, 217, 211, 0.36);
@@ -63,14 +65,17 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   --ambient-vignette: rgba(31, 35, 32, 0.13);
   --ambient-canvas-opacity: 0.92;
 
-  --text: #111111;
+  --text: var(--ink);
   --text-secondary: #444444;
-  --text-muted: #888888;
+  --text-muted: #6b6b6b;
 
-  --border: rgba(47, 50, 47, 0.16);
-  --border-strong: #111;
-  --bg-alt: rgba(255, 255, 255, 0.34);
+  /* Estructura: toda la separación se dibuja con esta regla */
+  --line: rgba(13, 13, 13, 0.16);
+  --border: var(--line);
+  --border-strong: var(--ink);
+  --bg-alt: rgba(0, 0, 0, 0.03);
 
+  /* Vidrio: SOLO nav, lightbox y botones flotantes */
   --glass-bg: rgba(255, 255, 255, 0.36);
   --glass-bg-hover: rgba(255, 255, 255, 0.52);
   --glass-bg-strong: rgba(255, 255, 255, 0.5);
@@ -79,27 +84,36 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   --glass-shadow: 0 18px 56px rgba(37, 39, 36, 0.11), inset 0 1px 0 rgba(255, 255, 255, 0.58);
   --glass-blur: 24px;
 
-  --nav-bg: rgba(244, 245, 242, 0.74);
+  --nav-bg: rgba(246, 246, 244, 0.82);
   --shadow: rgba(37, 39, 36, 0.08);
   --shadow-strong: rgba(37, 39, 36, 0.16);
   --overlay: rgba(0, 0, 0, 0.85);
 
-  /* Hero gradient — light */
+  /* Hero — sobre papel, sin glows */
   --hero-bg: transparent;
-  --hero-glow-1: var(--ambient-field-1);
-  --hero-glow-2: var(--ambient-field-2);
-  --hero-glow-3: var(--ambient-field-3);
+  --hero-glow-1: transparent;
+  --hero-glow-2: transparent;
+  --hero-glow-3: transparent;
   --hero-glass-bg: rgba(255, 255, 255, 0.18);
   --hero-glass-border: rgba(255, 255, 255, 0.36);
-  --hero-text: #111;
-  --hero-text-secondary: #444;
+  --hero-text: var(--ink);
+  --hero-text-secondary: #444444;
 
-  /* Typography */
+  /* ---- Tipografía: 7 pasos, uno por función ---- */
   --font-heading: 'Archivo', 'Impact', sans-serif;
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-mono: 'Space Grotesk', 'SF Mono', monospace;
+  --font-mono: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; /* sin tercera familia */
 
-  /* Spacing */
+  --fs-display: clamp(3.5rem, 9.6vw, 8.5rem); /* solo el lockup del nombre */
+  --fs-h2: clamp(2rem, 3.2vw, 2.75rem);        /* todos los títulos de sección */
+  --fs-h3: 1.5rem;                             /* títulos de bloque */
+  --fs-lead: 1.125rem;                         /* párrafo de entrada */
+  --fs-body: 1rem;                             /* texto corrido */
+  --fs-small: 0.875rem;                        /* datos secundarios */
+  --fs-micro: 0.75rem;                         /* única medida de microetiqueta */
+  --fs-index: 1.125rem;                        /* número de sección (índice de capítulo) */
+
+  /* ---- Espaciado: base 4px ---- */
   --sp-xs: 0.25rem;
   --sp-sm: 0.5rem;
   --sp-md: 1rem;
@@ -108,9 +122,13 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   --sp-2xl: 4rem;
   --sp-3xl: 6rem;
 
+  /* Ritmo vertical: un solo valor para las seis secciones */
+  --section-pad: clamp(3.5rem, 6vw, 6.5rem);
+
   /* Layout */
   --max-width: 1300px;
-  --container: clamp(1.25rem, 4vw, 3rem);
+  --container: clamp(1.25rem, 3.4vw, 3rem);
+  --gutter: clamp(1.25rem, 2.8vw, 2.5rem); /* bloques a sangre */
   --nav-height: 68px;
   --radius: 16px;
   --radius-sm: 10px;
@@ -123,12 +141,13 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   --transition-slow: all 0.6s var(--ease);
 }
 
-/* Theme — Dark */
+/* ---- Theme: tinta (oscuro) ---- */
 [data-theme="dark"] {
+  --paper: #121314;
+  --ink: #f0f0f0;
+
   --bg: #121314;
-  --bg-gradient:
-    linear-gradient(145deg, rgba(23, 25, 23, 0.98) 0%, rgba(18, 19, 20, 0.96) 48%, rgba(19, 18, 21, 0.98) 100%),
-    #121314;
+  --bg-gradient: #121314;
 
   --ambient-base: #121314;
   --ambient-field-1: rgba(45, 62, 55, 0.42);
@@ -140,12 +159,13 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   --ambient-vignette: rgba(0, 0, 0, 0.56);
   --ambient-canvas-opacity: 0.85;
 
-  --text: #f0f0f0;
+  --text: var(--ink);
   --text-secondary: #aaaaaa;
   --text-muted: #999999;
 
-  --border: rgba(255, 255, 255, 0.11);
-  --border-strong: #f0f0f0;
+  --line: rgba(255, 255, 255, 0.14);
+  --border: var(--line);
+  --border-strong: var(--ink);
   --bg-alt: rgba(255, 255, 255, 0.045);
 
   --glass-bg: rgba(255, 255, 255, 0.055);
@@ -155,21 +175,20 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   --glass-border-hover: rgba(255, 255, 255, 0.2);
   --glass-shadow: 0 22px 72px rgba(0, 0, 0, 0.42), inset 0 1px 0 rgba(255, 255, 255, 0.08);
 
-  --nav-bg: rgba(18, 19, 20, 0.72);
+  --nav-bg: rgba(18, 19, 20, 0.78);
 
   --shadow: rgba(0, 0, 0, 0.4);
   --shadow-strong: rgba(0, 0, 0, 0.6);
   --overlay: rgba(0, 0, 0, 0.92);
 
-  /* Hero gradient — dark */
   --hero-bg: transparent;
-  --hero-glow-1: var(--ambient-field-1);
-  --hero-glow-2: var(--ambient-field-2);
-  --hero-glow-3: var(--ambient-field-3);
+  --hero-glow-1: transparent;
+  --hero-glow-2: transparent;
+  --hero-glow-3: transparent;
   --hero-glass-bg: rgba(255, 255, 255, 0.08);
   --hero-glass-border: rgba(255, 255, 255, 0.15);
   --hero-text: #fff;
-  --hero-text-secondary: rgba(255,255,255,0.85);
+  --hero-text-secondary: rgba(255, 255, 255, 0.85);
 }
 
 /* ===== THEME TOGGLE ===== */
@@ -183,24 +202,12 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   background: rgba(100, 150, 255, 0.06);
 }
 
-[data-theme="light"] .icon-sun {
-  opacity: 1;
-  transform: rotate(0deg) scale(1);
-}
-[data-theme="light"] .icon-moon {
-  opacity: 0;
-  transform: rotate(180deg) scale(0);
-}
-[data-theme="dark"] .icon-sun {
-  opacity: 0;
-  transform: rotate(-180deg) scale(0);
-}
-[data-theme="dark"] .icon-moon {
-  opacity: 1;
-  transform: rotate(0deg) scale(1);
-}
+[data-theme="light"] .icon-sun { opacity: 1; transform: rotate(0deg) scale(1); }
+[data-theme="light"] .icon-moon { opacity: 0; transform: rotate(180deg) scale(0); }
+[data-theme="dark"] .icon-sun { opacity: 0; transform: rotate(-180deg) scale(0); }
+[data-theme="dark"] .icon-moon { opacity: 1; transform: rotate(0deg) scale(1); }
 
-/* ===== GLASS UTILITIES ===== */
+/* ===== GLASS — reservado a nav, lightbox y botones flotantes ===== */
 .glass {
   background: var(--glass-bg);
   backdrop-filter: blur(var(--glass-blur));
@@ -240,11 +247,10 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .glass-card:hover {
   background: var(--glass-bg-hover);
   border-color: var(--glass-border-hover);
-  transform: translateY(-4px);
   box-shadow: 0 12px 40px var(--shadow-strong), inset 0 1px 0 rgba(255,255,255,0.3);
 }
 
-/* ===== TYPOGRAPHY ===== */
+/* ===== TIPOGRAFÍA ===== */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
   font-weight: 700;
@@ -253,15 +259,25 @@ h1, h2, h3, h4, h5, h6 {
   letter-spacing: -0.02em;
 }
 
-h1 { font-size: clamp(2.5rem, 6vw, 5rem); }
-h2 { font-size: clamp(1.8rem, 4vw, 3rem); }
-h3 { font-size: clamp(1.3rem, 2.5vw, 1.8rem); }
-h4 { font-size: clamp(1rem, 1.5vw, 1.25rem); }
+h1 { font-size: var(--fs-display); }
+h2 { font-size: var(--fs-h2); }
+h3 { font-size: var(--fs-h3); }
+h4 { font-size: var(--fs-lead); }
 
 p {
   color: var(--text-secondary);
-  line-height: 1.75;
-  font-size: clamp(1rem, 1.2vw, 1.15rem);
+  line-height: 1.7;
+  font-size: var(--fs-body);
+}
+
+/* Microetiqueta: UNA sola medida para toda la función */
+.micro,
+.label {
+  font-family: var(--font-sans);
+  font-size: var(--fs-micro);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 /* ===== LAYOUT ===== */
@@ -272,10 +288,19 @@ p {
   padding: 0 var(--container);
 }
 
+/* Bloques a sangre: usan el ancho del viewport con margen mínimo */
+.container-wide {
+  width: 100%;
+  max-width: none;
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+/* Ritmo vertical: idéntico en las seis secciones */
 .section {
-  padding: var(--sp-3xl) 0;
+  padding: var(--section-pad) 0;
   position: relative;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--line);
   overflow-x: hidden;
 }
 
@@ -283,28 +308,31 @@ p {
   border-bottom: none;
 }
 
+/* Encabezado único de sección: número + título + regla */
 .section-header {
   display: flex;
   align-items: baseline;
   gap: var(--sp-lg);
   margin-bottom: var(--sp-2xl);
-  padding-bottom: var(--sp-lg);
-  border-bottom: 2px solid var(--border);
+  padding-bottom: var(--sp-md);
+  border-bottom: 1px solid var(--line);
 }
 
 .section-number {
-  font-family: var(--font-mono);
-  font-size: clamp(2.5rem, 5vw, 4rem);
-  font-weight: 700;
-  color: var(--text);
-  opacity: 0.08;
+  font-family: var(--font-sans);
+  font-size: var(--fs-index);
+  font-weight: 600;
+  letter-spacing: 0.06em;
   line-height: 1;
-  letter-spacing: -0.06em;
+  color: var(--text-muted);
   user-select: none;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
 }
 
 .section-title {
-  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  font-size: var(--fs-h2);
+  line-height: 1.05;
   color: var(--text);
 }
 
@@ -321,34 +349,37 @@ html {
   min-height: 100vh;
 }
 
-/* ===== SCROLL REVEAL ===== */
-.reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.8s var(--ease), transform 0.8s var(--ease); }
-.reveal.visible { opacity: 1; transform: translateY(0); }
+/* ===== FOCO (accesibilidad) ===== */
+:focus-visible {
+  outline: 2px solid var(--text);
+  outline-offset: 3px;
+}
 
-.reveal-left { opacity: 0; transform: translateX(-40px); transition: opacity 0.8s var(--ease), transform 0.8s var(--ease); }
-.reveal-left.visible { opacity: 1; transform: translateX(0); }
+/* ===== MOTION =====
+   Sin revelado por scroll: el único momento orquestado vive en el hero.
+   Estas clases se conservan inertes mientras se retiran del markup. */
+.reveal, .reveal-left, .reveal-right,
+.reveal.visible, .reveal-left.visible, .reveal-right.visible {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
 
-.reveal-right { opacity: 0; transform: translateX(40px); transition: opacity 0.8s var(--ease), transform 0.8s var(--ease); }
-.reveal-right.visible { opacity: 1; transform: translateX(0); }
-
-.delay-1 { transition-delay: 0.1s; }
-.delay-2 { transition-delay: 0.2s; }
-.delay-3 { transition-delay: 0.3s; }
+.delay-1, .delay-2, .delay-3 { transition-delay: 0s; }
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
-  .section { padding: var(--sp-2xl) 0; }
-  .section-header { flex-direction: column; gap: var(--sp-sm); }
-  .section-number { font-size: 2rem; }
-}
-
-@media (max-width: 480px) {
-  .section { padding: var(--sp-xl) 0; }
-  .section-header { gap: var(--sp-xs); padding-bottom: var(--sp-md); }
-  .section-number { font-size: 1.5rem; }
+  .section-header {
+    flex-direction: row;
+    align-items: baseline;
+    gap: var(--sp-md);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .reveal, .reveal-left, .reveal-right { transition: none; opacity: 1; transform: none; }
-  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

@@ -6,6 +6,8 @@
     "subtitle": "Actor | Artista de Voz | Performer",
     "description": "Versátil actor con experiencia en cine y televisión, destacando por su capacidad de transformación y profundidad interpretativa.",
     "bio": "Nacido el 13 de enero de 1978 en Lexington, Kentucky, Nicolás desarrolla una carrera que fusiona su herencia multicultural con su pasión por las artes dramáticas. Con base en Guadalajara, México, mantiene disponibilidad completa para proyectos nacionales e internacionales, aportando versatilidad única en cada interpretación.",
+    "bases": ["Guadalajara", "Ciudad de México"],
+    "baseCountry": "MX",
     "heroPhoto": "/assets/fotos/newfront.jpg",
     "bioPhoto": "/assets/fotos/4.jpg",
     "fichaPhoto": "/assets/fotos/5.jpg"
@@ -17,7 +19,7 @@
     "eyes": "Azules",
     "nationality": "Estadounidense / Mexicano",
     "birthDate": "13 de enero de 1978",
-    "age": "47 años"
+    "age": "48 años"
   },
   "languages": [
     { "language": "Español", "level": "Nativo" },
@@ -97,6 +99,7 @@
       "role": "Doblaje ADR",
       "year": "2025",
       "platform": "En Post-Producción",
+      "imdbUrl": "https://www.imdb.com/title/tt39368166/",
       "photo": "/assets/fotos/scene 2.jpg",
       "description": "Película dirigida por Jonás Cuarón, basada en la novela de Aura Xilonen, que narra la historia de un migrante mexicano que se convierte en boxeador. Participa en el doblaje ADR de esta producción.",
       "status": "post-production"
@@ -114,13 +117,16 @@
   ],
   "demoReel": {
     "mainVideo": "https://www.youtube.com/embed/GqD4yzR0Q_M",
-    "mainTitle": "Demo Reel 2025",
+    "mainTitle": "Demo Reel 2026",
     "verticalVideos": [
       { "src": "/assets/videos/video1.mp4", "caption": "ACTING LAB MARISOL PADILLA SANCHEZ 2025" },
       { "src": "/assets/videos/video2.mp4", "caption": "ACTING LAB MARISOL PADILLA SANCHEZ 2025" }
     ]
   },
   "gallery": [
+    { "src": "/assets/fotos/new-cuerpo-completo.jpg", "alt": "Nicolás Capetillo - Cuerpo completo" },
+    { "src": "/assets/fotos/new-retrato-dramatico.jpg", "alt": "Nicolás Capetillo - Retrato dramático" },
+    { "src": "/assets/fotos/new-retrato-estudio.jpg", "alt": "Nicolás Capetillo - Retrato en estudio" },
     { "src": "/assets/fotos/1.jpg", "alt": "Nicolás Capetillo - Retrato Profesional" },
     { "src": "/assets/fotos/2.jpg", "alt": "Nicolás Capetillo - Headshot" },
     { "src": "/assets/fotos/3.jpg", "alt": "Nicolás Capetillo - Foto Editorial" },
@@ -161,7 +167,7 @@
     "photos": {
       "label": "Fotos en Alta Resolución",
       "description": "Pack completo de imágenes profesionales",
-      "url": "https://1drv.ms/u/c/240b98da269be9b3/ETN3GiJhAzdJubm_okKxuPMB5V6cZ4Q6WZxW81VyTldKtg?e=VUhe1Z"
+      "url": "/descargas/nicolas-capetillo-fotos.zip"
     }
   },
   "contact": {

@@ -39,35 +39,13 @@ import data from '../data/nicolas.json';
 </Layout>
 
 <script>
-  // Scroll reveal observer
-  const revealObserver = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
-      });
-    },
-    { threshold: 0.08, rootMargin: '0px 0px -40px 0px' }
-  );
-
-  document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach((el) => {
-    revealObserver.observe(el);
-  });
+  // F3: sin revelado por scroll — el único momento orquestado vive en el hero.
+  // (Se retiró el IntersectionObserver de .reveal/.reveal-left/.reveal-right.)
 
   // Floating buttons
   const floatMail = document.getElementById('floatMail');
   const floatTop = document.getElementById('floatTop');
-  const bottomNav = document.getElementById('bottomNav');
   let heroPassed = false;
-
-  function updateFloatPositions() {
-    var bottomH = bottomNav ? bottomNav.offsetHeight : 0;
-    document.documentElement.style.setProperty('--bottom-nav-h', bottomH + 'px');
-  }
-
-  updateFloatPositions();
-  window.addEventListener('resize', updateFloatPositions);
 
   window.addEventListener('scroll', function() {
     const scrollY = window.scrollY;
@@ -95,6 +73,16 @@ import data from '../data/nicolas.json';
   floatTop?.addEventListener('click', function() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
+
+  // Ocultar flotantes sobre Contacto (ahí la info ya está a la vista)
+  var cnc = document.getElementById('contacto');
+  if (cnc && 'IntersectionObserver' in window) {
+    new IntersectionObserver(function(entries) {
+      var on = entries[0].isIntersecting;
+      floatMail?.classList.toggle('at-contact', on);
+      floatTop?.classList.toggle('at-contact', on);
+    }, { threshold: 0.12 }).observe(cnc);
+  }
 </script>
 
 <style>
@@ -102,9 +90,9 @@ import data from '../data/nicolas.json';
   .float-top {
     position: fixed;
     right: var(--sp-lg);
-    bottom: calc(var(--bottom-nav-h, 0px) + 8px + env(safe-area-inset-bottom, 0px));
-    width: 44px;
-    height: 44px;
+    bottom: calc(8px + env(safe-area-inset-bottom, 0px));
+    width: 56px;
+    height: 56px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -126,6 +114,13 @@ import data from '../data/nicolas.json';
     transform: translateY(0);
   }
 
+  .float-top.visible.at-contact,
+  .float-mail.visible.at-contact {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(12px);
+  }
+
   .float-top:hover {
     background: var(--bg);
     color: var(--text);
@@ -133,15 +128,15 @@ import data from '../data/nicolas.json';
   }
 
   .float-top svg {
-    width: 18px;
-    height: 18px;
+    width: 22px;
+    height: 22px;
   }
 
   @media (max-width: 768px) {
     .float-top {
       right: var(--sp-md);
-      width: 40px;
-      height: 40px;
+      width: 52px;
+      height: 52px;
     }
   }
 
@@ -149,9 +144,9 @@ import data from '../data/nicolas.json';
   .float-mail {
     position: fixed;
     right: var(--sp-lg);
-    bottom: calc(var(--bottom-nav-h, 0px) + 8px + env(safe-area-inset-bottom, 0px) + 44px + 8px);
-    width: 44px;
-    height: 44px;
+    bottom: calc(8px + env(safe-area-inset-bottom, 0px) + 56px + 8px);
+    width: 56px;
+    height: 56px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -177,19 +172,19 @@ import data from '../data/nicolas.json';
   }
 
   .float-mail-icon {
-    width: 18px;
-    height: 18px;
+    width: 22px;
+    height: 22px;
   }
 
   @media (max-width: 768px) {
     .float-mail {
       right: var(--sp-md);
-      width: 40px;
-      height: 40px;
+      width: 52px;
+      height: 52px;
     }
     .float-mail-icon {
-      width: 16px;
-      height: 16px;
+      width: 20px;
+      height: 20px;
     }
   }
 

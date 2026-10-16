@@ -1,57 +1,78 @@
 ---
 import data from '../data/nicolas.json';
+import { opt } from '../lib/img';
 const { gallery, downloads } = data;
-const featured = gallery.slice(0, 6);
+// Coverflow: tarjetas 800px + visor 1600px (WebP, sin EXIF) — F2-T04.
 const total = gallery.length;
 const zipUrl = downloads.photos.url;
+const cards = await Promise.all(
+  gallery.map(async (img) => ({ alt: img.alt, src: await opt(img.src, 800) }))
+);
+const allImages = await Promise.all(
+  gallery.map(async (img) => ({
+    src: await opt(img.src, 800),
+    full: await opt(img.src, 1600, 62),
+    alt: img.alt,
+  }))
+);
 ---
 
 <section class="gallery section" id="galeria">
   <div class="container">
-    <div class="section-header reveal">
-      <span class="section-number">04</span>
+    <div class="section-header">
+      <span class="section-number" aria-hidden="true">04</span>
       <h2 class="section-title">Galería</h2>
     </div>
 
-    <!-- ===== FEATURED GRID ===== -->
-    <div class="gallery-grid reveal">
-      {featured.map((img, i) => (
-        <div class="gallery-card" style={`--i: ${i}`} data-index={i}>
-          <div class="gallery-card-glass">
-            <img src={img.src} alt={img.alt} loading="lazy" />
-            <div class="gallery-card-overlay">
-              <span class="gallery-card-label">#{String(i + 1).padStart(2, '0')}</span>
-            </div>
-          </div>
-        </div>
+    <!-- ===== COVERFLOW 3D ===== -->
+    <div
+      class="cf-view"
+      data-cf
+      tabindex="0"
+      role="region"
+      aria-label="Carrusel 3D: arrastra o usa las flechas para navegar las fotos"
+    >
+      <div class="cf-floor" aria-hidden="true"></div>
+      {cards.map((img, i) => (
+        <button
+          type="button"
+          class="cf-card"
+          data-card={i}
+          aria-label={`Ver foto ${i + 1} de ${total}: ${img.alt}`}
+        >
+          <img src={img.src} alt="" loading={i < 5 ? 'eager' : 'lazy'} draggable="false" />
+          <span class="cf-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+        </button>
       ))}
-    </div>
-
-    <!-- ===== CAROUSEL NAV ===== -->
-    <div class="gallery-carousel-nav" id="galleryCarouselNav">
-      <button class="carousel-btn carousel-prev" id="carouselPrev" aria-label="Anterior">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
-      </button>
-      <div class="gallery-dots" id="galleryDots" aria-hidden="true"></div>
-      <button class="carousel-btn carousel-next" id="carouselNext" aria-label="Siguiente">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+      <button type="button" class="stage-expand" data-expand aria-label="Ampliar foto actual en visor">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M15 3h6v6"/><path d="M9 21H3v-6"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
       </button>
     </div>
 
-    <!-- ===== CTA ===== -->
-    <div class="gallery-cta reveal">
-      <button class="gallery-cta-btn" id="galleryCta">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-        <span>Explorar las {total} fotos</span>
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-      </button>
+    <div class="cf-bar">
+      <div class="panel-count" aria-live="polite">
+        <span class="panel-cur" data-cur>01</span>
+        <span class="panel-total">/ {total}</span>
+      </div>
+      <div class="panel-nav">
+        <button type="button" class="panel-btn" data-prev aria-label="Foto anterior">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <button type="button" class="panel-btn" data-next aria-label="Foto siguiente">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="show-progress" aria-hidden="true">
+      <span class="show-fill" data-fill></span>
     </div>
   </div>
 
-  <!-- ===== LIGHTBOX ===== -->
-  <div class="lightbox" id="lightbox">
+  <!-- ===== LIGHTBOX (intacto F2-T09) ===== -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Visor de fotos">
     <div class="lightbox-header">
-      <span class="lightbox-counter" id="lbCounter"></span>
+      <span class="lightbox-counter" id="lbCounter" aria-live="polite"></span>
       <button class="lightbox-close" id="lbClose" aria-label="Cerrar">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
       </button>
@@ -67,7 +88,7 @@ const zipUrl = downloads.photos.url;
     </button>
     <div class="lightbox-footer">
       <span class="lightbox-caption" id="lbCaption"></span>
-      <a href={zipUrl} class="lightbox-download" target="_blank" rel="noopener noreferrer" aria-label="Descargar ZIP">
+      <a href={zipUrl} class="lightbox-download" download="Nicolas-Capetillo-Fotos.zip" target="_blank" rel="noopener noreferrer" aria-label="Descargar ZIP">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
         <span>Descargar ZIP</span>
       </a>
@@ -77,140 +98,172 @@ const zipUrl = downloads.photos.url;
 
 <style>
   /* ==================================================================
-     GALLERY — Editorial Gallery
-     Compact glass preview · CTA to full lightbox · glassmorphism
+     GALLERY — Coverflow 3D F3-C v6 (CSS 3D puro, 0KB)
+     Arrastrable + teclado + clic. Sin scroll extra.
      ================================================================== */
 
-
-
-  /* ===== FEATURED GRID ===== */
-  .gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-auto-rows: 260px;
-    gap: var(--sp-lg);
-    margin-bottom: var(--sp-2xl);
-  }
-
-  .gallery-card {
-    cursor: pointer;
-    animation: cardIn 0.6s var(--ease) both;
-    animation-delay: calc(var(--i, 0) * 0.08s);
-  }
-
-  @keyframes cardIn {
-    from { opacity: 0; transform: translateY(16px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  .gallery-card:nth-child(1) { grid-column: span 2; grid-row: span 2; }
-  .gallery-card:nth-child(2) { grid-column: span 1; grid-row: span 1; }
-  .gallery-card:nth-child(3) { grid-column: span 1; grid-row: span 1; }
-  .gallery-card:nth-child(4) { grid-column: span 1; grid-row: span 1; }
-  .gallery-card:nth-child(5) { grid-column: span 1; grid-row: span 1; }
-  .gallery-card:nth-child(6) { grid-column: span 1; grid-row: span 1; }
-
-  .gallery-card-glass {
+  .cf-view {
     position: relative;
-    width: 100%;
-    height: 100%;
+    height: clamp(400px, 58vh, 540px);
     overflow: hidden;
-    background: var(--glass-bg);
-    backdrop-filter: blur(var(--glass-blur));
-    -webkit-backdrop-filter: blur(var(--glass-blur));
-    border: 1px solid var(--glass-border);
-    box-shadow: var(--glass-shadow);
-    transition: background 0.4s var(--ease), border-color 0.4s var(--ease), box-shadow 0.4s var(--ease);
+    perspective: 1200px;
+    touch-action: pan-y;
+    cursor: grab;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    background:
+      radial-gradient(ellipse 60% 45% at 50% 108%, var(--line) 0%, transparent 70%);
+    user-select: none;
+    -webkit-user-select: none;
   }
 
-  .gallery-card-glass:hover {
-    background: var(--glass-bg-hover);
-    border-color: var(--glass-border-hover);
-    box-shadow: 0 12px 40px var(--shadow-strong), inset 0 1px 0 rgba(255,255,255,0.1);
+  .cf-view.is-drag {
+    cursor: grabbing;
   }
 
-  .gallery-card-glass img {
+  .cf-card {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: min(360px, 70vw);
+    aspect-ratio: 4 / 5;
+    max-height: calc(100% - 28px);
+    margin: 0;
+    padding: 0;
+    background: var(--bg-alt);
+    border: 1px solid var(--line);
+    cursor: pointer;
+    overflow: hidden;
+    transform-style: preserve-3d;
+    transition: transform 0.5s var(--ease), opacity 0.5s var(--ease), filter 0.5s var(--ease), border-color 0.3s var(--ease);
+    will-change: transform;
+  }
+
+  .cf-view.is-drag .cf-card {
+    transition: none;
+  }
+
+  .cf-card img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    display: block;
     filter: grayscale(0.15) contrast(1.04);
-    transition: transform 0.7s var(--ease), filter 0.6s var(--ease);
+    pointer-events: none;
   }
 
-  .gallery-card-glass:hover img {
-    transform: scale(1.06);
-    filter: grayscale(0.6) contrast(1.1);
+  .cf-card.is-active {
+    border-color: var(--text);
   }
 
-  .gallery-card-overlay {
+  .cf-num {
     position: absolute;
-    inset: 0;
-    background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 45%);
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    padding: 1rem 1.25rem;
-    opacity: 0;
-    transition: opacity 0.3s var(--ease);
-  }
-
-  .gallery-card-glass:hover .gallery-card-overlay {
-    opacity: 1;
-  }
-
-  .gallery-card-label {
+    bottom: 0.5rem;
+    left: 0.7rem;
+    font-size: var(--fs-micro);
+    font-weight: 700;
+    letter-spacing: 0.08em;
     color: #fff;
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    font-weight: 600;
-    letter-spacing: 0.5px;
+    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.8);
+    font-variant-numeric: tabular-nums;
+    pointer-events: none;
   }
 
-  /* ===== CAROUSEL NAV (mobile only) ===== */
-  .gallery-carousel-nav {
-    display: none;
-  }
-
-  /* ===== CTA ===== */
-  .gallery-cta {
-    text-align: center;
-  }
-
-  .gallery-cta-btn {
+  .stage-expand {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    z-index: 200;
     display: inline-flex;
     align-items: center;
-    gap: 0.6rem;
-    padding: 0.9rem 2rem;
-    font-family: var(--font-mono);
-    font-size: 0.8rem;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    text-decoration: none;
-    color: var(--bg);
-    background: var(--text);
-    border: 2px solid var(--text);
-    transition: all 0.3s var(--ease);
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    color: var(--paper);
+    background: var(--ink);
+    border: 1px solid var(--ink);
     cursor: pointer;
+    transition: background 0.25s var(--ease), color 0.25s var(--ease);
   }
 
-  .gallery-cta-btn:hover {
-    background: transparent;
+  .stage-expand:hover {
+    color: var(--ink);
+    background: var(--paper);
+  }
+
+  /* ===== BARRA DE CONTROL ===== */
+  .cf-bar {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-lg);
+    margin-top: var(--sp-md);
+  }
+
+  .panel-count {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  .panel-cur {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: clamp(2.25rem, 3.4vw, 3rem);
+    line-height: 1;
+    letter-spacing: -0.02em;
     color: var(--text);
-    gap: 0.8rem;
   }
 
-  .gallery-cta-btn svg {
-    width: 16px;
-    height: 16px;
-    transition: transform 0.3s var(--ease);
+  .panel-total {
+    font-size: var(--fs-micro);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
   }
 
-  .gallery-cta-btn:hover svg:last-child {
-    transform: translateX(4px);
+  .panel-nav {
+    display: flex;
+    gap: var(--sp-sm);
+    margin-left: auto;
   }
 
-  /* ===== LIGHTBOX ===== */
+  .panel-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    color: var(--text);
+    background: transparent;
+    border: 1px solid var(--line);
+    cursor: pointer;
+    transition: background 0.25s var(--ease), color 0.25s var(--ease), border-color 0.25s var(--ease);
+  }
+
+  .panel-btn:hover {
+    color: var(--paper);
+    background: var(--ink);
+    border-color: var(--ink);
+  }
+
+  .show-progress {
+    height: 2px;
+    background: var(--line);
+    margin-top: var(--sp-md);
+    overflow: hidden;
+  }
+
+  .show-fill {
+    display: block;
+    height: 100%;
+    background: var(--text);
+    transform: scaleX(0);
+    transform-origin: left center;
+  }
+
+  /* ===== LIGHTBOX (intacto) ===== */
   .lightbox {
     position: fixed;
     inset: 0;
@@ -239,7 +292,6 @@ const zipUrl = downloads.photos.url;
   }
 
   .lightbox-counter {
-    font-family: var(--font-mono);
     font-size: 0.85rem;
     color: rgba(255,255,255,0.5);
     letter-spacing: 1px;
@@ -312,7 +364,6 @@ const zipUrl = downloads.photos.url;
   }
 
   .lightbox-caption {
-    font-family: var(--font-mono);
     font-size: 0.8rem;
     color: rgba(255,255,255,0.4);
     letter-spacing: 0.5px;
@@ -323,7 +374,6 @@ const zipUrl = downloads.photos.url;
     align-items: center;
     gap: 0.4rem;
     padding: 0.4rem 0.9rem;
-    font-family: var(--font-mono);
     font-size: 0.65rem;
     font-weight: 600;
     letter-spacing: 0.5px;
@@ -346,25 +396,14 @@ const zipUrl = downloads.photos.url;
   }
 
   /* ===== RESPONSIVE ===== */
-  @media (max-width: 768px) {
-    .gallery-grid {
-      grid-template-columns: repeat(2, 1fr);
-      gap: var(--sp-sm);
+  @media (max-width: 640px) {
+    .cf-view {
+      height: 440px;
     }
 
-    .gallery-card:nth-child(1),
-    .gallery-card:nth-child(2),
-    .gallery-card:nth-child(3),
-    .gallery-card:nth-child(4),
-    .gallery-card:nth-child(5),
-    .gallery-card:nth-child(6) {
-      grid-column: span 1;
-      grid-row: span 1;
-      aspect-ratio: 4 / 3;
-    }
-
-    .gallery-card-glass {
-      height: 100%;
+    .cf-bar {
+      flex-wrap: wrap;
+      gap: var(--sp-sm) var(--sp-md);
     }
 
     .lightbox-nav { width: 38px; height: 38px; }
@@ -372,106 +411,7 @@ const zipUrl = downloads.photos.url;
     .lb-next { right: 0.75rem; }
   }
 
-  @media (max-width: 640px) {
-    .gallery-grid {
-      display: flex;
-      gap: var(--sp-md);
-      overflow-x: auto;
-      scroll-snap-type: x mandatory;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: none;
-      margin-bottom: var(--sp-sm);
-      padding-bottom: var(--sp-sm);
-    }
-
-    .gallery-grid::-webkit-scrollbar {
-      display: none;
-    }
-
-    .gallery-card {
-      flex: 0 0 85vw;
-      scroll-snap-align: start;
-      aspect-ratio: 4 / 3;
-    }
-
-    .gallery-card-glass {
-      height: 100%;
-    }
-
-    .gallery-card-glass img {
-      object-fit: cover;
-    }
-
-    .gallery-card-overlay {
-      opacity: 1;
-    }
-
-    .gallery-carousel-nav {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: var(--sp-md);
-      margin-bottom: var(--sp-lg);
-    }
-
-    .carousel-btn {
-      width: 36px;
-      height: 36px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: 1px solid var(--border);
-      background: var(--glass-bg);
-      color: var(--text);
-      border-radius: 50%;
-      cursor: pointer;
-      transition: all 0.2s var(--ease);
-      flex-shrink: 0;
-    }
-
-    .carousel-btn:hover {
-      background: var(--text);
-      color: var(--bg);
-      border-color: var(--text);
-    }
-
-    .gallery-dots {
-      display: flex;
-      gap: 6px;
-    }
-
-    .gallery-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--border-strong);
-      opacity: 0.2;
-      transition: opacity 0.3s var(--ease);
-    }
-
-    .gallery-dot.active {
-      opacity: 1;
-    }
-
-    .gallery-cta-btn {
-      width: 100%;
-      justify-content: center;
-    }
-  }
-
   @media (max-width: 480px) {
-    .gallery-grid {
-      gap: var(--sp-sm);
-    }
-
-    .gallery-card-label {
-      font-size: 0.6rem;
-    }
-
-    .gallery-cta-btn {
-      font-size: 0.7rem;
-    }
-
     .lightbox-header {
       padding: 1rem 1rem;
     }
@@ -486,43 +426,183 @@ const zipUrl = downloads.photos.url;
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .gallery-card { animation: none; }
-    .gallery-card-glass { transition: none; }
-    .gallery-card-glass img { transition: none; }
-    .gallery-cta-btn { transition: none; }
+    .cf-card { transition: none; }
+    .panel-btn, .stage-expand { transition: none; }
     .lightbox { transition: none; }
-  }
-
-  /* Touch devices */
-  @media (hover: none) and (pointer: coarse) {
-    .gallery-card-overlay { opacity: 1; }
-    .gallery-card-glass:hover img { transform: none; filter: grayscale(0.15) contrast(1.04); }
   }
 </style>
 
-<script define:vars={{ allImages: JSON.stringify(gallery) }}>
+<script define:vars={{ allImages: JSON.stringify(allImages) }}>
+  // ===== COVERFLOW 3D (acotado a #galeria: el reel usa sus propios [data-*]) =====
+  const view = document.querySelector('#galeria [data-cf]');
+  const sec = view ? view.closest('section') : document;
+  const cards3d = [...sec.querySelectorAll('[data-card]')];
+  const curEl = sec.querySelector('[data-cur]');
+  const fillEl = sec.querySelector('[data-fill]');
+  const imgs = JSON.parse(allImages);
+  const N = imgs.length;
+  const RANGE = 3; // tarjetas visibles por lado
+
+  let pos = 0; // posición flotante (arrastre) / entera (reposo)
+  let dragging = false;
+  let startX = 0;
+  let startPos = 0;
+  let moved = 0;
+  let justDragged = false;
+  // Velocidad del flick: últimos movimientos con tiempo
+  let trail = [];
+
+  const cardW = () => Math.min(360, view.clientWidth * 0.7);
+  const spacing = () => cardW() * 0.62;
+  const clampPos = (p) => Math.max(0, Math.min(N - 1, p));
+
+  function paint(p) {
+    const sp = spacing();
+    cards3d.forEach((c, i) => {
+      const off = i - p;
+      const a = Math.abs(off);
+      if (a > RANGE + 0.6) {
+        c.style.opacity = '0';
+        c.style.visibility = 'hidden';
+        c.style.pointerEvents = 'none';
+        return;
+      }
+      const dir = off === 0 ? 0 : Math.sign(off);
+      const x = off * sp;
+      const z = -Math.min(a, RANGE) * 180;
+      const ry = dir * -Math.min(a, 1) * 50;
+      c.style.opacity = String(1 - Math.min(a * 0.18, 0.55));
+      c.style.visibility = 'visible';
+      c.style.pointerEvents = 'auto';
+      c.style.zIndex = String(100 - Math.round(a * 10));
+      c.style.filter = `brightness(${(1 - Math.min(a * 0.22, 0.5)).toFixed(2)})`;
+      c.style.transform = `translate(-50%, -50%) translateX(${x.toFixed(1)}px) translateZ(${z.toFixed(1)}px) rotateY(${ry.toFixed(1)}deg)`;
+      const active = Math.round(p) === i;
+      c.classList.toggle('is-active', active);
+      if (active) c.setAttribute('aria-current', 'true');
+      else c.removeAttribute('aria-current');
+    });
+  }
+
+  function sync(i) {
+    curEl.textContent = String(i + 1).padStart(2, '0');
+    fillEl.style.transform = `scaleX(${N > 1 ? i / (N - 1) : 0})`;
+    // Precargar vecinas del visor
+    [i - 1, i + 1].forEach((k) => {
+      if (k >= 0 && k < N) { const im = new Image(); im.src = imgs[k].full; }
+    });
+  }
+
+  function go(i) {
+    pos = clampPos(Math.round(i));
+    paint(pos);
+    sync(pos);
+  }
+
+  view.addEventListener('pointerdown', (e) => {
+    dragging = true;
+    moved = 0;
+    startX = e.clientX;
+    startPos = pos;
+    trail = [{ x: e.clientX, t: performance.now() }];
+    view.classList.add('is-drag');
+  });
+
+  // Sin setPointerCapture (retargeteaba el clic al contenedor):
+  // el movimiento y el release se escuchan en ventana.
+  window.addEventListener('pointermove', (e) => {
+    if (!dragging) return;
+    const dx = e.clientX - startX;
+    moved = Math.max(moved, Math.abs(dx));
+    const now = performance.now();
+    trail.push({ x: e.clientX, t: now });
+    if (trail.length > 6) trail.shift();
+    pos = clampPos(startPos - dx / spacing());
+    paint(pos);
+  }, { passive: true });
+
+  const endDrag = () => {
+    if (!dragging) return;
+    dragging = false;
+    view.classList.remove('is-drag');
+    // Flick: gesto corto pero rápido también avanza una tarjeta
+    const now = performance.now();
+    const recent = trail.filter((p) => now - p.t < 120);
+    let target = Math.round(pos);
+    if (recent.length >= 2) {
+      const dx = recent[recent.length - 1].x - recent[0].x;
+      const dt = Math.max(1, recent[recent.length - 1].t - recent[0].t);
+      if (Math.abs(dx) / dt > 0.6 && Math.abs(dx) > 24) {
+        target = clampPos(Math.round(startPos) + (dx < 0 ? 1 : -1));
+      }
+    }
+    if (moved > 8) {
+      justDragged = true;
+      setTimeout(() => { justDragged = false; }, 80);
+    }
+    go(target);
+  };
+  window.addEventListener('pointerup', endDrag);
+  window.addEventListener('pointercancel', endDrag);
+
+  // Rueda horizontal / trackpad: navega sin secuestrar el scroll vertical
+  let wheelAcc = 0;
+  let wheelIdle = 0;
+  view.addEventListener('wheel', (e) => {
+    if (Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;
+    e.preventDefault();
+    const now = performance.now();
+    if (now - wheelIdle > 350) wheelAcc = 0;
+    wheelIdle = now;
+    wheelAcc += e.deltaX;
+    if (Math.abs(wheelAcc) > 48) {
+      go(Math.round(pos) + (wheelAcc > 0 ? 1 : -1));
+      wheelAcc = 0;
+    }
+  }, { passive: false });
+
+  cards3d.forEach((c, i) => c.addEventListener('click', () => {
+    if (justDragged) return;
+    if (Math.round(pos) === i) openLB(i);
+    else go(i);
+  }));
+
+  sec.querySelector('[data-prev]')?.addEventListener('click', () => go(Math.round(pos) - 1));
+  sec.querySelector('[data-next]')?.addEventListener('click', () => go(Math.round(pos) + 1));
+  view.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft') { e.preventDefault(); go(Math.round(pos) - 1); }
+    if (e.key === 'ArrowRight') { e.preventDefault(); go(Math.round(pos) + 1); }
+    if (e.key === 'Enter' && e.target === view) openLB(Math.round(pos));
+  });
+
+  window.addEventListener('resize', () => paint(pos));
+
+  // ===== LIGHTBOX (intacto F2-T09) =====
   const lightbox = document.getElementById('lightbox');
   const lbImage = document.getElementById('lbImage');
   const lbCounter = document.getElementById('lbCounter');
   const lbCaption = document.getElementById('lbCaption');
   let currentIdx = 0;
-  const imgs = JSON.parse(allImages);
+  let lastFocused = null;
 
   function openLB(index) {
     currentIdx = index;
     updateLB();
+    lastFocused = document.activeElement;
     lightbox.classList.add('active');
     document.body.style.overflow = 'hidden';
+    document.getElementById('lbClose')?.focus();
   }
 
   function closeLB() {
     lightbox.classList.remove('active');
     document.body.style.overflow = '';
+    if (lastFocused && lastFocused.focus) lastFocused.focus();
   }
 
   function updateLB() {
     if (!imgs[currentIdx]) return;
-    lbImage.src = imgs[currentIdx].src;
+    lbImage.src = imgs[currentIdx].full || imgs[currentIdx].src;
     lbImage.alt = imgs[currentIdx].alt;
     lbCounter.textContent = (currentIdx + 1) + ' / ' + imgs.length;
     lbCaption.textContent = '#' + String(currentIdx + 1).padStart(2, '0');
@@ -531,14 +611,7 @@ const zipUrl = downloads.photos.url;
   function nextLB() { currentIdx = (currentIdx + 1) % imgs.length; updateLB(); }
   function prevLB() { currentIdx = (currentIdx - 1 + imgs.length) % imgs.length; updateLB(); }
 
-  // Featured cards → open lightbox
-  document.querySelectorAll('.gallery-card').forEach((item) => {
-    item.addEventListener('click', () => { openLB(parseInt(item.dataset.index)); });
-  });
-
-  // CTA button → open lightbox at first image
-  document.getElementById('galleryCta')?.addEventListener('click', () => { openLB(0); });
-
+  sec.querySelector('[data-expand]')?.addEventListener('click', () => openLB(Math.round(pos)));
   document.getElementById('lbClose')?.addEventListener('click', closeLB);
   document.getElementById('lbPrev')?.addEventListener('click', prevLB);
   document.getElementById('lbNext')?.addEventListener('click', nextLB);
@@ -549,6 +622,14 @@ const zipUrl = downloads.photos.url;
     if (e.key === 'Escape') closeLB();
     if (e.key === 'ArrowLeft') prevLB();
     if (e.key === 'ArrowRight') nextLB();
+    // Trampa de foco dentro del diálogo
+    if (e.key === 'Tab') {
+      const f = [...lightbox.querySelectorAll('button, a[href]')].filter((el) => el.offsetParent !== null);
+      if (!f.length) return;
+      const first = f[0], last = f[f.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    }
   });
 
   let touchX = 0;
@@ -558,39 +639,6 @@ const zipUrl = downloads.photos.url;
     if (Math.abs(diff) > 50) diff > 0 ? nextLB() : prevLB();
   }, { passive: true });
 
-  // ===== MOBILE CAROUSEL =====
-  const galleryGrid = document.querySelector('.gallery-grid');
-  const dotsContainer = document.getElementById('galleryDots');
-  const prevBtn = document.getElementById('carouselPrev');
-  const nextBtn = document.getElementById('carouselNext');
-  if (galleryGrid && dotsContainer) {
-    const cards = galleryGrid.querySelectorAll('.gallery-card');
-    cards.forEach((_, i) => {
-      const dot = document.createElement('span');
-      dot.className = 'gallery-dot' + (i === 0 ? ' active' : '');
-      dot.addEventListener('click', () => {
-        cards[i].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
-      });
-      dotsContainer.appendChild(dot);
-    });
-
-    const updateDots = () => {
-      const scrollLeft = galleryGrid.scrollLeft;
-      const cardWidth = cards[0]?.offsetWidth + parseFloat(getComputedStyle(galleryGrid).gap) || 1;
-      const idx = Math.round(scrollLeft / cardWidth);
-      dotsContainer.querySelectorAll('.gallery-dot').forEach((d, i) => d.classList.toggle('active', i === idx));
-    };
-
-    galleryGrid.addEventListener('scroll', updateDots, { passive: true });
-
-    prevBtn?.addEventListener('click', () => {
-      const cardWidth = cards[0]?.offsetWidth + parseFloat(getComputedStyle(galleryGrid).gap) || 0;
-      galleryGrid.scrollBy({ left: -cardWidth, behavior: 'smooth' });
-    });
-
-    nextBtn?.addEventListener('click', () => {
-      const cardWidth = cards[0]?.offsetWidth + parseFloat(getComputedStyle(galleryGrid).gap) || 0;
-      galleryGrid.scrollBy({ left: cardWidth, behavior: 'smooth' });
-    });
-  }
+  paint(0);
+  sync(0);
 </script>
